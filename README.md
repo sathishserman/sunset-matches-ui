@@ -28,5 +28,5 @@
     - Add variables for sensitive information (e.g., API keys, authentication credentials).
 5. **Run the Development Server:**
     ```bash
-    npm expo start
+    npx expo start
     ```
