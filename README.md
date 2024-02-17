@@ -30,3 +30,7 @@
     ```bash
     npx expo start
     ```
+6. **Branching Stragety:**
+    - Main branch will be the development branch
+    - Create feature branches out of Main branch and create a PR for checking in the code
+    - Release branches will be created whenever we make a production release
