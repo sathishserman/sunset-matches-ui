@@ -16,11 +16,11 @@
     ```bash
     git clone https://github.com/sathishserman/sunset-matches-ui.git
     ```
-    - Using github desktop 
+    - Use github desktop for checking in code 
 
 3. **Install Dependencies:**
     ```bash
-    cd sunset-matches-landing-page
+    cd sunset-matches-ui
     npm install (or yarn install)
     ```
 4. **Create Environment Variables:**
@@ -28,6 +28,5 @@
     - Add variables for sensitive information (e.g., API keys, authentication credentials).
 5. **Run the Development Server:**
     ```bash
-    npm run dev (or yarn dev)
+    npm expo start
     ```
-    - Access the landing page at http://localhost:3000.
