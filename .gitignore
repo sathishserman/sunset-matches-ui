@@ -10,6 +10,8 @@ android/
 dist/
 web-build/
 
+package-lock.json
+
 # Native
 *.orig.*
 *.jks
