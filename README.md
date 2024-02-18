@@ -55,3 +55,9 @@
     - Set the variable name to ANDROID_HOME and the variable value to your SDK location, such as C:\Users\[Your-Username]\AppData\Local\Android\Sdk.
     - Add SDK tools to your PATH. You might need to add paths to the SDK's emulator, tools, tools/bin, and platform-tools directories to the system path variable.
 
+8. **Potential Android isssues:**
+    - If you run into minSdkVersion issue, Please add this following line to /android/build.gradle under ext:
+    ```bash
+    minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '34')
+    ```
+
