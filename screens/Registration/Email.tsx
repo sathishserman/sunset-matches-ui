@@ -4,6 +4,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail, toggleSubscription } from "../../redux/actions";
@@ -12,6 +14,8 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { RootState, EmailFormValues } from "../../redux/interfaces";
 import BackHeader from "../../components/BackHeader";
+import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import CustomButton from "../../components/CustomButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -33,61 +37,78 @@ export default function Email({ navigation }: { navigation: any }) {
 
   return (
     <>
-      <BackHeader color="white"/>
-      <Formik
-        initialValues={{ email, subscribed }}
-        validationSchema={validationSchema}
-        onSubmit={(values) => {
-          dispatch(setEmail(values.email));
-          dispatch(toggleSubscription(values.subscribed));
-          navigation.navigate("Name");
-        }}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          setFieldValue,
-        }: FormikProps<EmailFormValues>) => (
-          <View style={styles.container}>
-            <Text style={styles.header}>Your email address</Text>
-            <Text style={styles.subheader}>
-              Don't lose access to your account. Verify your email address
-            </Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-              placeholder="Enter your email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            {touched.email && errors.email ? (
-              <Text style={styles.error}>{errors.email}</Text>
-            ) : null}
-            <CheckBox
-              title="Send me Sunset Matches updates. You can unsubscribe at any point"
-              checked={values.subscribed}
-              onPress={() => setFieldValue("subscribed", !values.subscribed)}
-              containerStyle={styles.checkbox}
-              textStyle={styles.checkboxLabel}
-              checkedColor="#DAA520"
-              uncheckedColor="white"
-            />
-            <TouchableOpacity
-              onPress={handleSubmit as any}
-              style={styles.continueButton}
+      <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
+        <BackHeader color="white" />
+        <Formik
+          initialValues={{ email, subscribed }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            dispatch(setEmail(values.email));
+            dispatch(toggleSubscription(values.subscribed));
+            navigation.navigate("Name");
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            setFieldValue,
+          }: FormikProps<EmailFormValues>) => (
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="items-center justify-between px-5 pb-10 flex-1"
             >
-              <Text style={styles.continueButtonText}>Continue</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </Formik>
+              <View className="w-full items-center mt-10">
+                <Text className="text-3xl font-bold mb-2 text-[#E25A28]">
+                  Your email address
+                </Text>
+                <Text className="text-[#898A8D] text-center">
+                  Don't lose access to your account.
+                </Text>
+                <Text className="text-[#898A8D] text-center">
+                  Verify your email address
+                </Text>
+                <TextInput
+                  className="text-white border-b border-[#898A8D] w-[80%] mt-5 text-lg pb-2 text-center"
+                  selectionColor={"white"}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                  keyboardType="email-address"
+                  autoCorrect={false}
+                  autoFocus
+                />
+                {touched.email && errors.email ? (
+                  <Text className="text-red-500 mt-2">{errors.email}</Text>
+                ) : null}
+                <CheckBox
+                  title="Send me Sunset Matches updates. You can unsubscribe at any point"
+                  checked={values.subscribed}
+                  onPress={() =>
+                    setFieldValue("subscribed", !values.subscribed)
+                  }
+                  containerStyle={styles.checkbox}
+                  textStyle={styles.checkboxLabel}
+                  className="border border-sky-400"
+                  checkedColor="#E25A28"
+                  uncheckedColor="white"
+                  size={15}
+                  style={{ padding: 0 }}
+                />
+              </View>
+              <CustomButton
+                onPress={handleSubmit as any}
+                title="Continue"
+                gradient={values.email && !errors.email ? true : undefined}
+                _className="w-5/6 mb-5"
+              ></CustomButton>
+            </KeyboardAvoidingView>
+          )}
+        </Formik>
+      </SafeAreaAndroidIOS>
     </>
   );
 }
@@ -129,7 +150,7 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   checkbox: {
     backgroundColor: "transparent",
@@ -137,7 +158,11 @@ const styles = StyleSheet.create({
   },
   checkboxLabel: {
     color: "white",
-    fontWeight: "normal",
+    fontFamily: "Roboto_300Light",
+    fontWeight: "300",
+    marginLeft: 2,
+    marginRight: 0,
+    fontSize: 9,
   },
   continueButton: {
     backgroundColor: "#DAA520",

@@ -21,7 +21,7 @@ export default function LoginLanding({ navigation }: { navigation: any }) {
   };
 
   const handleSignUp = () => {
-    navigation.navigate("SignUp", {
+    navigation.navigate("Phone", {
       flow: "signupFlow",
     });
   };
@@ -41,7 +41,7 @@ export default function LoginLanding({ navigation }: { navigation: any }) {
         <View className="w-full">
           <CustomButton onPress={handleLogin} title="Log In" />
           <CustomButton
-            onPress={handleLogin}
+            onPress={handleSignUp}
             title="Sign Up"
             gradient
             _className="mt-5"
@@ -58,47 +58,3 @@ export default function LoginLanding({ navigation }: { navigation: any }) {
     </SafeAreaAndroidIOS>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    color: "white",
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 120,
-  },
-  loginButton: {
-    borderColor: "#DAA520",
-    borderWidth: 2,
-    borderRadius: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginBottom: 20,
-  },
-  loginButtonText: {
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
-  },
-  signUpButton: {
-    backgroundColor: "#DAA520",
-    borderRadius: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginBottom: 120,
-  },
-  signUpButtonText: {
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
-  },
-  helpdeskText: {
-    color: "white",
-    fontSize: 18,
-    textDecorationLine: "underline",
-  },
-});

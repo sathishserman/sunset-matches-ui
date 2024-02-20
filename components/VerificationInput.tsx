@@ -2,7 +2,6 @@ import React, { createRef, useEffect, useRef, useState } from "react";
 import {
   TextInput,
   View,
-  StyleSheet,
   NativeSyntheticEvent,
   TextInputKeyPressEventData,
 } from "react-native";
@@ -82,6 +81,7 @@ const VerificationInput = ({
             className="text-xl text-white text-center w-8 h-14 border-b border-[#898A8D]"
             onChangeText={(text) => handleChange(text, index)}
             onKeyPress={(event) => handleBackSpace(event, index)}
+            autoFocus={index === 0}
           />
         );
       })}

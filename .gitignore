@@ -39,3 +39,7 @@ yarn-error.*
 *.tsbuildinfo
 
 helpers
+
+.idea
+.gitignore
+.vscode

@@ -70,8 +70,8 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
                 style={animatedStyles}
               >
                 <LinearGradient
-                colors={["#331003", "#E25A28"]}
-                className="absolute left-0 right-0 top-0 bottom-0 rounded-full"
+                  colors={["#331003", "#E25A28"]}
+                  className="absolute left-0 right-0 top-0 bottom-0 rounded-full"
                   start={{ x: 1, y: 0 }}
                 />
                 <Text className="text-white text-2xl items-center justify-center">

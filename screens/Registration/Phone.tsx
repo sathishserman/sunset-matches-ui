@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
@@ -82,8 +82,9 @@ export default function Phone({ navigation }: { navigation: any }) {
         {(formikProps: FormikProps<PhoneFormValues>) => (
           <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
             <BackHeader color="white" />
-            <View className="items-center justify-between px-5 pb-10 flex-1">
-              <View className="w-full items-center">
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"} className="items-center justify-between px-5 pb-10 flex-1">
+              <View className="w-full items-center mt-10">
                 <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
                   Your phone number
                 </Text>
@@ -93,6 +94,10 @@ export default function Phone({ navigation }: { navigation: any }) {
                   textContainerStyle={{
                     ...styles.commonContainerStyle,
                     alignSelf: "center",
+                  }}
+                  textInputProps={{
+                    selectionColor: "white",
+                    autoFocus: true,
                   }}
                   placeholder=" "
                   textInputStyle={styles.textInputStyle}
@@ -122,7 +127,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                 <CustomButton
                   onPress={formikProps.handleSubmit as any}
                   title="Continue"
-                  _className="mt-5"
+                  _className="mt-5 mb-5"
                   gradient={
                     formikProps.values.phoneNumber &&
                     !formikProps.errors.phoneNumber
@@ -131,7 +136,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                   }
                 />
               </View>
-            </View>
+            </KeyboardAvoidingView>
           </SafeAreaAndroidIOS>
         )}
       </Formik>
@@ -143,7 +148,7 @@ const styles = StyleSheet.create({
   commonContainerStyle: {
     backgroundColor: "rgba(52, 52, 52, 0)",
     height: 50,
-    width: "100%",
+    width: "80%",
     marginVertical: 10,
     paddingVertical: 10,
   },
