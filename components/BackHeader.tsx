@@ -1,39 +1,21 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import ArrowLeft from "react-native-vector-icons/AntDesign";
+interface BackHeaderProps {
+  color: string;
+}
 
-const BackHeader: React.FC = () => {
+const BackHeader: React.FC<BackHeaderProps> = ({ color = "white" }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <Image
-          source={require('../assets/icon_back.png')}
-          style={styles.backIcon}
-        />
+    <View className=" h-12 flex-row items-center justify-start m-3 mt-0">
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <ArrowLeft name="arrowleft" size={24} color={color} />
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: 'black',
-    paddingHorizontal: 15,
-    paddingTop:40,
-  },
-  backButton: {
-    padding: 10,
-  },
-  backIcon: {
-    width: 24,
-    height: 24,
-  },
-});
 
 export default BackHeader;

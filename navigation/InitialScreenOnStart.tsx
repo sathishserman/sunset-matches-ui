@@ -9,6 +9,7 @@ import Name from "../screens/Registration/Name";
 import Phone from "../screens/Registration/Phone";
 import Verification from "../screens/Registration/Verification";
 import LandingPage from "../screens/Registration/LandingPage";
+import SignUp from "../screens/Registration/SignUp";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,13 @@ export const InitialScreenOnStart = () => {
       <Stack.Screen
         name="Phone"
         component={Phone}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
         options={{
           headerShown: false,
         }}
