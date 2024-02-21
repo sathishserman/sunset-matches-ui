@@ -15,7 +15,7 @@ import { RootState, PhoneFormValues } from "../../redux/interfaces";
 import { setCountryCode, setPhoneNumber } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
 import PhoneNumberInput from "react-native-phone-number-input";
-import auth from "@react-native-firebase/auth";
+// import auth from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
 import CustomButton from "../../components/CustomButton";
@@ -40,14 +40,14 @@ export default function Phone({ navigation }: { navigation: any }) {
   const phoneInput = React.useRef<PhoneNumberInput>(null);
   const route = useRoute<RouteProp<PhoneRoutes, "Phone">>();
 
-  const signInWithPhoneNumber = async (formatteNumber: string) => {
-    try {
-      const confirmation = await auth().signInWithPhoneNumber(formatteNumber);
-      console.log(confirmation);
-    } catch (error) {
-      console.log("Error Sending Code: ", error);
-    }
-  };
+  // const signInWithPhoneNumber = async (formatteNumber: string) => {
+  //   try {
+  //     const confirmation = await auth().signInWithPhoneNumber(formatteNumber);
+  //     console.log(confirmation);
+  //   } catch (error) {
+  //     console.log("Error Sending Code: ", error);
+  //   }
+  // };
 
   const handleSubmit = (
     values: PhoneFormValues,
@@ -67,7 +67,7 @@ export default function Phone({ navigation }: { navigation: any }) {
       console.log(values.phoneNumber);
 
       try {
-        signInWithPhoneNumber(formattedNumber);
+        // signInWithPhoneNumber(formattedNumber);
         navigation.navigate("Verification", {
           flow: route.params.flow,
         });
