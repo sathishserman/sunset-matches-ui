@@ -61,3 +61,8 @@
     minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '34')
     ```
 
+    Also, Add the following to app/build.gradle under defaultConfig:
+    ```bash
+    minSdkVersion 34
+    ```
+

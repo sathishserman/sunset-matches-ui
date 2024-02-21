@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -9,14 +9,17 @@ import {
   Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, FormikHelpers, FormikProps } from "formik";
+import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { RootState, PhoneFormValues } from "../../redux/interfaces";
 import { setCountryCode, setPhoneNumber } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
-import PhoneNumberInput from "react-native-phone-number-input";
-import auth from "@react-native-firebase/auth";
-import { useRoute } from "@react-navigation/native";
+import PhoneNumberInput, {
+  PhoneInputProps,
+} from "react-native-phone-number-input";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { useRoute, RouteProp } from "@react-navigation/native";
+import { useAuth } from "../../context/AuthContext";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
 import CustomButton from "../../components/CustomButton";
 
@@ -39,97 +42,62 @@ export default function Phone({ navigation }: { navigation: any }) {
   const { phoneNumber } = useSelector((state: RootState) => state.phoneState);
   const phoneInput = React.useRef<PhoneNumberInput>(null);
   const route = useRoute<RouteProp<PhoneRoutes, "Phone">>();
+  const { setConfirmationResult } = useAuth();
 
-  const signInWithPhoneNumber = async (formatteNumber: string) => {
+  const signInWithPhoneNumber = async (formattedNumber: string) => {
     try {
-      const confirmation = await auth().signInWithPhoneNumber(formatteNumber);
-      console.log(confirmation);
+      const confirmation: FirebaseAuthTypes.ConfirmationResult =
+        await auth().signInWithPhoneNumber(formattedNumber);
+      if (confirmation) {
+        setConfirmationResult(confirmation);
+        navigation.navigate("Verification", {
+          flow: route.params.flow,
+        });
+      }
     } catch (error) {
       console.log("Error Sending Code: ", error);
     }
   };
 
-  const handleSubmit = (
-    values: PhoneFormValues,
-    { setSubmitting, setFieldError }: FormikHelpers<PhoneFormValues>
-  ) => {
-    const isValid = phoneInput.current?.isValidNumber(values.phoneNumber);
-    const callingCode = phoneInput.current?.getCallingCode();
-    const formattedNumber =
-      phoneInput.current?.getNumberAfterPossiblyEliminatingZero()
-        .formattedNumber;
-    if (isValid && callingCode && formattedNumber) {
-      dispatch(setPhoneNumber(values.phoneNumber));
-
-      dispatch(setCountryCode(`+${callingCode}`));
-
-      console.log(`+${callingCode}`);
-      console.log(values.phoneNumber);
-
-      try {
-        signInWithPhoneNumber(formattedNumber);
-        navigation.navigate("Verification", {
-          flow: route.params.flow,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      setFieldError("phoneNumber", "Please enter a valid phone number");
-    }
-    setSubmitting(false);
-  };
-
   return (
-    <>
-      <Formik
-        initialValues={{ phoneNumber }}
-        validationSchema={phoneValidationSchema}
-        onSubmit={handleSubmit}
+    <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
+      <BackHeader color="white" />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="items-center justify-between px-5 pb-10 flex-1"
       >
-        {(formikProps: FormikProps<PhoneFormValues>) => (
-          <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
-            <BackHeader color="white" />
-            <KeyboardAvoidingView
-              behavior={Platform.OS === "ios" ? "padding" : "height"}
-              className="items-center justify-between px-5 pb-10 flex-1"
-            >
-              <View className="w-full items-center mt-10">
-                <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
-                  Your phone number
-                </Text>
-                <PhoneNumberInput
-                  flagButtonStyle={styles.flagButtonStyle}
-                  containerStyle={styles.commonContainerStyle}
-                  textContainerStyle={{
-                    ...styles.commonContainerStyle,
-                    alignSelf: "center",
-                  }}
-                  textInputProps={{
-                    selectionColor: "#e25a2839",
-                    autoFocus: true,
-                  }}
-                  placeholder=" "
-                  textInputStyle={styles.textInputStyle}
-                  codeTextStyle={styles.codeTextStyle}
-                  ref={phoneInput}
-                  defaultValue={phoneNumber}
-                  defaultCode={"US" as const}
-                  layout="first"
-                  onChangeText={(text) =>
-                    formikProps.setFieldValue("phoneNumber", text)
-                  }
-                  withShadow
-                  autoFocus
-                />
-                {formikProps.touched.phoneNumber &&
-                  formikProps.errors.phoneNumber && (
-                    <Text className="text-sm text-red-600 mt-1">
-                      {formikProps.errors.phoneNumber}
-                    </Text>
-                  )}
-              </View>
+        <Formik
+          initialValues={{ phoneNumber }}
+          validationSchema={phoneValidationSchema}
+          onSubmit={(values, { setSubmitting, setFieldError }) => {
+            const isValid = phoneInput.current?.isValidNumber(
+              values.phoneNumber
+            );
+            const callingCode = phoneInput.current?.getCallingCode();
+            const formattedNumber =
+              phoneInput.current?.getNumberAfterPossiblyEliminatingZero()
+                .formattedNumber;
+            if (isValid && callingCode && formattedNumber) {
+              dispatch(setPhoneNumber(values.phoneNumber));
 
+              dispatch(setCountryCode(`+${callingCode}`));
+
+              console.log(`+${callingCode}`);
+              console.log(values.phoneNumber);
+
+              try {
+                signInWithPhoneNumber(formattedNumber);
+              } catch (err) {
+                console.error(err);
+              }
+            } else {
+              setFieldError("phoneNumber", "Please enter a valid phone number");
+            }
+            setSubmitting(false);
+          }}
+        >
+          {(formikProps: FormikProps<PhoneFormValues>) => (
+            <View>
               <View className="w-5/6 items-center">
                 <Text className="text-sm text-[#898A8D]">
                   Check your phone for the verification code
@@ -146,11 +114,11 @@ export default function Phone({ navigation }: { navigation: any }) {
                   }
                 />
               </View>
-            </KeyboardAvoidingView>
-          </SafeAreaAndroidIOS>
-        )}
-      </Formik>
-    </>
+            </View>
+          )}
+        </Formik>
+      </KeyboardAvoidingView>
+    </SafeAreaAndroidIOS>
   );
 }
 

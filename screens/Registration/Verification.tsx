@@ -1,5 +1,13 @@
-import React from "react";
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
@@ -7,9 +15,11 @@ import { RootState, VerificationFormValues } from "../../redux/interfaces";
 import { setVerificationCode } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
 import { useRoute, RouteProp } from "@react-navigation/native";
+import auth from "@react-native-firebase/auth";
+import { useAuth } from "../../context/AuthContext";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
-import CustomButton from "../../components/CustomButton";
 import VerificationInput from "../../components/VerificationInput";
+import CustomButton from "../../components/CustomButton";
 
 const verificationCodeValidationSchema = Yup.object().shape({
   verificationCode: Yup.string()
@@ -29,6 +39,30 @@ export default function Verification({ navigation }: { navigation: any }) {
     (state: RootState) => state.verificationState.verificationCode
   );
   const route = useRoute<RouteProp<VerificationRoutes, "Verification">>();
+  const { confirmationResult } = useAuth();
+
+  function onAuthStateChanged(user: any) {
+    if (user) {
+      navigation.navigate("Email");
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  async function confirmCode(code: string) {
+    try {
+      if (confirmationResult != null) {
+        await confirmationResult.confirm(code);
+        navigation.navigate("Email");
+      }
+    } catch (error) {
+      console.log("Invalid code.");
+    }
+  }
+
   return (
     <>
       <Formik
@@ -37,7 +71,7 @@ export default function Verification({ navigation }: { navigation: any }) {
         onSubmit={(values) => {
           dispatch(setVerificationCode(values.verificationCode));
           if (route.params.flow === "signupFlow") {
-            navigation.navigate("Email");
+            confirmCode(values.verificationCode);
           }
         }}
       >
