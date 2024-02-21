@@ -1,12 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
 import {
   View,
-  TouchableOpacity,
   Text,
   StyleSheet,
-  Alert,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FormikProps } from "formik";
@@ -19,9 +19,9 @@ import PhoneNumberInput, {
 } from "react-native-phone-number-input";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRoute, RouteProp } from "@react-navigation/native";
-import { useAuth } from "../../context/AuthContext";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
 import CustomButton from "../../components/CustomButton";
+import { useAuth } from "../../context/AuthContext";
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -57,6 +57,31 @@ export default function Phone({ navigation }: { navigation: any }) {
     } catch (error) {
       console.log("Error Sending Code: ", error);
     }
+  };
+
+  const handleSubmit = (
+    values: PhoneFormValues,
+    { setSubmitting, setFieldError }: FormikHelpers<PhoneFormValues>
+  ) => {
+    const isValid = phoneInput.current?.isValidNumber(values.phoneNumber);
+    const callingCode = phoneInput.current?.getCallingCode();
+    const formattedNumber =
+      phoneInput.current?.getNumberAfterPossiblyEliminatingZero()
+        .formattedNumber;
+    if (isValid && callingCode && formattedNumber) {
+      dispatch(setPhoneNumber(values.phoneNumber));
+
+      dispatch(setCountryCode(`+${callingCode}`));
+
+      try {
+        signInWithPhoneNumber(formattedNumber);
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setFieldError("phoneNumber", "Please enter a valid phone number");
+    }
+    setSubmitting(false);
   };
 
   return (

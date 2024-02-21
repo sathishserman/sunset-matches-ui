@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { RootState, VerificationFormValues } from "../../redux/interfaces";
 import { setVerificationCode } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
-import { useRoute, RouteProp } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 import auth from "@react-native-firebase/auth";
 import { useAuth } from "../../context/AuthContext";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
