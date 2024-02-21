@@ -28,5 +28,9 @@
 	<string>1:954547079451:ios:6ebd83805a40383ca66bbe</string>
 	<key>DATABASE_URL</key>
 	<string>https://sunset-matches-cb3ef-default-rtdb.firebaseio.com</string>
+	<key>CLIENT_ID</key>
+	<string>954547079451-iov08vh7dadkm0iortfntjuep6qaf7d9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.954547079451-iov08vh7dadkm0iortfntjuep6qaf7d9</string>
 </dict>
 </plist>

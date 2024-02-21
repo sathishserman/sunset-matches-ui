@@ -1,12 +1,12 @@
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
 import {
   View,
-  TouchableOpacity,
   Text,
   StyleSheet,
-  Alert,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FormikHelpers, FormikProps } from "formik";
@@ -14,11 +14,14 @@ import * as Yup from "yup";
 import { RootState, PhoneFormValues } from "../../redux/interfaces";
 import { setCountryCode, setPhoneNumber } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
-import PhoneNumberInput from "react-native-phone-number-input";
-// import auth from "@react-native-firebase/auth";
-import { useRoute } from "@react-navigation/native";
+import PhoneNumberInput, {
+  PhoneInputProps,
+} from "react-native-phone-number-input";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { useRoute, RouteProp } from "@react-navigation/native";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
 import CustomButton from "../../components/CustomButton";
+import { useAuth } from "../../context/AuthContext";
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -39,15 +42,22 @@ export default function Phone({ navigation }: { navigation: any }) {
   const { phoneNumber } = useSelector((state: RootState) => state.phoneState);
   const phoneInput = React.useRef<PhoneNumberInput>(null);
   const route = useRoute<RouteProp<PhoneRoutes, "Phone">>();
+  const { setConfirmationResult } = useAuth();
 
-  // const signInWithPhoneNumber = async (formatteNumber: string) => {
-  //   try {
-  //     const confirmation = await auth().signInWithPhoneNumber(formatteNumber);
-  //     console.log(confirmation);
-  //   } catch (error) {
-  //     console.log("Error Sending Code: ", error);
-  //   }
-  // };
+  const signInWithPhoneNumber = async (formattedNumber: string) => {
+    try {
+      const confirmation: FirebaseAuthTypes.ConfirmationResult =
+        await auth().signInWithPhoneNumber(formattedNumber);
+      if (confirmation) {
+        setConfirmationResult(confirmation);
+        navigation.navigate("Verification", {
+          flow: route.params.flow,
+        });
+      }
+    } catch (error) {
+      console.log("Error Sending Code: ", error);
+    }
+  };
 
   const handleSubmit = (
     values: PhoneFormValues,
@@ -63,14 +73,8 @@ export default function Phone({ navigation }: { navigation: any }) {
 
       dispatch(setCountryCode(`+${callingCode}`));
 
-      console.log(`+${callingCode}`);
-      console.log(values.phoneNumber);
-
       try {
-        // signInWithPhoneNumber(formattedNumber);
-        navigation.navigate("Verification", {
-          flow: route.params.flow,
-        });
+        signInWithPhoneNumber(formattedNumber);
       } catch (err) {
         console.error(err);
       }
