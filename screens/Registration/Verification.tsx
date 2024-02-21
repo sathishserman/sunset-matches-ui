@@ -39,16 +39,16 @@ export default function Verification({ navigation }: { navigation: any }) {
     }
   }
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, []);
 
   async function confirmCode(code: string) {
     try {
+      navigation.navigate("Email");
       if (confirmationResult != null) {
-        await confirmationResult.confirm(code);
-        navigation.navigate("Email");
+        // await confirmationResult.confirm(code);
       }
     } catch (error) {
       console.log("Invalid code.");
