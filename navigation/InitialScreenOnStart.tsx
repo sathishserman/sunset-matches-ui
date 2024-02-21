@@ -10,6 +10,7 @@ import Phone from "../screens/Registration/Phone";
 import Verification from "../screens/Registration/Verification";
 import LandingPage from "../screens/Registration/LandingPage";
 import SignUp from "../screens/Registration/SignUp";
+import Rules from "../screens/Registration/Rules";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,8 @@ export const InitialScreenOnStart = () => {
         component={SunsetMatchesMain}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -28,6 +31,8 @@ export const InitialScreenOnStart = () => {
         component={LoginLanding}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -35,6 +40,8 @@ export const InitialScreenOnStart = () => {
         component={Phone}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -42,6 +49,8 @@ export const InitialScreenOnStart = () => {
         component={SignUp}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -49,6 +58,8 @@ export const InitialScreenOnStart = () => {
         component={Verification}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -56,6 +67,8 @@ export const InitialScreenOnStart = () => {
         component={Email}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -63,6 +76,8 @@ export const InitialScreenOnStart = () => {
         component={Name}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -70,6 +85,17 @@ export const InitialScreenOnStart = () => {
         component={LandingPage}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Rules"
+        component={Rules}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       {/* <Stack.Screen

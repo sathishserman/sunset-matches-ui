@@ -73,12 +73,13 @@ export default function Email({ navigation }: { navigation: any }) {
                 </Text>
                 <TextInput
                   className="text-white border-b border-[#898A8D] w-[80%] mt-5 text-lg pb-2 text-center"
-                  selectionColor={"white"}
+                  selectionColor={"#e25a2839"}  
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
                   value={values.email}
                   keyboardType="email-address"
                   autoCorrect={false}
+                  autoCapitalize="none"
                   autoFocus
                 />
                 {touched.email && errors.email ? (

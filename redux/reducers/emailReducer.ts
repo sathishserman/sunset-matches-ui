@@ -3,7 +3,7 @@ import { EmailState } from '../interfaces';
 
 const initialState: EmailState = {
   email: '',
-  subscribed: false,
+  subscribed: true,
 };
 
 export const emailReducer = (state = initialState, action: any): EmailState => {

@@ -12,6 +12,7 @@ import { Platform } from "react-native";
 import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
 import { LinearGradient } from "expo-linear-gradient";
 import CustomButton from "../../components/CustomButton";
+import Animated, { FadeInLeft, FadeInUp } from "react-native-reanimated";
 
 export default function LoginLanding({ navigation }: { navigation: any }) {
   const handleLogin = () => {
@@ -32,12 +33,13 @@ export default function LoginLanding({ navigation }: { navigation: any }) {
     <SafeAreaAndroidIOS className="flex-1 bg-black">
       <BackHeader color="white" />
       <View className="flex-1 items-center justify-between w-full px-7">
-        <Text
+        <Animated.Text
+          entering={FadeInUp}
           className="text-6xl text-white w-5/6 text-center"
           style={{ fontFamily: "Italiana_400Regular" }}
         >
           Sunset Matches
-        </Text>
+        </Animated.Text>
         <View className="w-full">
           <CustomButton onPress={handleLogin} title="Log In" />
           <CustomButton

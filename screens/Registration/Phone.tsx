@@ -1,5 +1,13 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet, Alert, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
@@ -83,7 +91,9 @@ export default function Phone({ navigation }: { navigation: any }) {
           <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
             <BackHeader color="white" />
             <KeyboardAvoidingView
-              behavior={Platform.OS === "ios" ? "padding" : "height"} className="items-center justify-between px-5 pb-10 flex-1">
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              className="items-center justify-between px-5 pb-10 flex-1"
+            >
               <View className="w-full items-center mt-10">
                 <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
                   Your phone number
@@ -96,7 +106,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                     alignSelf: "center",
                   }}
                   textInputProps={{
-                    selectionColor: "white",
+                    selectionColor: "#e25a2839",
                     autoFocus: true,
                   }}
                   placeholder=" "

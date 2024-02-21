@@ -56,7 +56,7 @@ export default function Name({ navigation }: { navigation: any }) {
                 <TextInput
                   className="text-white border-b border-[#898A8D] w-[80%] mt-5 text-lg pb-2 text-center"
                   autoCapitalize="words"
-                  selectionColor={"white"}
+                  selectionColor={"#e25a2839"}
                   onChangeText={handleChange("name")}
                   onBlur={handleBlur("name")}
                   value={values.name}
