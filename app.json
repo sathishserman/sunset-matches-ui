@@ -16,8 +16,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "y"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.sm.mobile.ui",
+      "supportsTablet": true
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -30,9 +31,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth"
+    ],
     "extra": {
       "eas": {
-        "projectId": "773dbb22-0eae-433d-942d-d2535f4cf4af"
+        "projectId": "191c1e75-415a-4deb-9419-b2b60f5d1b1d"
       }
     }
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, FormikProps } from 'formik';
@@ -6,9 +6,10 @@ import * as Yup from 'yup';
 import { RootState , PhoneFormValues} from '../../redux/interfaces'; 
 import { setCountryCode, setPhoneNumber } from '../../redux/actions';
 import BackHeader from '../../components/BackHeader';
-import PhoneNumberInput from 'react-native-phone-number-input'; 
-import auth from '@react-native-firebase/auth';
+import PhoneNumberInput, { PhoneInputProps } from 'react-native-phone-number-input'; 
+import auth,{ FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useRoute, RouteProp } from '@react-navigation/native';
+import { useAuth } from '../../context/AuthContext';
 
 
 const phoneValidationSchema = Yup.object().shape({
@@ -35,14 +36,19 @@ export default function Phone({ navigation }: { navigation: any }) {
     const { phoneNumber } = useSelector((state: RootState) => state.phoneState);
     const phoneInput = React.useRef<PhoneNumberInput>(null);
     const route = useRoute<RouteProp<PhoneRoutes, 'Phone'>>();
+    const { setConfirmationResult } = useAuth();
 
-    const signInWithPhoneNumber = async (formatteNumber: string) => {
+
+
+    const signInWithPhoneNumber = async (formattedNumber: string) => {
         try{
-        
-            const confirmation = await auth().signInWithPhoneNumber(formatteNumber);
-            console.log(confirmation);
-            
-
+            const confirmation:FirebaseAuthTypes.ConfirmationResult = await auth().signInWithPhoneNumber(formattedNumber);
+            if(confirmation){
+                setConfirmationResult(confirmation);
+                navigation.navigate('Verification',{
+                    flow: route.params.flow
+                });
+            }
         }catch(error){
             console.log("Error Sending Code: ", error);
         }
@@ -61,23 +67,19 @@ export default function Phone({ navigation }: { navigation: any }) {
             const formattedNumber = phoneInput.current?.getNumberAfterPossiblyEliminatingZero().formattedNumber;
                 if (isValid && callingCode && formattedNumber) {
                 
-                dispatch(setPhoneNumber(values.phoneNumber));
+                    dispatch(setPhoneNumber(values.phoneNumber));
 
-                dispatch(setCountryCode(`+${callingCode}`));
-
-                console.log(`+${callingCode}`);
-                console.log(values.phoneNumber);
+                    dispatch(setCountryCode(`+${callingCode}`));
 
 
-                try{
 
-            
-               
-                    
-                signInWithPhoneNumber(formattedNumber);
-                navigation.navigate('Verification',{
-                    flow: route.params.flow
-                  });
+                    try{
+
+                
+                
+                        
+                    signInWithPhoneNumber(formattedNumber);
+                   
                 
                 
                 }catch(err){

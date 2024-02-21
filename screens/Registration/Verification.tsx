@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, FormikProps } from 'formik';
@@ -7,6 +7,8 @@ import { RootState, VerificationFormValues } from '../../redux/interfaces';
 import { setVerificationCode } from '../../redux/actions';
 import BackHeader from '../../components/BackHeader';
 import { useRoute, RouteProp } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import { useAuth } from '../../context/AuthContext';
 
 const verificationCodeValidationSchema = Yup.object().shape({
   verificationCode: Yup.string()
@@ -17,13 +19,39 @@ const verificationCodeValidationSchema = Yup.object().shape({
 type VerificationRoutes = {
     Verification: {
         flow: string;
-    };
+            };
 };
 
 export default function Verification({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const verificationCode = useSelector((state: RootState) => state.verificationState.verificationCode);
   const route = useRoute<RouteProp<VerificationRoutes, 'Verification'>>();
+  const { confirmationResult } = useAuth();
+
+
+  function onAuthStateChanged(user:any) {
+    if (user) {
+      navigation.navigate('Email');
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  async function confirmCode(code:string) {
+    try {
+      if(confirmationResult!=null){
+        await confirmationResult.confirm(code);
+        navigation.navigate('Email');
+      }
+      
+    } catch (error) {
+      console.log('Invalid code.');
+    }
+  }
+
   return (
     <>
       <BackHeader />
@@ -33,9 +61,9 @@ export default function Verification({ navigation }: { navigation: any }) {
         onSubmit={(values) => {
           dispatch(setVerificationCode(values.verificationCode));
           if(route.params.flow==='signupFlow'){
-            navigation.navigate('Email');
+            confirmCode(values.verificationCode);
+            
           }
-          
         }}
       >
         {(formikProps: FormikProps<VerificationFormValues>) => (
