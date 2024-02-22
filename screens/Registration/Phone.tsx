@@ -76,9 +76,9 @@ export default function Phone({ navigation }: { navigation: any }) {
       try {
         signInWithPhoneNumber(formattedNumber);
         console.log(formattedNumber);
-        // navigation.navigate("Verification", {
-        //   flow: route.params.flow,
-        // });
+        navigation.navigate("Verification", {
+          flow: route.params.flow,
+        });
       } catch (err) {
         console.error(err);
       }
@@ -104,7 +104,7 @@ export default function Phone({ navigation }: { navigation: any }) {
             >
               <View className="w-full items-center mt-10">
                 <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
-                  Your phone number
+                  Your phone numbers
                 </Text>
                 <PhoneNumberInput
                   flagButtonStyle={styles.flagButtonStyle}

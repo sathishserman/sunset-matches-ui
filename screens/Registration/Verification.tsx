@@ -33,16 +33,16 @@ export default function Verification({ navigation }: { navigation: any }) {
   const route = useRoute<RouteProp<VerificationRoutes, "Verification">>();
   const { confirmationResult } = useAuth();
 
-  // function onAuthStateChanged(user: any) {
-  //   if (user) {
-  //     navigation.navigate("Email");
-  //   }
-  // }
+  function onAuthStateChanged(user: any) {
+    if (user) {
+      navigation.navigate("Email");
+    }
+  }
 
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, []);
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
 
   async function confirmCode(code: string) {
     try {
