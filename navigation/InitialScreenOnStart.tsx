@@ -1,7 +1,4 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import Login from "../screens/Registration/Login";
-// import Signup from "../screens/Signup";
-// import Forgot from "../screens/Forgot";
 import SunsetMatchesMain from "../screens/Registration/SunsetMatchesMain";
 import LoginLanding from "../screens/Registration/LoginLanding";
 import Email from "../screens/Registration/Email";
@@ -11,6 +8,7 @@ import Verification from "../screens/Registration/Verification";
 import LandingPage from "../screens/Registration/LandingPage";
 import SignUp from "../screens/Registration/SignUp";
 import Rules from "../screens/Registration/Rules";
+import Gender from "../screens/profile/Gender";
 
 const Stack = createNativeStackNavigator();
 
@@ -98,27 +96,20 @@ export const InitialScreenOnStart = () => {
           animation: "slide_from_right",
         }}
       />
-      {/* <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-      {/* <Stack.Screen
-        name="Signup"
-        component={Signup}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
-      {/* <Stack.Screen
-        name="Forgot"
-        component={Forgot}
-        options={{
-          headerShown: false,
-        }}
-      /> */}
+      <Stack.Screen
+      name="Rules"
+      component={Rules}
+      options={{
+        headerShown: false,
+      }}
+    />
+     <Stack.Screen
+      name="Gender"
+      component={Gender}
+      options={{
+        headerShown: false,
+      }}
+    />
     </Stack.Navigator>
   );
 };

@@ -20,6 +20,8 @@ export interface NameState {
     emailState: EmailState;
     phoneState: PhoneState;
     verificationState: VerificationState;
+    genderState: GenderState;
+
   }
   
   export interface NameFormValues {
@@ -47,3 +49,15 @@ export interface NameState {
     name: string;
     navigation: any;
   }
+
+  export interface ConfirmState {
+    rulesConfirmed: boolean;
+  }
+
+  export interface GenderState {
+    gender: string;
+  }
+
+  export type RuleProps = {
+    text: string;
+};
