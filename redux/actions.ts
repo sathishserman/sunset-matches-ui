@@ -1,4 +1,4 @@
-import { SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
+import { SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
 
 
 
@@ -31,4 +31,13 @@ export const setVerificationCode = (code: string) => ({
 export const setCountryCode = (countryCode: string) => ({
   type: SET_COUNTRY_CODE,
   payload: countryCode,
+});
+
+export const confirmRules = () => ({
+  type: CONFIRM_RULES,
+});
+
+export const setGender = (gender: string) => ({
+  type: SET_GENDER,
+  payload: gender,
 });

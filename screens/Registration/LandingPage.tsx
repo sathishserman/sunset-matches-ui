@@ -13,7 +13,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ name, navigation }) => {
       <Text style={styles.createProfilePrompt}>
         Now you can create your profile, after which you can immediately start matching
       </Text>
-      <TouchableOpacity style={styles.createProfileButton} onPress={() => navigation.navigate('')}>
+      <TouchableOpacity style={styles.createProfileButton} onPress={() => navigation.navigate('Rules')}>
         <Text style={styles.createProfileButtonText}>Create your profile</Text>
       </TouchableOpacity>
     </View>

@@ -1,4 +1,5 @@
 import { emailReducer  } from './emailReducer';
+import { genderReducer } from './genderReducer';
 import { nameReducer  } from './nameReducer';
 import { phoneReducer  } from './phoneReducer';
 import { verificationReducer  } from './verificationReducer';
@@ -8,6 +9,8 @@ export default combineReducers({
   emailState: emailReducer,
   nameState: nameReducer,
   phoneState: phoneReducer,
-  verificationState: verificationReducer
+  verificationState: verificationReducer,
+  genderState: genderReducer
+
 
 });
