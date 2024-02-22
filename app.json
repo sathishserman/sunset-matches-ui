@@ -32,16 +32,12 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth"
+      "expo-font"
     ],
     "extra": {
       "eas": {
-        "projectId": "191c1e75-415a-4deb-9419-b2b60f5d1b1d"
+        "projectId": "5f2644c7-502f-4abd-a8dd-94e0be32d4aa"
       }
-    },
-    "plugins": [
-      "expo-font"
-    ]
+    }
   }
 }

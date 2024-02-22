@@ -76,9 +76,9 @@ export default function Phone({ navigation }: { navigation: any }) {
       try {
         signInWithPhoneNumber(formattedNumber);
         console.log(formattedNumber);
-        navigation.navigate("Verification", {
-          flow: route.params.flow,
-        });
+        // navigation.navigate("Verification", {
+        //   flow: route.params.flow,
+        // });
       } catch (err) {
         console.error(err);
       }

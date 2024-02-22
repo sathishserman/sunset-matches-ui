@@ -33,11 +33,11 @@ export default function Verification({ navigation }: { navigation: any }) {
   const route = useRoute<RouteProp<VerificationRoutes, "Verification">>();
   const { confirmationResult } = useAuth();
 
-  function onAuthStateChanged(user: any) {
-    if (user) {
-      navigation.navigate("Email");
-    }
-  }
+  // function onAuthStateChanged(user: any) {
+  //   if (user) {
+  //     navigation.navigate("Email");
+  //   }
+  // }
 
   // useEffect(() => {
   //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -48,7 +48,7 @@ export default function Verification({ navigation }: { navigation: any }) {
     try {
       navigation.navigate("Email");
       if (confirmationResult != null) {
-        // await confirmationResult.confirm(code);
+        await confirmationResult.confirm(code);
       }
     } catch (error) {
       console.log("Invalid code.");
