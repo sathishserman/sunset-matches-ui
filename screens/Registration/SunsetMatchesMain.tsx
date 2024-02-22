@@ -54,7 +54,7 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
           className="text-6xl text-white w-5/6 text-center"
           style={{ fontFamily: "Italiana_400Regular" }}
         >
-          Sunset Matches
+          Sunset Matchesss
         </Text>
 
         <View>

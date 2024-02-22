@@ -59,15 +59,13 @@ export default function Navigation() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer onReady={onLayoutRootView}>
       <Stack.Navigator initialRouteName="InitialScreenOnStart">
-
-          <Stack.Screen
-            name="InitialScreenOnStart"
-            component={InitialScreenOnStart}
-            options={{ headerShown: false }}
-          />
-
+        <Stack.Screen
+          name="InitialScreenOnStart"
+          component={InitialScreenOnStart}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

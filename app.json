@@ -6,6 +6,7 @@
     "sdkVersion": "50.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "androidStatusBar": { "translucent": true },
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",

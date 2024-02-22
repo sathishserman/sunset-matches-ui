@@ -97,19 +97,12 @@ export const InitialScreenOnStart = () => {
         }}
       />
       <Stack.Screen
-      name="Rules"
-      component={Rules}
-      options={{
-        headerShown: false,
-      }}
-    />
-     <Stack.Screen
-      name="Gender"
-      component={Gender}
-      options={{
-        headerShown: false,
-      }}
-    />
+        name="Gender"
+        component={Gender}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
