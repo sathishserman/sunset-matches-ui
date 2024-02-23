@@ -1,5 +1,4 @@
-import { SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
-
+import { SET_AGE,SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
 
 
 export const setEmail = (email: string) => ({
@@ -41,3 +40,9 @@ export const setGender = (gender: string) => ({
   type: SET_GENDER,
   payload: gender,
 });
+
+export const setAge = (age: number) => ({
+  type: SET_AGE,
+  payload: age,
+});
+
