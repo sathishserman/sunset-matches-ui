@@ -8,6 +8,7 @@ import Verification from "../screens/Registration/Verification";
 import LandingPage from "../screens/Registration/LandingPage";
 import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
+import Age from "../screens/profile/Age";
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +74,14 @@ export const InitialScreenOnStart = () => {
      <Stack.Screen
       name="Gender"
       component={Gender}
+      options={{
+        headerShown: false,
+      }}
+    />
+
+<Stack.Screen
+      name="Age"
+      component={Age}
       options={{
         headerShown: false,
       }}

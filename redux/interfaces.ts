@@ -1,5 +1,6 @@
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { SET_AGE} from './actionTypes';
 
 export interface EmailState {
     email: string;
@@ -60,4 +61,9 @@ export interface NameState {
 
   export type RuleProps = {
     text: string;
-};
+  }
+
+  export interface AgeState {
+    age: number | null;
+  }
+

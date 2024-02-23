@@ -11,7 +11,7 @@ const validationSchema = Yup.object().shape({
   gender: Yup.string().required('Please select your gender'),
 });
 
-const GenderSelectionScreen = () => {
+export default function Gender({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const { gender } = useSelector((state: RootState) => state.genderState);
   const formik = useFormik({
@@ -19,6 +19,7 @@ const GenderSelectionScreen = () => {
     validationSchema,
     onSubmit: (values) => {
       dispatch(setGender(values.gender));
+      navigation.navigate('Age');
     },
   });
 
@@ -88,5 +89,3 @@ const styles = StyleSheet.create({
     fontSize: 18,
   }
 });
-
-export default GenderSelectionScreen;
