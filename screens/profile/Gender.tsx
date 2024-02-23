@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,8 +27,8 @@ const GenderSelectionScreen = () => {
   return (
     <SafeAreaView className="flex-1 bg-[#270C00]">
       <BackHeader color="white" />
-      <View className="flex-1 justify-between items-center mt-10">
-        <View>
+      <View className="flex-1 justify-between items-center mt-32">
+        <View className="w-full items-center">
           <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
             Your gender
           </Text>
@@ -52,5 +52,6 @@ const GenderSelectionScreen = () => {
     </SafeAreaView>
   );
 };
+
 
 export default GenderSelectionScreen;

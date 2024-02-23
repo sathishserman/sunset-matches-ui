@@ -101,6 +101,8 @@ export const InitialScreenOnStart = () => {
         component={Gender}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
     </Stack.Navigator>
