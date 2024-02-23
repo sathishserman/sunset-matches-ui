@@ -10,8 +10,8 @@ import { useRoute } from "@react-navigation/native";
 import auth from "@react-native-firebase/auth";
 import { useAuth } from "../../context/AuthContext";
 import { SafeAreaView } from "react-native-safe-area-context";
-import VerificationInput from "../../components/VerificationInput";
 import CustomButton from "../../components/CustomButton";
+import DashedInput from "../../components/DashedInput";
 
 const verificationCodeValidationSchema = Yup.object().shape({
   verificationCode: Yup.string()
@@ -55,6 +55,13 @@ export default function Verification({ navigation }: { navigation: any }) {
     }
   }
 
+  const handleChange = (
+    value: string,
+    formikProps: FormikProps<VerificationFormValues>
+  ) => {
+    formikProps.handleChange("verificationCode")(value);
+  };
+
   return (
     <>
       <Formik
@@ -78,8 +85,12 @@ export default function Verification({ navigation }: { navigation: any }) {
                 <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
                   Enter your code
                 </Text>
-                <View className="w-4/6">
-                  <VerificationInput formikProps={formikProps} length={6} />
+                <View className="self-center">
+                  <DashedInput
+                    formikProps={formikProps}
+                    length={6}
+                    handleChange={handleChange}
+                  />
                   <Text className="underline text-[#898A8D] mt-3">
                     Try again
                   </Text>

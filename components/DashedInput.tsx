@@ -6,26 +6,26 @@ import {
   TextInputKeyPressEventData,
 } from "react-native";
 
-type OTPInputProps = {
+type DashedInputProps = {
   length: number;
-
   disabled?: boolean;
   formikProps: any;
+  handleChange: (value: string, formikProps: any) => void;
 };
 
-const VerificationInput = ({
+const DashedInput = ({
   formikProps,
   length,
-
   disabled,
-}: OTPInputProps) => {
-  const [verificationCode, setVerificationCode] = useState("");
+  handleChange,
+}: DashedInputProps) => {
+  const [inputValue, setInputValue] = useState("");
   const inputRefs = useRef<Array<TextInput | null>>([]);
   const value = Array(length).fill("");
 
   useEffect(() => {
-    formikProps.handleChange("verificationCode")(verificationCode);
-  }, [verificationCode]);
+    handleChange(inputValue, formikProps);
+  }, [inputValue]);
 
   const onChangeValue = (text: string, index: number) => {
     const newValue = value.map((item, valueIndex) => {
@@ -35,15 +35,13 @@ const VerificationInput = ({
       return item;
     });
 
-    const newVerificationCode =
-      verificationCode.slice(0, index) +
-      text +
-      verificationCode.slice(index + 1);
-    setVerificationCode(newVerificationCode);
-    formikProps.handleChange("verificationCode")(newVerificationCode);
+    const newInputValue =
+      inputValue.slice(0, index) + text + inputValue.slice(index + 1);
+    setInputValue(newInputValue);
+    handleChange(newInputValue, formikProps);
   };
 
-  const handleChange = (text: string, index: number) => {
+  const handleInputChange = (text: string, index: number) => {
     onChangeValue(text, index);
     if (text.length !== 0) {
       return inputRefs?.current[index + 1]?.focus();
@@ -58,12 +56,12 @@ const VerificationInput = ({
     const { nativeEvent } = event;
 
     if (nativeEvent.key === "Backspace") {
-      handleChange("", index);
+      handleInputChange("", index);
     }
   };
 
   return (
-    <View className="w-full flex-row justify-between">
+    <View className="flex-row justify-between gap-5">
       {[...new Array(length)].map((_, index) => {
         return (
           <TextInput
@@ -77,9 +75,9 @@ const VerificationInput = ({
             keyboardType="decimal-pad"
             selectTextOnFocus
             editable={!disabled}
-            testID={`otpInput${index}`}
+            testID={`dashedInput${index}`}
             className="text-xl text-white text-center w-8 h-14 border-b border-[#898A8D]"
-            onChangeText={(text) => handleChange(text, index)}
+            onChangeText={(text) => handleInputChange(text, index)}
             onKeyPress={(event) => handleBackSpace(event, index)}
             autoFocus={index === 0}
           />
@@ -89,4 +87,4 @@ const VerificationInput = ({
   );
 };
 
-export default VerificationInput;
+export default DashedInput;

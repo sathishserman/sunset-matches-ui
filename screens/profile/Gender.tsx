@@ -13,13 +13,14 @@ const validationSchema = Yup.object().shape({
   gender: Yup.string().required("Please select your gender"),
 });
 
-const GenderSelectionScreen = () => {
+const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
   const { gender } = useSelector((state: RootState) => state.genderState);
   const formik = useFormik({
     initialValues: { gender: gender },
     validationSchema,
     onSubmit: (values) => {
+      navigation.navigate("Age");
       dispatch(setGender(values.gender));
     },
   });
@@ -29,9 +30,7 @@ const GenderSelectionScreen = () => {
       <BackHeader color="white" />
       <View className="flex-1 justify-between items-center mt-32">
         <View className="w-full items-center">
-          <Text className="text-3xl font-bold mb-5 text-[#E25A28]">
-            Your gender
-          </Text>
+          <Text className="text-3xl font-bold text-[#E25A28]">Your gender</Text>
           {["Female", "Male", "More"].map((gender) => (
             <CustomButton
               key={gender}
@@ -46,12 +45,11 @@ const GenderSelectionScreen = () => {
         <CustomButton
           onPress={formik.handleSubmit as any}
           title="Continue"
-          _className="w-4/6 mb-10"
+          _className="w-4/6 mb-[60px]"
         />
       </View>
     </SafeAreaView>
   );
 };
-
 
 export default GenderSelectionScreen;

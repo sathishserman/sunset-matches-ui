@@ -59,7 +59,7 @@ export default function Email({ navigation }: { navigation: any }) {
           }: FormikProps<EmailFormValues>) => (
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
-              className="items-center justify-between px-5 pb-10 flex-1"
+              className="items-center justify-between px-5 pb-5 flex-1"
             >
               <View className="w-full items-center mt-10">
                 <Text className="text-3xl font-bold mb-2 text-[#E25A28]">
@@ -104,7 +104,7 @@ export default function Email({ navigation }: { navigation: any }) {
                 onPress={handleSubmit as any}
                 title="Continue"
                 gradient={values.email && !errors.email ? true : undefined}
-                _className="w-5/6 mb-5"
+                _className="w-5/6 mb-10"
               ></CustomButton>
             </KeyboardAvoidingView>
           )}

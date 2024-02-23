@@ -9,6 +9,7 @@ import LandingPage from "../screens/Registration/LandingPage";
 import SignUp from "../screens/Registration/SignUp";
 import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
+import Age from "../screens/profile/Age";
 
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +100,15 @@ export const InitialScreenOnStart = () => {
       <Stack.Screen
         name="Gender"
         component={Gender}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Age"
+        component={Age}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",
