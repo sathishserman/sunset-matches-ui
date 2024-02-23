@@ -1,11 +1,11 @@
 import CustomButton from "../../components/CustomButton";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { View, Text } from "react-native";
 
 export default function Rules() {
   return (
-    <SafeAreaAndroidIOS className="flex-1 bg-[#270C00] items-center justify-center px-10">
+    <SafeAreaView className="flex-1 bg-[#270C00] items-center justify-center px-10">
       <View className="h-[80vh] justify-between">
         <View>
           <Text
@@ -45,6 +45,6 @@ export default function Rules() {
           ></CustomButton>
         </View>
       </View>
-    </SafeAreaAndroidIOS>
+    </SafeAreaView>
   );
 }

@@ -9,7 +9,7 @@ import BackHeader from "../../components/BackHeader";
 import { useRoute } from "@react-navigation/native";
 import auth from "@react-native-firebase/auth";
 import { useAuth } from "../../context/AuthContext";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import VerificationInput from "../../components/VerificationInput";
 import CustomButton from "../../components/CustomButton";
 
@@ -30,7 +30,7 @@ export default function Verification({ navigation }: { navigation: any }) {
   const verificationCode = useSelector(
     (state: RootState) => state.verificationState.verificationCode
   );
-  const route = useRoute<RouteProp<VerificationRoutes, "Verification">>();
+  const route = useRoute();
   const { confirmationResult } = useAuth();
 
   function onAuthStateChanged(user: any) {
@@ -68,7 +68,7 @@ export default function Verification({ navigation }: { navigation: any }) {
         }}
       >
         {(formikProps: FormikProps<VerificationFormValues>) => (
-          <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
+          <SafeAreaView className="flex-1 bg-[#270C00]">
             <BackHeader color="white" />
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -108,7 +108,7 @@ export default function Verification({ navigation }: { navigation: any }) {
                 />
               </View>
             </KeyboardAvoidingView>
-          </SafeAreaAndroidIOS>
+          </SafeAreaView>
         )}
       </Formik>
     </>

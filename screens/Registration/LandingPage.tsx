@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { LandingPageProps, RootState } from "../../redux/interfaces";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
 
 const LandingPage: React.FC<LandingPageProps> = ({ name, navigation }) => {
   return (
-    <SafeAreaAndroidIOS className="flex-1 bg-[#270C00] items-center px-10">
+    <SafeAreaView className="flex-1 bg-[#270C00] items-center px-10">
       <Text className="text-5xl font-robotoMedium mb-2 text-[#E25A28] mt-24">
         Hi, {name.split(" ")[0]}!
       </Text>
@@ -28,7 +28,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ name, navigation }) => {
         gradient
         _className="w-5/6 mt-32"
       ></CustomButton>
-    </SafeAreaAndroidIOS>
+    </SafeAreaView>
   );
 };
 

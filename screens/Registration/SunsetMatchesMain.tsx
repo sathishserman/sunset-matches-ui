@@ -4,7 +4,7 @@ import {
   GestureDetector,
   Gesture,
 } from "react-native-gesture-handler";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import ArrowRight from "react-native-vector-icons/AntDesign";
 import Animated, {
@@ -49,7 +49,7 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
         source={require('../../assets/bg.jpeg')} 
         style={styles.background}
       > */}
-      <SafeAreaAndroidIOS className="flex-1 justify-between items-center px-7 bg-black pt-16 pb-5">
+      <SafeAreaView className="flex-1 justify-between items-center px-7 bg-black pt-16 pb-5">
         <Text
           className="text-6xl text-white w-5/6 text-center"
           style={{ fontFamily: "Italiana_400Regular" }}
@@ -87,7 +87,7 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
             <Text className="underline">Privacy Statement</Text>
           </Text>
         </View>
-      </SafeAreaAndroidIOS>
+      </SafeAreaView>
       {/* </ImageBackground> */}
     </GestureHandlerRootView>
   );

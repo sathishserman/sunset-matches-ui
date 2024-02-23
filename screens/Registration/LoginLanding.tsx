@@ -4,12 +4,11 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar,
 } from "react-native";
 import BackHeader from "../../components/BackHeader";
 import { Platform } from "react-native";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import CustomButton from "../../components/CustomButton";
 import Animated, { FadeInLeft, FadeInUp } from "react-native-reanimated";
@@ -30,7 +29,7 @@ export default function LoginLanding({ navigation }: { navigation: any }) {
   const handleHelpdesk = () => {};
 
   return (
-    <SafeAreaAndroidIOS className="flex-1 bg-black">
+    <SafeAreaView className="flex-1 bg-black">
       <BackHeader color="white" />
       <View className="flex-1 items-center justify-between w-full px-7">
         <Animated.Text
@@ -57,6 +56,6 @@ export default function LoginLanding({ navigation }: { navigation: any }) {
         </View>
         <View></View>
       </View>
-    </SafeAreaAndroidIOS>
+    </SafeAreaView>
   );
 }

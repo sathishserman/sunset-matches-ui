@@ -14,7 +14,7 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { RootState, EmailFormValues } from "../../redux/interfaces";
 import BackHeader from "../../components/BackHeader";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
 
 const validationSchema = Yup.object().shape({
@@ -37,7 +37,7 @@ export default function Email({ navigation }: { navigation: any }) {
 
   return (
     <>
-      <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
+      <SafeAreaView className="flex-1 bg-[#270C00]">
         <BackHeader color="white" />
         <Formik
           initialValues={{ email, subscribed }}
@@ -73,7 +73,7 @@ export default function Email({ navigation }: { navigation: any }) {
                 </Text>
                 <TextInput
                   className="text-white border-b border-[#898A8D] w-[80%] mt-5 text-lg pb-2 text-center"
-                  selectionColor={"#e25a2839"}  
+                  selectionColor={"#e25a2839"}
                   onChangeText={handleChange("email")}
                   onBlur={handleBlur("email")}
                   value={values.email}
@@ -109,7 +109,7 @@ export default function Email({ navigation }: { navigation: any }) {
             </KeyboardAvoidingView>
           )}
         </Formik>
-      </SafeAreaAndroidIOS>
+      </SafeAreaView>
     </>
   );
 }

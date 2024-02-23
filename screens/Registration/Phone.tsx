@@ -19,7 +19,7 @@ import PhoneNumberInput, {
 } from "react-native-phone-number-input";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRoute, RouteProp } from "@react-navigation/native";
-import { SafeAreaAndroidIOS } from "../../components/SafeAreaAndroidIOS";
+import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
 import { useAuth } from "../../context/AuthContext";
 
@@ -41,7 +41,7 @@ export default function Phone({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const { phoneNumber } = useSelector((state: RootState) => state.phoneState);
   const phoneInput = React.useRef<PhoneNumberInput>(null);
-  const route = useRoute<RouteProp<PhoneRoutes, "Phone">>();
+  const route = useRoute();
   const { setConfirmationResult } = useAuth();
 
   const signInWithPhoneNumber = async (formattedNumber: string) => {
@@ -96,7 +96,7 @@ export default function Phone({ navigation }: { navigation: any }) {
         onSubmit={handleSubmit}
       >
         {(formikProps: FormikProps<PhoneFormValues>) => (
-          <SafeAreaAndroidIOS className="flex-1 bg-[#270C00]">
+          <SafeAreaView className="flex-1 bg-[#270C00]">
             <BackHeader color="white" />
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -155,7 +155,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                 />
               </View>
             </KeyboardAvoidingView>
-          </SafeAreaAndroidIOS>
+          </SafeAreaView>
         )}
       </Formik>
     </>
