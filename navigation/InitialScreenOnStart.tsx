@@ -7,7 +7,7 @@ import Phone from "../screens/Registration/Phone";
 import Verification from "../screens/Registration/Verification";
 import LandingPage from "../screens/Registration/LandingPage";
 import SignUp from "../screens/Registration/SignUp";
-import Rules from "../screens/Registration/Rules";
+import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
 
 const Stack = createNativeStackNavigator();
