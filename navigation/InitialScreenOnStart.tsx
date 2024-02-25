@@ -9,6 +9,7 @@ import LandingPage from "../screens/Registration/LandingPage";
 import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
 import Age from "../screens/profile/Age";
+import Height from "../screens/profile/Height";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,27 +66,35 @@ export const InitialScreenOnStart = () => {
         }}
       />
       <Stack.Screen
-      name="Rules"
-      component={Rules}
-      options={{
-        headerShown: false,
-      }}
-    />
-     <Stack.Screen
-      name="Gender"
-      component={Gender}
-      options={{
-        headerShown: false,
-      }}
-    />
+        name="Rules"
+        component={Rules}
+        options={{
+          headerShown: false,
+                  }}
+      />
+      <Stack.Screen
+        name="Gender"
+        component={Gender}
+        options={{
+          headerShown: false,
+                  }}
+      />
+
+      <Stack.Screen
+        name="Age"
+        component={Age}
+        options={{
+          headerShown: false,
+                  }}
+      />
 
 <Stack.Screen
-      name="Age"
-      component={Age}
-      options={{
-        headerShown: false,
-      }}
-    />
-    </Stack.Navigator>
+        name="Height"
+        component={Height}
+        options={{
+          headerShown: false
+        }}
+      />
+          </Stack.Navigator>
   );
 };
