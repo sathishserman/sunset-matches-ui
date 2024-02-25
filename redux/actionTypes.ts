@@ -7,3 +7,4 @@ export const SET_COUNTRY_CODE = 'SET_COUNTRY_CODE';
 export const CONFIRM_RULES = 'CONFIRM_RULES';
 export const SET_GENDER = 'SET_GENDER';
 export const SET_AGE = 'SET_AGE';
+export const SET_HEIGHT = 'SET_HEIGHT';
