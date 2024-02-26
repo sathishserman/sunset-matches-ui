@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Rules() {
+export default function Rules({ navigation }: { navigation: any }) {
   return (
     <SafeAreaView className="flex-1 bg-[#270C00] items-center justify-center px-10">
       <View className="h-[80vh] justify-between">
@@ -41,7 +41,9 @@ export default function Rules() {
             title="I agree"
             gradient
             _className="w-5/6"
-            onPress={() => console.log("I agree")}
+            onPress={() => {
+              navigation.navigate("Gender");
+            }}
           ></CustomButton>
         </View>
       </View>

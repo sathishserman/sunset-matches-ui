@@ -30,6 +30,7 @@ export default function Verification({ navigation }: { navigation: any }) {
   const verificationCode = useSelector(
     (state: RootState) => state.verificationState.verificationCode
   );
+
   const route = useRoute();
   const { confirmationResult } = useAuth();
 

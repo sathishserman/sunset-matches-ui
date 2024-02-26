@@ -29,6 +29,8 @@ const validationSchema = Yup.object().shape({
   subscribed: Yup.boolean(),
 });
 
+
+
 export default function Email({ navigation }: { navigation: any }) {
   const { email, subscribed } = useSelector(
     (state: RootState) => state.emailState

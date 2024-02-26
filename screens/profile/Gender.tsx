@@ -20,8 +20,8 @@ const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
     initialValues: { gender: gender },
     validationSchema,
     onSubmit: (values) => {
-      navigation.navigate("Age");
       dispatch(setGender(values.gender));
+      navigation.navigate("Age");
     },
   });
 

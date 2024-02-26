@@ -1,69 +1,84 @@
-
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { SET_AGE} from './actionTypes';
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { SET_AGE } from "./actionTypes";
 
 export interface EmailState {
-    email: string;
-    subscribed: boolean;
-  }
+  email: string;
+  subscribed: boolean;
+}
 
 export interface NameState {
-    name: string;
-  }
+  name: string;
+}
 
-  export interface PhoneState {
-    phoneNumber: string;
-    countryCode: string;
-  }
+export interface PhoneState {
+  phoneNumber: string;
+  countryCode: string;
+}
 
-  export interface RootState {
-    nameState: NameState;
-    emailState: EmailState;
-    phoneState: PhoneState;
-    verificationState: VerificationState;
-    genderState: GenderState;
+export interface RootState {
+  nameState: NameState;
+  emailState: EmailState;
+  phoneState: PhoneState;
+  verificationState: VerificationState;
+  genderState: GenderState;
+  heightState: HeightState;
+  ageState: AgeState;
+}
 
-  }
-  
-  export interface NameFormValues {
-    name: string;
-  }
+export interface NameFormValues {
+  name: string;
+}
 
-  export interface PhoneFormValues {
-    phoneNumber: string;
-  }
+export interface PhoneFormValues {
+  phoneNumber: string;
+}
 
-  export interface EmailFormValues {
-    email: string;
-    subscribed: boolean;
-  }
+export interface EmailFormValues {
+  email: string;
+  subscribed: boolean;
+}
 
-  export interface VerificationFormValues {
-    verificationCode: string;
-  }
+export interface VerificationFormValues {
+  verificationCode: string;
+}
 
-  export interface VerificationState {
-    verificationCode: string;
-  }
+export interface GenderFormValues {
+  gender: string;
+}
 
-  export interface LandingPageProps {
-    name: string;
-    navigation: any;
-  }
+export interface HeightFormValues {
+  height: number;
+}
 
-  export interface ConfirmState {
-    rulesConfirmed: boolean;
-  }
+export interface AgeFormValues {
+  age: number;
+}
 
-  export interface GenderState {
-    gender: string;
-  }
+export interface VerificationState {
+  verificationCode: string;
+}
 
-  export type RuleProps = {
-    text: string;
-  }
+export interface LandingPageProps {
+  name: string;
+  navigation: any;
+}
 
-  export interface AgeState {
-    age: number | null;
-  }
+export interface ConfirmState {
+  rulesConfirmed: boolean;
+}
 
+export interface GenderState {
+  gender: string;
+}
+
+export type RuleProps = {
+  text: string;
+};
+
+export interface AgeState {
+  age: number;
+}
+
+export interface HeightState {
+  height: number;
+}

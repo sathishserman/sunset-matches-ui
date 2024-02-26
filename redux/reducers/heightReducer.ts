@@ -1,4 +1,4 @@
-import { SET_HEIGHT } from '../actionTypes';
+import { SET_HEIGHT } from "../actionTypes";
 
 const initialState = {
   height: 0,
