@@ -30,9 +30,8 @@ const DashedInput = ({
   const onChangeValue = (text: string, index: number) => {
     const newInputValue = inputValue.split("");
     newInputValue[index] = text;
-    setInputValue(newInputValue.join(""));
     handleChange(newInputValue.join(""), formikProps);
-   
+    setInputValue(newInputValue.join(""));
   };
 
   const handleInputChange = (text: string, index: number) => {
