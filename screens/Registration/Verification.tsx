@@ -39,10 +39,10 @@ export default function Verification({ navigation }: { navigation: any }) {
     }
   }
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, []);
 
   async function confirmCode(code: string) {
     try {
