@@ -1,65 +1,39 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { LandingPageProps, RootState } from '../../redux/interfaces';
-
-
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { LandingPageProps, RootState } from "../../redux/interfaces";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../../components/CustomButton";
 
 const LandingPage: React.FC<LandingPageProps> = ({ name, navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.greeting}>Hi, {name}!</Text>
-      <Text style={styles.registrationComplete}>Your registration is complete!</Text>
-      <Text style={styles.createProfilePrompt}>
-        Now you can create your profile, after which you can immediately start matching
+    <SafeAreaView className="flex-1 bg-[#270C00] items-center px-10">
+      <Text className="text-5xl font-robotoMedium mb-2 text-[#E25A28] mt-24">
+        Hi, {name.split(" ")[0]}!
       </Text>
-      <TouchableOpacity style={styles.createProfileButton} onPress={() => navigation.navigate('Rules')}>
-        <Text style={styles.createProfileButtonText}>Create your profile</Text>
-      </TouchableOpacity>
-    </View>
+      <Text className="mt-12 font-robotoBlack text-xl text-white mb-2">
+        Your registration is complete!
+      </Text>
+      <Text
+        // style={styles.createProfilePrompt}
+        className="font-robotoRegular text-sm text-white text-center mt-2"
+      >
+        Now you can create your profile, after which you can immediately start
+        matching
+      </Text>
+
+      <CustomButton
+        onPress={() => navigation.navigate("Rules")}
+        title="Create your profile"
+        gradient
+        _className="w-5/6 mt-32"
+      ></CustomButton>
+    </SafeAreaView>
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
-    name: state.nameState.name,
-  });
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#000',
-    },
-    greeting: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      color: '#DAA520',
-      marginBottom: 20,
-    },
-    registrationComplete: {
-      fontSize: 18,
-      color: '#fff',
-      marginBottom: 10,
-    },
-    createProfilePrompt: {
-      fontSize: 16,
-      color: '#fff',
-      textAlign: 'center',
-      marginBottom: 30,
-    },
-    createProfileButton: {
-      backgroundColor: '#DAA520',
-      padding: 15,
-      borderRadius: 25,
-    },
-    createProfileButtonText: {
-      fontSize: 18,
-      color: '#fff',
-      textAlign: 'center',
-    }
-  });
-
-
+  name: state.nameState.name,
+});
 
 export default connect(mapStateToProps)(LandingPage);

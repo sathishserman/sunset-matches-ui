@@ -6,15 +6,14 @@
     "sdkVersion": "50.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "androidStatusBar": { "translucent": true },
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.sm.mobile.ui",
@@ -32,12 +31,19 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth"
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 30
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
-        "projectId": "191c1e75-415a-4deb-9419-b2b60f5d1b1d"
+        "projectId": "5f2644c7-502f-4abd-a8dd-94e0be32d4aa"
       }
     }
   }

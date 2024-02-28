@@ -1,31 +1,47 @@
-import React, { useRef } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Animated } from 'react-native';
-import { PanGestureHandler, PanGestureHandlerGestureEvent, GestureHandlerRootView, State } from 'react-native-gesture-handler';
+import { View, Text } from "react-native";
+import {
+  GestureHandlerRootView,
+  GestureDetector,
+  Gesture,
+} from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import ArrowRight from "react-native-vector-icons/AntDesign";
+import Animated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 
 export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
-  const translateX = useRef(new Animated.Value(0)).current;
- 
+  const translateX = useSharedValue(0);
 
-  const onGestureEvent = Animated.event<PanGestureHandlerGestureEvent>(
-    [{ nativeEvent: { translationX: translateX } }],
-    { useNativeDriver: false }
-  );
-
-  const onHandlerStateChange = (event: PanGestureHandlerGestureEvent) => {
-    if (event.nativeEvent.state === State.END) {
-      translateX.flattenOffset(); 
-      Animated.timing(translateX, {
-        toValue: 0,
-        duration: 100,
-        useNativeDriver: false,
-      }).start();
-
-      
-      if (event.nativeEvent.translationX > (200 * 0.20)) {
-        navigation.navigate('LoginLanding');
+  const gesture = Gesture.Pan()
+    .onUpdate((event) => {
+      translateX.value = event.translationX;
+      translateX.value = Math.min(Math.max(0, event.translationX), 145);
+    })
+    .onEnd((event) => {
+      if (event.translationX > 135) {
+        translateX.value = withSpring(145, {}, () =>
+          runOnJS(navigation.navigate)("LoginLanding")
+        );
+        translateX.value = withSpring(0);
+      } else {
+        translateX.value = withSpring(0);
       }
-    }
-  };
+    });
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: translateX.value,
+        },
+      ],
+    };
+  });
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -33,80 +49,46 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
         source={require('../../assets/bg.jpeg')} 
         style={styles.background}
       > */}
-        <View style={styles.container}>
-          <Text style={styles.title}>Sunset Matches</Text>
-          <PanGestureHandler
-            onGestureEvent={onGestureEvent}
-            onHandlerStateChange={onHandlerStateChange}
-          >
-            <Animated.View
-              style={[
-                styles.slider,
-                {
-                  transform: [{ translateX }],
-                },
-              ]}
-            >
-              <Text style={styles.startButtonText}>Slide to Start {'->'}</Text>
-            </Animated.View>
-          </PanGestureHandler>
-          <Text style={styles.termsText}>
-            By continuing you agree with our{' '}
-            <Text style={styles.hyperlink}>Terms&Conditions</Text> and the application of our{' '}
-            <Text style={styles.hyperlink}>Privacy Statement</Text>
+      <SafeAreaView className="flex-1 justify-between items-center px-7 bg-black pt-16 pb-5">
+        <Text
+          className="text-6xl text-white w-5/6 text-center"
+          style={{ fontFamily: "Italiana_400Regular" }}
+        >
+          Sunset Matches
+        </Text>
+
+        <View>
+          <GestureDetector gesture={gesture}>
+            <View className="rounded-full mb-5 relative mx-8">
+              <LinearGradient
+                colors={["#331003", "#E25A28"]}
+                className="absolute left-0 right-0 top-0 bottom-0 rounded-full"
+                start={{ x: 1, y: 0 }}
+              />
+              <Animated.View
+                className="px-5 py-4 rounded-full self-start relative"
+                style={animatedStyles}
+              >
+                <LinearGradient
+                  colors={["#331003", "#E25A28"]}
+                  className="absolute left-0 right-0 top-0 bottom-0 rounded-full"
+                  start={{ x: 1, y: 0 }}
+                />
+                <Text className="text-white text-2xl items-center justify-center">
+                  start <ArrowRight name="arrowright" size={24} color="white" />
+                </Text>
+              </Animated.View>
+            </View>
+          </GestureDetector>
+          <Text className="text-[#898A8D]">
+            By continuing you agree with our{" "}
+            <Text className="underline">Terms&Conditions</Text> and the
+            application of our{" "}
+            <Text className="underline">Privacy Statement</Text>
           </Text>
         </View>
+      </SafeAreaView>
       {/* </ImageBackground> */}
     </GestureHandlerRootView>
   );
-};
-
-const styles = StyleSheet.create({
-  slider: {
-    backgroundColor: '#DAA520', 
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
-    alignSelf: 'center',
-  },
-  background: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 60,
-    backgroundColor: 'black'
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: 'white',
-    textTransform: 'uppercase',
-    marginTop: 100,
-  },
-  startButton: {
-    backgroundColor: '#DAA520',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 20,
-    width: 280,
-    height: 63
-  },
-  startButtonText: {
-    fontSize: 18,
-    color: 'white',
-  },
-  termsText: {
-    fontSize: 14,
-    color: 'white',
-    textAlign: 'center',
-    marginBottom: 30, 
-  },
-  hyperlink: {
-    textDecorationLine: 'underline',
-  },
-});
+}

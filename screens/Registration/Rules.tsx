@@ -1,29 +1,9 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-
-import { confirmRules } from "../../redux/actions";
-import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
 import CustomButton from "../../components/CustomButton";
 import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
+import { View, Text } from "react-native";
 
 export default function Rules({ navigation }: { navigation: any }) {
-  const dispatch = useDispatch();
-  const formik = useFormik({
-    initialValues: {},
-    onSubmit: () => {
-      dispatch(confirmRules());
-      navigation.navigate("Gender");
-    },
-  });
-
-  const Rule: React.FC<{ text: string }> = ({ text }) => (
-    <View>
-      <Text className="text-white text-center">{text}</Text>
-      <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
-    </View>
-  );
-
   return (
     <SafeAreaView className="flex-1 bg-[#270C00] items-center justify-center px-10">
       <View className="h-[80vh] justify-between">
@@ -42,9 +22,18 @@ export default function Rules({ navigation }: { navigation: any }) {
           </Text>
         </View>
         <View>
-          <Rule text="Provide information truthfully about you" />
-          <Rule text="Use the application with respect for others" />
-          <Rule text="Report inappropriate behavior through the helpdesk" />
+          <Text className="text-white text-center">
+            Provide information truthfully about you
+          </Text>
+          <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
+          <Text className="text-white text-center">
+            Use the application with respect for others{" "}
+          </Text>
+          <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
+          <Text className="text-white text-center">
+            Report inappropriate behavior through the helpdesk{" "}
+          </Text>
+          <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
           <Text className="text-white text-center">XXX </Text>
         </View>
         <View className="items-center">
@@ -52,7 +41,9 @@ export default function Rules({ navigation }: { navigation: any }) {
             title="I agree"
             gradient
             _className="w-5/6"
-            onPress={formik.handleSubmit as any}
+            onPress={() => {
+              navigation.navigate("Gender");
+            }}
           ></CustomButton>
         </View>
       </View>

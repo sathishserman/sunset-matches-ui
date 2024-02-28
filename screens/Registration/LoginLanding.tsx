@@ -1,83 +1,61 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import BackHeader from '../../components/BackHeader'; 
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
+import BackHeader from "../../components/BackHeader";
+import { Platform } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import CustomButton from "../../components/CustomButton";
+import Animated, { FadeInLeft, FadeInUp } from "react-native-reanimated";
 
 export default function LoginLanding({ navigation }: { navigation: any }) {
   const handleLogin = () => {
-    navigation.navigate('Phone', {
-      flow: 'loginFlow'
+    navigation.navigate("Phone", {
+      flow: "loginFlow",
     });
   };
 
   const handleSignUp = () => {
-    navigation.navigate('Phone',{
-      flow: 'signupFlow'
+    navigation.navigate("Phone", {
+      flow: "signupFlow",
     });
   };
 
-  const handleHelpdesk = () => {
-  };
+  const handleHelpdesk = () => {};
 
   return (
-    <>
-    <BackHeader />
-    <View style={styles.container}>
-      <Text style={styles.title}>Sunset Matches</Text>
-      <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Log In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleSignUp} style={styles.signUpButton}>
-        <Text style={styles.signUpButtonText}>Sign Up</Text>
-      </TouchableOpacity>
-      <Text onPress={handleHelpdesk} style={styles.helpdeskText}>
-        Helpdesk
-      </Text>
-    </View>
-    </>
+    <SafeAreaView className="flex-1 bg-black">
+      <BackHeader color="white" />
+      <View className="flex-1 items-center justify-between w-full px-7">
+        <Animated.Text
+          entering={FadeInUp}
+          className="text-6xl text-white w-5/6 text-center"
+          style={{ fontFamily: "Italiana_400Regular" }}
+        >
+          Sunset Matches
+        </Animated.Text>
+        <View className="w-full">
+          <CustomButton onPress={handleLogin} title="Log In" />
+          <CustomButton
+            onPress={handleSignUp}
+            title="Sign Up"
+            gradient
+            _className="mt-5"
+          />
+          <Text
+            onPress={handleHelpdesk}
+            className="text-white text-center mt-5"
+          >
+            Helpdesk
+          </Text>
+        </View>
+        <View></View>
+      </View>
+    </SafeAreaView>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    color: 'white',
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 120, 
-  },
-  loginButton: {
-    borderColor: '#DAA520', 
-    borderWidth: 2,
-    borderRadius: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginBottom: 20, 
-  },
-  loginButtonText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  signUpButton: {
-    backgroundColor: '#DAA520', 
-    borderRadius: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    marginBottom: 120,
-  },
-  signUpButtonText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  helpdeskText: {
-    color: 'white',
-    fontSize: 18,
-    textDecorationLine: 'underline',
-  },
-});
+}

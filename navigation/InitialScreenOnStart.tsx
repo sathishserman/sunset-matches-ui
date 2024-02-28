@@ -6,6 +6,7 @@ import Name from "../screens/Registration/Name";
 import Phone from "../screens/Registration/Phone";
 import Verification from "../screens/Registration/Verification";
 import LandingPage from "../screens/Registration/LandingPage";
+import SignUp from "../screens/Registration/SignUp";
 import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
 import Age from "../screens/profile/Age";
@@ -21,6 +22,8 @@ export const InitialScreenOnStart = () => {
         component={SunsetMatchesMain}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -28,6 +31,8 @@ export const InitialScreenOnStart = () => {
         component={LoginLanding}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -35,6 +40,17 @@ export const InitialScreenOnStart = () => {
         component={Phone}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -42,6 +58,8 @@ export const InitialScreenOnStart = () => {
         component={Verification}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -49,6 +67,8 @@ export const InitialScreenOnStart = () => {
         component={Email}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -56,6 +76,8 @@ export const InitialScreenOnStart = () => {
         component={Name}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -63,6 +85,8 @@ export const InitialScreenOnStart = () => {
         component={LandingPage}
         options={{
           headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -70,31 +94,37 @@ export const InitialScreenOnStart = () => {
         component={Rules}
         options={{
           headerShown: false,
-                  }}
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
       />
       <Stack.Screen
         name="Gender"
         component={Gender}
         options={{
           headerShown: false,
-                  }}
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
       />
-
       <Stack.Screen
         name="Age"
         component={Age}
         options={{
           headerShown: false,
-                  }}
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
       />
-
-<Stack.Screen
+      <Stack.Screen
         name="Height"
         component={Height}
         options={{
-          headerShown: false
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
         }}
       />
-          </Stack.Navigator>
+    </Stack.Navigator>
   );
 };

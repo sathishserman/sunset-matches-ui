@@ -1,13 +1,10 @@
-import { SET_AGE} from '../actionTypes';
-import { AgeState } from '../interfaces';
+import { SET_AGE } from "../actionTypes";
 
-
-
-const initialState: AgeState = {
-  age: null,
+const initialState = {
+  age: 0,
 };
 
-export const ageReducer = (state = initialState, action: any): AgeState => {
+export const ageReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_AGE:
       return {

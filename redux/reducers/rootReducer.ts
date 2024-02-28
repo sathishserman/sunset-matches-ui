@@ -5,6 +5,7 @@ import { phoneReducer  } from './phoneReducer';
 import { verificationReducer  } from './verificationReducer';
 import { heightReducer  } from './heightReducer';
 import { combineReducers } from 'redux';
+import { ageReducer } from './ageReducer';
 
 export default combineReducers({
   emailState: emailReducer,
@@ -12,7 +13,6 @@ export default combineReducers({
   phoneState: phoneReducer,
   verificationState: verificationReducer,
   genderState: genderReducer,
-  heightState: heightReducer
-
-
+  heightState: heightReducer,
+  ageState: ageReducer
 });
