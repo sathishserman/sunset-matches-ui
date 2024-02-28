@@ -7,7 +7,7 @@
 1. **Prerequisites:**
     - Node.js(v20.11.0)
     - npm(10.2.4)
-    - JDK(21.0.2)
+    - JDK(17.0.0)
     - Expo(49.0.8)
     - React(18.2.0)
     - React Native(0.72.4)
@@ -64,5 +64,17 @@
     Also, Add the following to app/build.gradle under defaultConfig:
     ```bash
     minSdkVersion 34
+    ```
+9. **Maps Changes:**
+    Edit AndroidManifest.xml: Once you have your API key, you need to add it to your AndroidManifest.xml file. Open your AndroidManifest.xml and insert the following meta-data element within the <application> tags:
+    ```bash
+        <application>
+        <!-- ... other application elements ... -->
+        <!-- Add this meta-data tag below with your actual API key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCYCxd1eaBXWLBxrECpcvQyQ6Cq0LvhDbU"/>
+        <!-- ... other application elements ... -->
+        </application>
     ```
 

@@ -31,6 +31,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
       "expo-font",
       [
         "expo-build-properties",
@@ -38,6 +40,13 @@
           "android": {
             "minSdkVersion": 30
           }
+        }
+      ],
+      
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Show current location on map."
         }
       ]
     ],

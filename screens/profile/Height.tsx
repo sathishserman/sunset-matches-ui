@@ -30,7 +30,6 @@ export default function Height({ navigation }: { navigation: any }) {
     formikProps: FormikProps<HeightFormValues>
   ) => {
     if (value.length !== 3) {
-      console.log(value);
       return formikProps.setFieldError("height", "Height must be 3 digits");
     }
     formikProps.handleChange("height")(value);
@@ -42,7 +41,7 @@ export default function Height({ navigation }: { navigation: any }) {
       validationSchema={heightSchema}
       onSubmit={(values) => {
         dispatch(setHeight(values.height));
-        navigation.navigate("Height");
+        navigation.navigate("Location");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (

@@ -32,7 +32,7 @@ const DashedInput = ({
     newInputValue[index] = text;
     setInputValue(newInputValue.join(""));
     handleChange(newInputValue.join(""), formikProps);
-    console.log(newInputValue)
+   
   };
 
   const handleInputChange = (text: string, index: number) => {

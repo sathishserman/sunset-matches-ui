@@ -1,5 +1,4 @@
-import { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import { SET_AGE } from "./actionTypes";
+import { LocationState } from './reducers/locationReducer';
 
 export interface EmailState {
   email: string;
@@ -15,19 +14,21 @@ export interface PhoneState {
   countryCode: string;
 }
 
-export interface RootState {
-  nameState: NameState;
-  emailState: EmailState;
-  phoneState: PhoneState;
-  verificationState: VerificationState;
-  genderState: GenderState;
-  heightState: HeightState;
-  ageState: AgeState;
-}
+  export interface RootState {
+    nameState: NameState;
+    emailState: EmailState;
+    phoneState: PhoneState;
+    verificationState: VerificationState;
+    genderState: GenderState;
+    ageState: AgeState;
+    heightState: HeightState;
+    locationState: LocationState;
 
-export interface NameFormValues {
-  name: string;
-}
+  }
+  
+  export interface NameFormValues {
+    name: string;
+  }
 
 export interface PhoneFormValues {
   phoneNumber: string;
@@ -79,6 +80,6 @@ export interface AgeState {
   age: number;
 }
 
-export interface HeightState {
-  height: number;
-}
+  export interface HeightState {
+    height: number;
+  }

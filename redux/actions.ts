@@ -1,4 +1,4 @@
-import { SET_HEIGHT, SET_AGE,SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
+import { SET_LOCATION, SET_HEIGHT, SET_AGE,SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
 
 
 export const setEmail = (email: string) => ({
@@ -53,3 +53,8 @@ export const setHeight = (height: number) => {
   };
 };
 
+
+export const setLocation = (latitude: number, longitude: number) => ({
+  type: SET_LOCATION,
+  payload: { latitude, longitude },
+});
