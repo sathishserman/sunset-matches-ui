@@ -25,7 +25,7 @@ export default function Rules({ navigation }: { navigation: any }) {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-[#270C00] items-center justify-center px-10">
+    <SafeAreaView className="flex-1 bg-[#411400] items-center justify-center px-10">
       <View className="h-[80vh] justify-between">
         <View>
           <Text

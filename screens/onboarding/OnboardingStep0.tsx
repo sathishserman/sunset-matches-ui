@@ -3,10 +3,11 @@ import BackHeader from "../../components/BackHeader";
 import React from "react";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../../components/CustomButton";
 
-export default function OnboardingStep0() {
+export default function OnboardingStep0({ navigation }: { navigation: any }) {
   return (
-    <SafeAreaView className="flex-1 bg-[#270C00] relative">
+    <SafeAreaView className="flex-1 bg-[#411400] relative">
       <BackHeader color="white" />
       <View className="flex-1 my-32 justify-between">
         <Image
@@ -32,6 +33,16 @@ export default function OnboardingStep0() {
             Toggle on
           </Text>
         </View>
+      </View>
+      <View className="items-center justify-center absolute bottom-0 left-0 right-0">
+        <CustomButton
+          onPress={() => {
+            navigation.navigate("OnboardingStep1a");
+          }}
+          title="Continue"
+          _className="w-4/6 mb-10"
+          gradient={true}
+        />
       </View>
     </SafeAreaView>
   );

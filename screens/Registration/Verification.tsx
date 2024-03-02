@@ -76,7 +76,7 @@ export default function Verification({ navigation }: { navigation: any }) {
         }}
       >
         {(formikProps: FormikProps<VerificationFormValues>) => (
-          <SafeAreaView className="flex-1 bg-[#270C00]">
+          <SafeAreaView className="flex-1 bg-[#411400]">
             <BackHeader color="white" />
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
