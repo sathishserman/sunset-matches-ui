@@ -135,15 +135,6 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
         }}
       />
       <Stack.Screen
-        name="LocationScreen"
-        component={LocationScreen}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
         name="ProfileComplete"
         component={ProfileComplete}
         options={{
