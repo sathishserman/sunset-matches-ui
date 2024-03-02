@@ -16,7 +16,7 @@ const ProfileComplete = ({
   navigation: any;
 }) => {
   return (
-    <SafeAreaView className="flex-1 bg-[#270C00]">
+    <SafeAreaView className="flex-1 bg-[#411400]">
       <BackHeader color="white" />
       <View className="flex-1 items-center justify-between my-10 relative">
         <View>

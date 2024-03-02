@@ -29,8 +29,6 @@ const validationSchema = Yup.object().shape({
   subscribed: Yup.boolean(),
 });
 
-
-
 export default function Email({ navigation }: { navigation: any }) {
   const { email, subscribed } = useSelector(
     (state: RootState) => state.emailState
@@ -39,7 +37,7 @@ export default function Email({ navigation }: { navigation: any }) {
 
   return (
     <>
-      <SafeAreaView className="flex-1 bg-[#270C00]">
+      <SafeAreaView className="flex-1 bg-[#411400]">
         <BackHeader color="white" />
         <Formik
           initialValues={{ email, subscribed }}

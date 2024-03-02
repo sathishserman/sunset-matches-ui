@@ -60,7 +60,7 @@ export default function Height({ navigation }: { navigation: any }) {
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (
-        <SafeAreaView className="flex-1 bg-[#270C00]">
+        <SafeAreaView className="flex-1 bg-[#411400]">
           <BackHeader color="white" />
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
