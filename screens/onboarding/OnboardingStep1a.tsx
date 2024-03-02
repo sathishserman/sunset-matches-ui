@@ -19,12 +19,8 @@ export default function OnboardingStep1a({ navigation }: { navigation: any }) {
           endColor={"#E25A2809"}
           offset={[2, 2]}
           style={{
-            //   width: "10%",
-            //   height: "10%",
             borderRadius: 100,
             marginBottom: 40,
-            //   margin: 20,
-            // backgroundColor: "#411400",
           }}
         >
           <View className="w-16 h-16 items-center justify-center">
