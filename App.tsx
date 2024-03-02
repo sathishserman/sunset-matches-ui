@@ -1,10 +1,10 @@
 import "expo-dev-client";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import Navigation from "./navigation/Navigation";
 import { Provider } from "react-redux";
-import store from "./redux/store"; // Make sure the path is correct
+import store from "./redux/store";
 import { AuthProvider } from "./context/AuthContext";
+import {expo as expoApp} from './app.json';
+import {AppRegistry} from 'react-native';
 
 export default function App() {
   return (
@@ -15,3 +15,5 @@ export default function App() {
     </Provider>
   );
 }
+
+AppRegistry.registerComponent(expoApp.name, () => App);

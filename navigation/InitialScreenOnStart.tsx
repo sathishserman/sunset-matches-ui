@@ -11,6 +11,7 @@ import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
 import Age from "../screens/profile/Age";
 import Height from "../screens/profile/Height";
+import LocationScreen from "../screens/profile/Location";
 import ProfileComplete from "../screens/onboarding/ProfileComplete";
 import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
 import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
@@ -123,6 +124,15 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
       <Stack.Screen
         name="Height"
         component={Height}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Location"
+        component={LocationScreen}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",

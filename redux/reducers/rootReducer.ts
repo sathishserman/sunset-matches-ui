@@ -6,6 +6,7 @@ import { verificationReducer  } from './verificationReducer';
 import { heightReducer  } from './heightReducer';
 import { combineReducers } from 'redux';
 import { ageReducer } from './ageReducer';
+import {locationReducer}from './locationReducer';
 
 export default combineReducers({
   emailState: emailReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   verificationState: verificationReducer,
   genderState: genderReducer,
   heightState: heightReducer,
-  ageState: ageReducer
+  ageState: ageReducer,
+  locationState: locationReducer,
 });

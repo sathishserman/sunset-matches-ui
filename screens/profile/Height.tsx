@@ -56,6 +56,7 @@ export default function Height({ navigation }: { navigation: any }) {
       validationSchema={heightSchema}
       onSubmit={(values) => {
         dispatch(setHeight(values.height));
+        navigation.navigate("Location");
         navigation.navigate("ProfileComplete");
       }}
     >
