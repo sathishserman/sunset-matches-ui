@@ -31,12 +31,26 @@ export default function Age({ navigation }: { navigation: any }) {
     value: string,
     formikProps: FormikProps<AgeFormValues>
   ) => {
-    // Check if the value's length is 3
     if (value.length !== 3) {
       return formikProps.setFieldError("age", "Age must be 3 digits");
     }
     formikProps.handleChange("age")(value);
   };
+
+  const formik = useFormik({
+    initialValues: { age },
+    validationSchema: ageSchema,
+    onSubmit: (values) => {
+      dispatch(setAge(values.age));
+      navigation.navigate("Height");
+    },
+  });
+
+  React.useEffect(() => {
+    if (formik.touched.age && !formik.errors.age) {
+      formik.handleSubmit();
+    }
+  }, [formik.touched.age, formik.errors.age]);
 
   return (
     <Formik
@@ -72,7 +86,12 @@ export default function Age({ navigation }: { navigation: any }) {
               )}
             </View>
             <CustomButton
-              onPress={() => formikProps.handleSubmit()}
+              onPress={() => {
+                formikProps.setFieldTouched("age", true, false);
+                if (!formikProps.errors.age) {
+                  formikProps.handleSubmit();
+                }
+              }}
               title="Continue"
               _className="w-4/6 mb-10"
               gradient={

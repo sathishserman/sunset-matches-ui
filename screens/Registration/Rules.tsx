@@ -27,11 +27,11 @@ export default function Rules({ navigation }: { navigation: any }) {
           </Text>
           <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
           <Text className="text-white text-center">
-            Use the application with respect for others{" "}
+            Use the application with respect for others
           </Text>
           <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
           <Text className="text-white text-center">
-            Report inappropriate behavior through the helpdesk{" "}
+            Report inappropriate behavior through the helpdesk
           </Text>
           <View className="h-5 w-5 bg-[#E25A28] my-8 rounded-full self-center"></View>
           <Text className="text-white text-center">XXX </Text>
