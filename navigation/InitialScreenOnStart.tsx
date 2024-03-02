@@ -15,6 +15,7 @@ import ProfileComplete from "../screens/onboarding/ProfileComplete";
 import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
 import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
 import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
+import OnboardingStep1a from "../screens/onboarding/OnboardingStep1a";
 import LocationScreen from "../screens/profile/Location";
 
 const Stack = createNativeStackNavigator();
@@ -166,6 +167,15 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
           animation: "slide_from_right",
         }}
       />
+      <Stack.Screen
+        name="OnboardingStep1a"
+        component={OnboardingStep1a}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+        />
       <Stack.Screen
         name="Location"
         component={LocationScreen}

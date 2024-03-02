@@ -41,7 +41,7 @@ const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-[#270C00]">
+    <SafeAreaView className="flex-1 bg-[#411400]">
       <BackHeader color="white" />
       <View className="flex-1 justify-between items-center mt-32">
         <View className="w-full items-center">

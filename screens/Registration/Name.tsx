@@ -40,7 +40,7 @@ export default function Name({ navigation }: { navigation: any }) {
 
   return (
     <>
-      <SafeAreaView className="flex-1 bg-[#270C00]">
+      <SafeAreaView className="flex-1 bg-[#411400]">
         <BackHeader color="white" />
         <Formik
           initialValues={{ name }}

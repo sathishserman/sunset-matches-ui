@@ -8,7 +8,7 @@ import CustomButton from "../../components/CustomButton";
 
 export default function OnboardingSteps({ navigation }: { navigation: any }) {
   return (
-    <SafeAreaView className="flex-1 bg-[#270C00] relative">
+    <SafeAreaView className="flex-1 bg-[#411400] relative">
       <BackHeader color="white" />
       <View className="flex-1 mb-14 items-center justify-center h-24">
         <Text className="text-2xl leading-[60px] text-white font-robotoLight">

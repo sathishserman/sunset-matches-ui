@@ -7,7 +7,7 @@ import CustomButton from "../../components/CustomButton";
 
 const LandingPage: React.FC<LandingPageProps> = ({ name, navigation }) => {
   return (
-    <SafeAreaView className="flex-1 bg-[#270C00] items-center px-10">
+    <SafeAreaView className="flex-1 bg-[#411400] items-center px-10">
       <Text className="text-5xl font-robotoMedium mb-2 text-[#E25A28] mt-24">
         Hi, {name.split(" ")[0]}!
       </Text>
