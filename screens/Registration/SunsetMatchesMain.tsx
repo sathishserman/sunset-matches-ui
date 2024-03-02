@@ -81,9 +81,9 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
             </View>
           </GestureDetector>
           <Text className="text-[#898A8D]">
-            By continuing you agree with our{" "}
+            By continuing you agree with our
             <Text className="underline">Terms&Conditions</Text> and the
-            application of our{" "}
+            application of our
             <Text className="underline">Privacy Statement</Text>
           </Text>
         </View>

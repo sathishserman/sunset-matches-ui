@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  StatusBar,
-} from "react-native";
+import { View, Text } from "react-native";
 import BackHeader from "../../components/BackHeader";
-import { Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
 import CustomButton from "../../components/CustomButton";
-import Animated, { FadeInLeft, FadeInUp } from "react-native-reanimated";
+import Animated, { FadeInUp } from "react-native-reanimated";
 
 export default function LoginLanding({ navigation }: { navigation: any }) {
   const handleLogin = () => {

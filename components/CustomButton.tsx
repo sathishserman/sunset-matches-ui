@@ -1,16 +1,18 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 
 type ButtonProps = {
   onPress: () => void;
   gradient?: boolean;
   title: string;
   _className?: string;
+  icon?: React.ReactNode; // Add this line
 };
 
 const CustomButton: React.FC<ButtonProps> = React.memo(
-  ({ onPress, gradient, title, _className }) => {
+  ({ onPress, gradient, title, _className, icon }) => {
+    // Add icon here
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -25,7 +27,10 @@ const CustomButton: React.FC<ButtonProps> = React.memo(
             start={{ x: 1, y: 0 }}
           />
         )}
-        <Text className="text-white text-center text-base">{title}</Text>
+        <View className="flex-row items-center justify-center">
+          <Text className="text-white text-center text-base">{title}</Text>
+          {icon && <View className="ml-2">{icon}</View>}
+        </View>
       </TouchableOpacity>
     );
   }

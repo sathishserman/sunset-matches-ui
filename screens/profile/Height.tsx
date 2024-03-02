@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
-import { Formik, FormikProps, useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 import { setHeight } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
-import * as Yup from "yup";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
 import DashedInput from "../../components/DashedInput";
-import { HeightFormValues, RootState } from "../../redux/interfaces";
+import { Formik, FormikProps, useFormik } from "formik";
 import CustomButton from "../../components/CustomButton";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { HeightFormValues, RootState } from "../../redux/interfaces";
+import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 
 const heightSchema = Yup.object().shape({
   height: Yup.number()
@@ -35,13 +35,28 @@ export default function Height({ navigation }: { navigation: any }) {
     formikProps.handleChange("height")(value);
   };
 
+  const formik = useFormik({
+    initialValues: { height },
+    validationSchema: heightSchema,
+    onSubmit: (values) => {
+      dispatch(setHeight(values.height));
+      navigation.navigate("Height");
+    },
+  });
+
+  React.useEffect(() => {
+    if (formik.touched.height && !formik.errors.height) {
+      formik.handleSubmit();
+    }
+  }, [formik.touched.height, formik.errors.height]);
+
   return (
     <Formik
       initialValues={{ height }}
       validationSchema={heightSchema}
       onSubmit={(values) => {
         dispatch(setHeight(values.height));
-        navigation.navigate("Height");
+        navigation.navigate("ProfileComplete");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (
@@ -72,7 +87,12 @@ export default function Height({ navigation }: { navigation: any }) {
               )}
             </View>
             <CustomButton
-              onPress={() => formikProps.handleSubmit()}
+              onPress={() => {
+                formikProps.setFieldTouched("height", true, false);
+                if (!formikProps.errors.height) {
+                  return formikProps.handleSubmit();
+                }
+              }}
               title="Continue"
               _className="w-4/6 mb-10"
               gradient={

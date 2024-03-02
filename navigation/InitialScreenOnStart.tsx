@@ -11,10 +11,14 @@ import Rules from "../screens/profile/Rules";
 import Gender from "../screens/profile/Gender";
 import Age from "../screens/profile/Age";
 import Height from "../screens/profile/Height";
+import ProfileComplete from "../screens/onboarding/ProfileComplete";
+import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
+import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
+import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
 
 const Stack = createNativeStackNavigator();
 
-export const InitialScreenOnStart = () => {
+export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
   return (
     <Stack.Navigator initialRouteName="Onboarding">
       <Stack.Screen
@@ -119,6 +123,42 @@ export const InitialScreenOnStart = () => {
       <Stack.Screen
         name="Height"
         component={Height}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="ProfileComplete"
+        component={ProfileComplete}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="BeginOnboarding"
+        component={BeginOnboarding}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="OnboardingSteps"
+        component={OnboardingSteps}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="OnboardingStep0"
+        component={OnboardingStep0}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",
