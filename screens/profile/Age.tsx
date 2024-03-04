@@ -13,7 +13,7 @@ import { RootState } from "../../redux/interfaces";
 
 const ageSchema = Yup.object().shape({
   age: Yup.number()
-    .min(0, "Age must be greater or equal to 0")
+    .min(18, "Age must be greater or equal to 0")
     .max(120, "Age must be less than or equal to 120")
     .required("Age is required")
     .integer("Age must be an integer")
