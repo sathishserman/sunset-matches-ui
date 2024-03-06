@@ -132,7 +132,7 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
         }}
       />
       <Stack.Screen
-        name="Location"
+        name="LocationScreen"
         component={LocationScreen}
         options={{
           headerShown: false,

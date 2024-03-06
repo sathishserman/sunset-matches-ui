@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DashedInput from "../../components/DashedInput";
 import { Formik, FormikProps, useFormik } from "formik";
 import CustomButton from "../../components/CustomButton";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { HeightFormValues, RootState } from "../../redux/interfaces";
 import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 
@@ -56,13 +56,11 @@ export default function Height({ navigation }: { navigation: any }) {
       validationSchema={heightSchema}
       onSubmit={(values) => {
         dispatch(setHeight(values.height));
-        navigation.navigate("Location");
-        navigation.navigate("ProfileComplete");
+        navigation.navigate("LocationScreen");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (
-        <SafeAreaView className="flex-1 bg-[#411400]">
-          <BackHeader color="white" />
+        <CustomSafeAreaView>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             className="items-center justify-between mt-32 px-5 pb-5 flex-1"
@@ -103,7 +101,7 @@ export default function Height({ navigation }: { navigation: any }) {
               }
             />
           </KeyboardAvoidingView>
-        </SafeAreaView>
+        </CustomSafeAreaView>
       )}
     </Formik>
   );

@@ -1,12 +1,11 @@
 import BackHeader from "../../components/BackHeader";
 import React from "react";
 import { View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { RootState } from "../../redux/interfaces";
 import { connect } from "react-redux";
 import CustomButton from "../../components/CustomButton";
-import ArrowLeft from "react-native-vector-icons/AntDesign";
-import ArrowRight from "react-native-vector-icons/AntDesign";
+import { AntDesign } from "@expo/vector-icons";
 
 const ProfileComplete = ({
   name,
@@ -16,8 +15,7 @@ const ProfileComplete = ({
   navigation: any;
 }) => {
   return (
-    <SafeAreaView className="flex-1 bg-[#411400]">
-      <BackHeader color="white" />
+    <CustomSafeAreaView>
       <View className="flex-1 items-center justify-between my-10 relative">
         <View>
           <Text className="text-5xl text-center font-robotoMedium mb-2 text-[#E25A28]">
@@ -36,10 +34,10 @@ const ProfileComplete = ({
           }}
           title="Find your date"
           _className="w-4/6"
-          icon={<ArrowRight name="arrowright" size={24} color={"white"} />}
+          icon={<AntDesign name="arrowright" size={24} color={"white"} />}
         />
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 };
 

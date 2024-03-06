@@ -19,7 +19,7 @@ import PhoneNumberInput, {
 } from "react-native-phone-number-input";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRoute, RouteProp } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
 import { useAuth } from "../../context/AuthContext";
 
@@ -95,8 +95,7 @@ export default function Phone({ navigation }: { navigation: any }) {
         onSubmit={handleSubmit}
       >
         {(formikProps: FormikProps<PhoneFormValues>) => (
-          <SafeAreaView className="flex-1 bg-[#411400]">
-            <BackHeader color="white" />
+          <CustomSafeAreaView>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               className="items-center justify-between px-5 pb-10 flex-1"
@@ -154,7 +153,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                 />
               </View>
             </KeyboardAvoidingView>
-          </SafeAreaView>
+          </CustomSafeAreaView>
         )}
       </Formik>
     </>
