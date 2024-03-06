@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAge } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
 import * as Yup from "yup";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
 import DashedInput from "../../components/DashedInput"; // import DashedInput
 import { AgeFormValues } from "../../redux/interfaces";
@@ -62,8 +62,7 @@ export default function Age({ navigation }: { navigation: any }) {
       }}
     >
       {(formikProps: FormikProps<AgeFormValues>) => (
-        <SafeAreaView className="flex-1 bg-[#411400]">
-          <BackHeader color="white" />
+        <CustomSafeAreaView>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             className="items-center justify-between mt-32 px-5 pb-5 flex-1"
@@ -101,7 +100,7 @@ export default function Age({ navigation }: { navigation: any }) {
               }
             />
           </KeyboardAvoidingView>
-        </SafeAreaView>
+        </CustomSafeAreaView>
       )}
     </Formik>
   );
