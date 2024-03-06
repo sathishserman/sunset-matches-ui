@@ -15,8 +15,8 @@ import * as Yup from "yup";
 import CustomButton from "../../components/CustomButton";
 import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { useAuth } from "../../context/AuthContext";
-import {db } from '../../firebase/firebase';
-import { doc , setDoc} from "firebase/firestore"; 
+import { db } from "../../firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { setCountryCode, setPhoneNumber } from "../../redux/actions";
 import { PhoneFormValues, RootState } from "../../redux/interfaces";
 
@@ -34,13 +34,13 @@ type PhoneRoutes = {
   };
 };
 
-const updateUserRecord = async (uid:any, formattedNumber:string) => {
-  const userRef = doc(db, 'user', uid);
+const updateUserRecord = async (uid: any, formattedNumber: string) => {
+  const userRef = doc(db, "user", uid);
   try {
     setDoc(userRef, { phone: formattedNumber }, { merge: true });
-    console.log('User record created or updated successfully');
+    console.log("User record created or updated successfully");
   } catch (error) {
-    console.error('Error creating or updating user record:', error);
+    console.error("Error creating or updating user record:", error);
   }
 };
 
@@ -56,15 +56,15 @@ export default function Phone({ navigation }: { navigation: any }) {
       const confirmation: FirebaseAuthTypes.ConfirmationResult =
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
-        const uid:any = auth().currentUser?.uid;
+        const uid: any = auth().currentUser?.uid;
         setConfirmationResult(confirmation);
-        if(!auth().currentUser){
+        if (!auth().currentUser) {
           navigation.navigate("Verification", {
             flow: route.params.flow,
           });
-        }else{
+        } else {
           updateUserRecord(uid, formattedNumber);
-          setConfirmationResult(confirmation); 
+          setConfirmationResult(confirmation);
           // navigation.navigate("Location", {
           //   flow: route.params.flow,
           // });
