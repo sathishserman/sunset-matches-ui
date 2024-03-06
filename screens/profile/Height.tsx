@@ -10,6 +10,7 @@ import {db } from '../../firebase/firebase';
 import { doc , setDoc} from "firebase/firestore"; 
 import auth from "@react-native-firebase/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { HeightFormValues, RootState } from "../../redux/interfaces";
 import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 
@@ -71,12 +72,11 @@ export default function Height({ navigation }: { navigation: any }) {
         const uid:any = auth().currentUser?.uid;
         updateUserRecord(uid, values.height);
         dispatch(setHeight(values.height));
-        navigation.navigate("Location");
+        navigation.navigate("LocationScreen");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (
-        <SafeAreaView className="flex-1 bg-[#411400]">
-          <BackHeader color="white" />
+        <CustomSafeAreaView>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             className="items-center justify-between mt-32 px-5 pb-5 flex-1"
@@ -117,7 +117,7 @@ export default function Height({ navigation }: { navigation: any }) {
               }
             />
           </KeyboardAvoidingView>
-        </SafeAreaView>
+        </CustomSafeAreaView>
       )}
     </Formik>
   );

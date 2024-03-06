@@ -1,15 +1,14 @@
 import BackHeader from "../../components/BackHeader";
 import React from "react";
 import { View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { RootState } from "../../redux/interfaces";
 import { connect } from "react-redux";
 import CustomButton from "../../components/CustomButton";
 
 const BeginOnboarding = ({ navigation }: { navigation: any }) => {
   return (
-    <SafeAreaView className="flex-1 bg-[#411400]">
-      <BackHeader color="white" />
+    <CustomSafeAreaView>
       <View className="flex-1 items-center justify-between my-10 relative">
         <View className="w-4/6">
           {/* <Text className="text-5xl text-center font-robotoMedium mb-2 text-[#E25A28]">
@@ -43,7 +42,7 @@ const BeginOnboarding = ({ navigation }: { navigation: any }) => {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 };
 

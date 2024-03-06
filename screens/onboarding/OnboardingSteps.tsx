@@ -3,13 +3,12 @@ import React from "react";
 import { Image } from "expo-image";
 
 import { View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
 
 export default function OnboardingSteps({ navigation }: { navigation: any }) {
   return (
-    <SafeAreaView className="flex-1 bg-[#411400] relative">
-      <BackHeader color="white" />
+    <CustomSafeAreaView>
       <View className="flex-1 mb-14 items-center justify-center h-24">
         <Text className="text-2xl leading-[60px] text-white font-robotoLight">
           It takes only{" "}
@@ -41,6 +40,6 @@ export default function OnboardingSteps({ navigation }: { navigation: any }) {
           gradient={true}
         />
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 }

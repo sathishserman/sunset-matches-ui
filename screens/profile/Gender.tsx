@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setGender } from "../../redux/actions";
 import { RootState } from "../../redux/interfaces";
 import BackHeader from "../../components/BackHeader";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
 import {db } from '../../firebase/firebase';
 import { doc , setDoc} from "firebase/firestore"; 
@@ -41,8 +41,7 @@ const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
   });
 
   return (
-    <SafeAreaView className="flex-1 bg-[#411400]">
-      <BackHeader color="white" />
+    <CustomSafeAreaView>
       <View className="flex-1 justify-between items-center mt-32">
         <View className="w-full items-center">
           <Text className="text-3xl font-bold text-[#E25A28]">Your gender</Text>
@@ -63,7 +62,7 @@ const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
           _className="w-4/6 mb-[60px]"
         />
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 };
 

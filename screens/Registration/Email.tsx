@@ -14,7 +14,7 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { RootState, EmailFormValues } from "../../redux/interfaces";
 import BackHeader from "../../components/BackHeader";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
 import {db } from '../../firebase/firebase';
 import { doc , setDoc} from "firebase/firestore"; 
@@ -52,8 +52,7 @@ export default function Email({ navigation }: { navigation: any }) {
 
   return (
     <>
-      <SafeAreaView className="flex-1 bg-[#411400]">
-        <BackHeader color="white" />
+      <CustomSafeAreaView>
         <Formik
           initialValues={{ email, subscribed }}
           validationSchema={validationSchema}
@@ -126,7 +125,7 @@ export default function Email({ navigation }: { navigation: any }) {
             </KeyboardAvoidingView>
           )}
         </Formik>
-      </SafeAreaView>
+      </CustomSafeAreaView>
     </>
   );
 }

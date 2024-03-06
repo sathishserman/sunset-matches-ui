@@ -11,6 +11,7 @@ import DashedInput from "../../components/DashedInput";
 import { useAuth } from "../../context/AuthContext";
 import { setVerificationCode } from "../../redux/actions";
 import { RootState, VerificationFormValues } from "../../redux/interfaces";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 
 const verificationCodeValidationSchema = Yup.object().shape({
   verificationCode: Yup.string()
@@ -75,8 +76,7 @@ export default function Verification({ navigation }: { navigation: any }) {
         }}
       >
         {(formikProps: FormikProps<VerificationFormValues>) => (
-          <SafeAreaView className="flex-1 bg-[#411400]">
-            <BackHeader color="white" />
+          <CustomSafeAreaView>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               className="items-center justify-between px-5 pb-10 flex-1"
@@ -119,7 +119,7 @@ export default function Verification({ navigation }: { navigation: any }) {
                 />
               </View>
             </KeyboardAvoidingView>
-          </SafeAreaView>
+          </CustomSafeAreaView>
         )}
       </Formik>
     </>
