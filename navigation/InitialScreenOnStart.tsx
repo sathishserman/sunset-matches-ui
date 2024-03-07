@@ -187,7 +187,7 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
           animationTypeForReplace: "push",
           animation: "slide_from_right",
         }}
-        />
+      />
       <Stack.Screen
         name="Location"
         component={LocationScreen}

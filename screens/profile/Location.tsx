@@ -251,15 +251,6 @@ const mapStyle = [
     ],
   },
   {
-    featureType: "landscape.man_made",
-    elementType: "labels.text",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
     featureType: "landscape.natural",
     elementType: "labels",
     stylers: [
