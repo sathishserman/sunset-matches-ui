@@ -1,9 +1,9 @@
+import { AntDesign } from "@expo/vector-icons";
 import React from "react";
 import {
-  View,
-  Text,
   TouchableWithoutFeedback,
-  useWindowDimensions,
+  View,
+  useWindowDimensions
 } from "react-native";
 import { SharedValue } from "react-native-gesture-handler/lib/typescript/handlers/gestures/reanimatedWrapper";
 import Animated, {
@@ -11,7 +11,6 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from "react-native-reanimated";
-import { AntDesign } from "@expo/vector-icons";
 
 type Props = {
   handlePress: () => void;
