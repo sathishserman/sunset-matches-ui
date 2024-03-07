@@ -1,22 +1,23 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SunsetMatchesMain from "../screens/Registration/SunsetMatchesMain";
-import LoginLanding from "../screens/Registration/LoginLanding";
 import Email from "../screens/Registration/Email";
+import LandingPage from "../screens/Registration/LandingPage";
+import LoginLanding from "../screens/Registration/LoginLanding";
 import Name from "../screens/Registration/Name";
 import Phone from "../screens/Registration/Phone";
-import Verification from "../screens/Registration/Verification";
-import LandingPage from "../screens/Registration/LandingPage";
 import SignUp from "../screens/Registration/SignUp";
-import Rules from "../screens/profile/Rules";
-import Gender from "../screens/profile/Gender";
+import SunsetMatchesMain from "../screens/Registration/SunsetMatchesMain";
+import Verification from "../screens/Registration/Verification";
+import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
+import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
+import OnboardingStep1 from "../screens/onboarding/OnboardingStep1";
+import OnboardingStep2 from "../screens/onboarding/OnboardingStep2";
+import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
+import ProfileComplete from "../screens/onboarding/ProfileComplete";
 import Age from "../screens/profile/Age";
+import Gender from "../screens/profile/Gender";
 import Height from "../screens/profile/Height";
 import LocationScreen from "../screens/profile/Location";
-import ProfileComplete from "../screens/onboarding/ProfileComplete";
-import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
-import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
-import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
-import OnboardingStep1a from "../screens/onboarding/OnboardingStep1a";
+import Rules from "../screens/profile/Rules";
 
 const Stack = createNativeStackNavigator();
 
@@ -177,14 +178,23 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
         }}
       />
       <Stack.Screen
-        name="OnboardingStep1a"
-        component={OnboardingStep1a}
+        name="OnboardingStep1"
+        component={OnboardingStep1}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",
           animation: "slide_from_right",
         }}
-        />
+      />
+      <Stack.Screen
+        name="OnboardingStep2"
+        component={OnboardingStep2}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
     </Stack.Navigator>
   );
 };

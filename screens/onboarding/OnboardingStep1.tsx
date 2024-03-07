@@ -1,30 +1,23 @@
+import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import BackHeader from "../../components/BackHeader";
 import React from "react";
 import {
-  View,
   Text,
-  Touchable,
-  Pressable,
-  useWindowDimensions,
+  View,
+  useWindowDimensions
 } from "react-native";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import { Shadow } from "react-native-shadow-2";
-import { AntDesign } from "@expo/vector-icons";
-import CustomButton from "../../components/CustomButton";
 import Animated, {
   BounceIn,
-  BounceInRight,
-  FadeInLeft,
   FadeInRight,
   FadeInUp,
-  useAnimatedStyle,
   useSharedValue,
-  withTiming,
+  withTiming
 } from "react-native-reanimated";
+import { Shadow } from "react-native-shadow-2";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomOnboardButton from "./CustomOnboardButton";
 
-export default function OnboardingStep1a({ navigation }: { navigation: any }) {
+export default function OnboardingStep1({ navigation }: { navigation: any }) {
   const { height: SCREEN_HEIGHT } = useWindowDimensions();
   const [currentStep, setCurrentStep] = React.useState(0);
   const buttonVal = useSharedValue(0);
@@ -34,7 +27,7 @@ export default function OnboardingStep1a({ navigation }: { navigation: any }) {
       setCurrentStep(1);
       return;
     }
-    navigation.navigate("OnboardingStep1b");
+    navigation.navigate("OnboardingStep2");
   };
 
   const data = [
@@ -102,7 +95,7 @@ export default function OnboardingStep1a({ navigation }: { navigation: any }) {
             >
               <View className="top-0 bottom-0 left-0 right-0 rounded-full scale-90 overflow-hidden border border-[#E25A28]">
                 <Image
-                  source={require("../../assets/onboarding/onboarding-match.png")}
+                  source={data[currentStep].image}
                   contentFit="cover"
                   style={{ width: "100%", height: "100%" }}
                 />
