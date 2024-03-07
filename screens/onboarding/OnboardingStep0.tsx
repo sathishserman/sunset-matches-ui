@@ -36,7 +36,7 @@ export default function OnboardingStep0({ navigation }: { navigation: any }) {
       <View className="items-center justify-center absolute bottom-0 left-0 right-0">
         <CustomButton
           onPress={() => {
-            navigation.navigate("OnboardingStep1a");
+            navigation.navigate("OnboardingStep1");
           }}
           title="Continue"
           _className="w-4/6 mb-10"

@@ -16,9 +16,10 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
     null
   );
   const [district, setDistrict] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const requestLocation = async () => {
-    console.log("Requesting location");
+    setLoading(true);
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       alert("Permission to access location was denied");
@@ -27,6 +28,7 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
 
     let currentLocation = await Location.getCurrentPositionAsync({});
     setLocationState(currentLocation);
+
     dispatch(
       setLocation(
         currentLocation.coords.latitude,
@@ -41,6 +43,7 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
 
     const firstResult = address[0];
     setDistrict(firstResult.district || firstResult.city || "Unknown");
+    setLoading(false);
   };
 
   return (
@@ -59,10 +62,17 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
               *You can change it later
             </Text>
           </View>
-          {!location && (
+          {loading && (
+            <View className="w-3/4 h-1/2 items-center gap-3 mb-10">
+              <Text className="font-robotoMedium text-xl text-[#E25A28]">
+                Loading...
+              </Text>
+            </View>
+          )}
+          {!location && !loading && (
             <MaterialIcons name="location-pin" size={80} color="#E25A28" />
           )}
-          {location && (
+          {location && !loading && (
             <View className="w-3/4 h-1/2 items-center gap-3 mb-10">
               <Text className="font-robotoMedium text-xl text-[#E25A28]">
                 Your district: {district}
@@ -90,7 +100,13 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
           )}
           <CustomButton
             // onPress={requestLocation}
-            onPress={requestLocation}
+            onPress={() => {
+              if (location) {
+                navigation.navigate("ProfileComplete");
+              } else {
+                requestLocation();
+              }
+            }}
             title="Allow"
             gradient
             _className="w-2/3"
@@ -228,15 +244,6 @@ const mapStyle = [
   {
     featureType: "landscape.man_made",
     elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "landscape.man_made",
-    elementType: "labels.text",
     stylers: [
       {
         visibility: "off",
