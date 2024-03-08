@@ -1,16 +1,17 @@
 import "expo-dev-client";
-import Navigation from "./navigation/Navigation";
+import React from 'react';
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { AuthProvider } from "./context/AuthContext";
-import {expo as expoApp} from './app.json';
-import {AppRegistry} from 'react-native';
+import AuthenticatedApp from './AuthenticatedApp'; // Import the component you just created
+import { expo as expoApp } from './app.json';
+import { AppRegistry } from 'react-native';
 
 export default function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <Navigation />
+        <AuthenticatedApp />
       </AuthProvider>
     </Provider>
   );
