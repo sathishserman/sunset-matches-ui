@@ -65,7 +65,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
         //   console.error('Error getting document:', error);
         // });
 
-        fetchUsers();
+        //fetchUsers();
 
         // userDocument.update({
         //   email: 'Some New Value'
