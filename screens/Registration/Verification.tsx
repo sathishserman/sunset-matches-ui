@@ -1,7 +1,7 @@
 import auth from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
 import { Formik, FormikProps } from "formik";
-import { default as React, useEffect } from "react";
+import React, { useEffect } from "react";
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -39,10 +39,10 @@ export default function Verification({ navigation }: { navigation: any }) {
     }
   }
 
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, []);
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
 
   async function confirmCode(code: string) {
     try {
