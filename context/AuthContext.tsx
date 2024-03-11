@@ -1,7 +1,8 @@
 import React, { createContext, useState, useContext, ReactNode, FunctionComponent, useEffect } from 'react';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import { db } from "../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore"; 
 
 
 interface AuthContextType {
@@ -28,15 +29,21 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
   const [initializing, setInitializing] = useState(true);
 
   async function fetchUsers() {
-    try {
-      const usersSnapshot = await firestore().collection('users').get();
-      const usersList = usersSnapshot.docs.map(doc => doc.data());
-      console.log('Fetched users:', usersList);
-      return usersList; 
-    } catch (error) {
-      console.error('Error fetching users from Firestore:', error);
-      return [];
-    }
+    // try {
+    //   const usersSnapshot = await firestore().collection('users').get();
+    //   const usersList = usersSnapshot.docs.map(doc => doc.data());
+    //   console.log('Fetched users:', usersList);
+    //   return usersList; 
+    // } catch (error) {
+    //   console.error('Error fetching users from Firestore:', error);
+    //   return [];
+    // }
+
+    console.log('test');
+    const querySnapshot = await getDocs(collection(db, "user"));
+    querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${doc.data()}`);
+});
   }
 
   useEffect(() => {
@@ -65,7 +72,7 @@ export const AuthProvider: FunctionComponent<AuthProviderProps> = ({ children })
         //   console.error('Error getting document:', error);
         // });
 
-        //fetchUsers();
+        fetchUsers();
 
         // userDocument.update({
         //   email: 'Some New Value'
