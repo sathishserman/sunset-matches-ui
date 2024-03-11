@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCiKUAa76GvLTSvZJWmvlPObdyVcYT4ulE</string>
+	<string>AIzaSyBo7m-_7mGqbtZPIQRoZRP39lBwBUr1520</string>
 	<key>GCM_SENDER_ID</key>
-	<string>954547079451</string>
+	<string>102477405782</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.sm.mobile.ui</string>
 	<key>PROJECT_ID</key>
-	<string>sunset-matches-cb3ef</string>
+	<string>sunset-matches-a9651</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sunset-matches-cb3ef.appspot.com</string>
+	<string>sunset-matches-a9651.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,12 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:954547079451:ios:6ebd83805a40383ca66bbe</string>
-	<key>DATABASE_URL</key>
-	<string>https://sunset-matches-cb3ef-default-rtdb.firebaseio.com</string>
-	<key>CLIENT_ID</key>
-	<string>954547079451-iov08vh7dadkm0iortfntjuep6qaf7d9.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.954547079451-iov08vh7dadkm0iortfntjuep6qaf7d9</string>
+	<string>1:102477405782:ios:ece596f9517a3017d3a5f7</string>
 </dict>
 </plist>

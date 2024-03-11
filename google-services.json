@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "954547079451",
-    "firebase_url": "https://sunset-matches-cb3ef-default-rtdb.firebaseio.com",
-    "project_id": "sunset-matches-cb3ef",
-    "storage_bucket": "sunset-matches-cb3ef.appspot.com"
+    "project_number": "102477405782",
+    "project_id": "sunset-matches-a9651",
+    "storage_bucket": "sunset-matches-a9651.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:954547079451:android:0970bce1cd21b0aba66bbe",
+        "mobilesdk_app_id": "1:102477405782:android:ea5ad8866446aaadd3a5f7",
         "android_client_info": {
           "package_name": "com.sm.mobile.ui"
         }
@@ -16,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAfIx-K3JSckKtmFtl7FaPU7bOWv5AQLwU"
+          "current_key": "AIzaSyC75HMib0_SEWPbOiNQvnMyRIIBcFwkxuw"
         }
       ],
       "services": {
