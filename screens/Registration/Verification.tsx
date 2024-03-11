@@ -1,16 +1,15 @@
-import * as Yup from "yup";
-import React, { useEffect } from "react";
-import { Formik, FormikProps } from "formik";
 import auth from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
-import { useAuth } from "../../context/AuthContext";
-import BackHeader from "../../components/BackHeader";
-import DashedInput from "../../components/DashedInput";
+import { Formik, FormikProps } from "formik";
+import React, { useEffect } from "react";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 import CustomButton from "../../components/CustomButton";
-import { setVerificationCode } from "../../redux/actions";
 import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
+import DashedInput from "../../components/DashedInput";
+import { useAuth } from "../../context/AuthContext";
+import { setVerificationCode } from "../../redux/actions";
 import { RootState, VerificationFormValues } from "../../redux/interfaces";
 
 const verificationCodeValidationSchema = Yup.object().shape({
@@ -40,10 +39,10 @@ export default function Verification({ navigation }: { navigation: any }) {
     }
   }
 
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, []);
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
 
   async function confirmCode(code: string) {
     try {
