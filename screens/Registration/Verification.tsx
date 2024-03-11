@@ -1,17 +1,16 @@
+import auth from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
 import { Formik, FormikProps } from "formik";
-import React from "react";
+import { default as React, useEffect } from "react";
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import BackHeader from "../../components/BackHeader";
 import CustomButton from "../../components/CustomButton";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import DashedInput from "../../components/DashedInput";
 import { useAuth } from "../../context/AuthContext";
 import { setVerificationCode } from "../../redux/actions";
 import { RootState, VerificationFormValues } from "../../redux/interfaces";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 
 const verificationCodeValidationSchema = Yup.object().shape({
   verificationCode: Yup.string()
@@ -40,10 +39,10 @@ export default function Verification({ navigation }: { navigation: any }) {
     }
   }
 
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber;
-  // }, []);
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
 
   async function confirmCode(code: string) {
     try {

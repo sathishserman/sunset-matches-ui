@@ -1,27 +1,22 @@
-import React, { createContext, useState, useEffect } from "react";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { useRoute } from "@react-navigation/native";
+import { Formik, FormikHelpers, FormikProps } from "formik";
+import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
-  Alert,
+  StyleSheet,
+  Text,
+  View
 } from "react-native";
+import PhoneNumberInput from "react-native-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
-import { RootState, PhoneFormValues } from "../../redux/interfaces";
-import { setCountryCode, setPhoneNumber } from "../../redux/actions";
-import BackHeader from "../../components/BackHeader";
-import PhoneNumberInput, {
-  PhoneInputProps,
-} from "react-native-phone-number-input";
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import { useRoute, RouteProp } from "@react-navigation/native";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { useAuth } from "../../context/AuthContext";
+import { setCountryCode, setPhoneNumber } from "../../redux/actions";
+import { PhoneFormValues, RootState } from "../../redux/interfaces";
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
