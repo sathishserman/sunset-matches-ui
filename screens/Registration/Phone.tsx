@@ -7,7 +7,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
 import PhoneNumberInput from "react-native-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,9 +45,6 @@ export default function Phone({ navigation }: { navigation: any }) {
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
         setConfirmationResult(confirmation);
-        navigation.navigate("Verification", {
-          flow: route.params.flow,
-        });
       }
     } catch (error) {
       console.log("Error Sending Code: ", error);
