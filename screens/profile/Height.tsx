@@ -56,7 +56,7 @@ export default function Height({ navigation }: { navigation: any }) {
       validationSchema={heightSchema}
       onSubmit={(values) => {
         dispatch(setHeight(values.height));
-        navigation.navigate("LocationScreen");
+        navigation.navigate("ProfileComplete");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (

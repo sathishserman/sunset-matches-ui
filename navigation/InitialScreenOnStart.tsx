@@ -11,6 +11,8 @@ import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
 import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
 import OnboardingStep1 from "../screens/onboarding/OnboardingStep1";
 import OnboardingStep2 from "../screens/onboarding/OnboardingStep2";
+import OnboardingStep2b from "../screens/onboarding/OnboardingStep2b";
+import OnboardingStep3 from "../screens/onboarding/OnboardingStep3";
 import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
 import ProfileComplete from "../screens/onboarding/ProfileComplete";
 import Age from "../screens/profile/Age";
@@ -189,6 +191,24 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
       <Stack.Screen
         name="OnboardingStep2"
         component={OnboardingStep2}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="OnboardingStep2b"
+        component={OnboardingStep2b}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="OnboardingStep3"
+        component={OnboardingStep3}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",
