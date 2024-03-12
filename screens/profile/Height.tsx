@@ -72,7 +72,7 @@ export default function Height({ navigation }: { navigation: any }) {
         const uid:any = auth().currentUser?.uid;
         updateUserRecord(uid, values.height);
         dispatch(setHeight(values.height));
-        navigation.navigate("LocationScreen");
+        navigation.navigate("ProfileComplete");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (
