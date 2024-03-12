@@ -46,10 +46,10 @@ export default function Verification({ navigation }: { navigation: any }) {
 
   async function confirmCode(code: string) {
     try {
-      navigation.navigate("Email");
       if (confirmationResult != null) {
         await confirmationResult.confirm(code);
       }
+      navigation.navigate("Email");
     } catch (error) {
       console.log("Invalid code.");
     }

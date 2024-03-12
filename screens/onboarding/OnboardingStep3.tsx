@@ -6,26 +6,9 @@ import { Shadow } from "react-native-shadow-2";
 import CustomButton from "../../components/CustomButton";
 import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
-
-const TIME = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00"];
+import { Image } from "expo-image";
 
 export default function OnboardingStep2b({ navigation }: { navigation: any }) {
-  const [timeLeft, setTimeLeft] = useState(30 * 60);
-  const [time, setTime] = useState("13:00");
-
-  useEffect(() => {
-    if (!timeLeft) return;
-
-    const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [timeLeft]);
-
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft - minutes * 60;
-
   return (
     <CustomSafeAreaView>
       <View className="flex-1 items-center justify-between pb-32">
@@ -46,33 +29,41 @@ export default function OnboardingStep2b({ navigation }: { navigation: any }) {
                   textAlignVertical: "center",
                 }}
               >
-                2
+                3
               </Text>
             </View>
           </Shadow>
 
-          <View className="w-full items-center bg-transparent justify-between mt-10">
+          <View className="w-3/5 items-center bg-transparent justify-between mt-10">
             <Animated.Text
               className="text-xl  text-white font-robotoMedium text-center"
               entering={FadeInRight.delay(200)}
             >
-              Propose a time
-              {"\n"}
-              <Text className="text-sm text-[#E25A28] font-robotoMediumItalic">
-                within 30 minutes
-              </Text>
+              Your date with <Text className="text-[#E25A28]">Martha</Text> was
+              accepted!
             </Animated.Text>
           </View>
         </View>
 
-        <WheelPickerExpo
-          height={300}
-          width={150}
-          initialSelectedIndex={3}
-          backgroundColor="#411400"
-          items={TIME.map((name) => ({ label: name, value: "" }))}
-          onChange={({ item }) => setTime(item.label)}
-        />
+        <View className="relative items-center justify-center h-96">
+          <View className="absolute z-10 transform rounded-2xl -rotate-3">
+            <Image
+              source={require("../../assets/onboarding/onboarding-match.png")}
+              style={{ width: 250, height: 300, borderRadius: 16 }}
+            />
+          </View>
+          <View
+            className="absolute z-20 transform rounded-2xl rotate-3 border-2 border-[#E25A28]"
+            style={{ width: 250, height: 300 }}
+          />
+        </View>
+
+        <Text className="text-center text-xl font-robotoLight text-white w-5/6">
+          Your date with{" "}
+          <Text className="no-underline text-[#E25A28]">Chaim</Text> at{" "}
+          <Text className="underline text-[#E25A28]">Soja SUSHI</Text> by{" "}
+          <Text className="underline text-[#E25A28]">8pm</Text> was accepted.
+        </Text>
 
         <View className="items-center justify-center">
           <View>
@@ -80,26 +71,12 @@ export default function OnboardingStep2b({ navigation }: { navigation: any }) {
               onPress={() => {
                 navigation.navigate("OnboardingStep3");
               }}
-              title="Propose"
+              title="Finish"
               gradient
               _className="w-32 mt-5"
             />
           </View>
         </View>
-      </View>
-
-      <View className="bg-[#E25A28] py-2 relative items-center justify-center">
-        <LinearGradient
-          colors={["#331003", "#832300"]}
-          className="absolute left-0 right-0 top-0 bottom-0"
-          start={{ x: 1, y: 0 }}
-        />
-        <Text className="text-white font-robotoThin">
-          Time left:{" "}
-          <Text className="text-lg font-robotoRegular">
-            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-          </Text>
-        </Text>
       </View>
     </CustomSafeAreaView>
   );
