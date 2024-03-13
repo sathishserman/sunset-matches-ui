@@ -22,6 +22,8 @@ import { useRoute, RouteProp } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
 import { useAuth } from "../../context/AuthContext";
+import {db } from '../../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore"; 
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -37,6 +39,16 @@ type PhoneRoutes = {
   };
 };
 
+const updateUserRecord = async (uid:any, formattedNumber:string) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { phone: formattedNumber }, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
+
 export default function Phone({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const { phoneNumber } = useSelector((state: RootState) => state.phoneState);
@@ -49,10 +61,19 @@ export default function Phone({ navigation }: { navigation: any }) {
       const confirmation: FirebaseAuthTypes.ConfirmationResult =
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
+        const uid:any = auth().currentUser?.uid;
         setConfirmationResult(confirmation);
-        navigation.navigate("Verification", {
-          flow: route.params.flow,
-        });
+        if(!auth().currentUser){
+          navigation.navigate("Verification", {
+            flow: route.params.flow,
+          });
+        }else{
+          updateUserRecord(uid, formattedNumber);
+          setConfirmationResult(confirmation); 
+          // navigation.navigate("Location", {
+          //   flow: route.params.flow,
+          // });
+        }
       }
     } catch (error) {
       console.log("Error Sending Code: ", error);

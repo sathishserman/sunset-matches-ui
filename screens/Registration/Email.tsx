@@ -16,6 +16,9 @@ import { RootState, EmailFormValues } from "../../redux/interfaces";
 import BackHeader from "../../components/BackHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
+import {db } from '../../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore"; 
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,6 +32,16 @@ const validationSchema = Yup.object().shape({
   subscribed: Yup.boolean(),
 });
 
+
+const updateUserRecord = async (uid:any, email:string, subscribed:boolean) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { email: email, subscription: subscribed }, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
 
 
 export default function Email({ navigation }: { navigation: any }) {
@@ -45,6 +58,8 @@ export default function Email({ navigation }: { navigation: any }) {
           initialValues={{ email, subscribed }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
+            const uid:any = auth().currentUser?.uid;
+            updateUserRecord(uid, values.email, values.subscribed);
             dispatch(setEmail(values.email));
             dispatch(toggleSubscription(values.subscribed));
             navigation.navigate("Name");

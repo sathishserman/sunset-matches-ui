@@ -9,6 +9,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import DashedInput from "../../components/DashedInput";
 import { HeightFormValues, RootState } from "../../redux/interfaces";
 import CustomButton from "../../components/CustomButton";
+import {db } from '../../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore"; 
+import auth from "@react-native-firebase/auth";
 
 const heightSchema = Yup.object().shape({
   height: Yup.number()
@@ -17,6 +20,16 @@ const heightSchema = Yup.object().shape({
     .required("Height is required")
     .typeError("Height must be a number"),
 });
+
+const updateUserRecord = async (uid:any, height:number) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { height: height}, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
 
 export default function Height({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
@@ -40,6 +53,8 @@ export default function Height({ navigation }: { navigation: any }) {
       initialValues={{ height }}
       validationSchema={heightSchema}
       onSubmit={(values) => {
+        const uid:any = auth().currentUser?.uid;
+        updateUserRecord(uid, values.height);
         dispatch(setHeight(values.height));
         navigation.navigate("Location");
       }}

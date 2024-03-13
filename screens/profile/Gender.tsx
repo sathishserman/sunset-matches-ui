@@ -8,10 +8,23 @@ import { RootState } from "../../redux/interfaces";
 import BackHeader from "../../components/BackHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
+import {db } from '../../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore"; 
+import auth from "@react-native-firebase/auth";
 
 const validationSchema = Yup.object().shape({
   gender: Yup.string().required("Please select your gender"),
 });
+
+const updateUserRecord = async (uid:any, gender:string) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { gender: gender}, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
 
 const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
@@ -20,6 +33,8 @@ const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
     initialValues: { gender: gender },
     validationSchema,
     onSubmit: (values) => {
+      const uid:any = auth().currentUser?.uid;
+      updateUserRecord(uid, values.gender);
       dispatch(setGender(values.gender));
       navigation.navigate("Age");
     },

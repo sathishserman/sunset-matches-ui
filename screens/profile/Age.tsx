@@ -10,6 +10,10 @@ import CustomButton from "../../components/CustomButton";
 import DashedInput from "../../components/DashedInput"; // import DashedInput
 import { AgeFormValues } from "../../redux/interfaces";
 import { RootState } from "../../redux/interfaces";
+import {db } from '../../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore"; 
+import auth from "@react-native-firebase/auth";
+
 
 const ageSchema = Yup.object().shape({
   age: Yup.number()
@@ -19,6 +23,16 @@ const ageSchema = Yup.object().shape({
     .integer("Age must be an integer")
     .typeError("Age must be a number"),
 });
+
+const updateUserRecord = async (uid:any, age:number) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { age: age}, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
 
 export default function Age({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
@@ -43,6 +57,8 @@ export default function Age({ navigation }: { navigation: any }) {
       initialValues={{ age }}
       validationSchema={ageSchema}
       onSubmit={(values) => {
+        const uid:any = auth().currentUser?.uid;
+        updateUserRecord(uid, values.age);
         dispatch(setAge(values.age));
         navigation.navigate("Height");
       }}
