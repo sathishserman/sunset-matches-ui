@@ -1,7 +1,7 @@
 import auth from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
 import { Formik, FormikProps } from "formik";
-import { default as React, useEffect } from "react";
+import React, { useEffect } from "react";
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";

@@ -8,7 +8,7 @@ import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import { Image } from "expo-image";
 
-export default function OnboardingStep2b({ navigation }: { navigation: any }) {
+export default function OnboardingStep3({ navigation }: { navigation: any }) {
   return (
     <CustomSafeAreaView>
       <View className="flex-1 items-center justify-between pb-32">
