@@ -60,7 +60,7 @@ export default function OnboardingStep2b({ navigation }: { navigation: any }) {
 
         <Text className="text-center text-xl font-robotoLight text-white w-5/6">
           Your date with{" "}
-          <Text className="no-underline text-[#E25A28]">Chaim</Text> at{" "}
+          <Text className="no-underline text-[#E25A28]">Martha</Text> at{" "}
           <Text className="underline text-[#E25A28]">Soja SUSHI</Text> by{" "}
           <Text className="underline text-[#E25A28]">8pm</Text> was accepted.
         </Text>

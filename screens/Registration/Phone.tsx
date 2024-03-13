@@ -75,7 +75,7 @@ export default function Phone({ navigation }: { navigation: any }) {
     }
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: PhoneFormValues,
     { setSubmitting, setFieldError }: FormikHelpers<PhoneFormValues>
   ) => {
@@ -90,7 +90,7 @@ export default function Phone({ navigation }: { navigation: any }) {
       dispatch(setCountryCode(`+${callingCode}`));
 
       try {
-        signInWithPhoneNumber(formattedNumber);
+        await signInWithPhoneNumber(formattedNumber);
         navigation.navigate("Verification", {
           flow: route.params.flow,
         });
