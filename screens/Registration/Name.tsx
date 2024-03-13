@@ -7,13 +7,13 @@ import {
   Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setName } from "../../redux/actions";
+import { setName } from "@/redux/actions";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
-import { RootState, NameFormValues } from "../../redux/interfaces";
-import BackHeader from "../../components/BackHeader";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import CustomButton from "../../components/CustomButton";
+import { RootState, NameFormValues } from "@/redux/interfaces";
+import BackHeader from "@/components/BackHeader";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import CustomButton from "@/components/CustomButton";
 
 const nameValidationSchema = Yup.object().shape({
   name: Yup.string()

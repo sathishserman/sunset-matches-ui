@@ -1,7 +1,7 @@
-import BackHeader from "../../components/BackHeader";
+import BackHeader from "@/components/BackHeader";
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
 
 type InputFieldProps = {
   label: string;

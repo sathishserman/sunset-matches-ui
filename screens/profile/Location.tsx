@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import * as Location from "expo-location";
-import MapView, { MapStyleElement, Marker } from "react-native-maps";
-import { useDispatch } from "react-redux";
-import { setLocation } from "../../redux/actions";
-import BackHeader from "../../components/BackHeader";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { MaterialIcons } from "@expo/vector-icons";
-import CustomButton from "../../components/CustomButton";
-import { color } from "react-native-elements/dist/helpers";
+import * as Location from "expo-location";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import { useDispatch } from "react-redux";
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import { setLocation } from "@/redux/actions";
 
 export default function LocationScreen({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
@@ -99,16 +97,17 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
             </View>
           )}
           <CustomButton
-            // onPress={requestLocation}
             onPress={() => {
-              if (location) {
-                navigation.navigate("ProfileComplete");
+              if (loading) {
+                return;
+              } else if (location && district) {
+                navigation.navigate("DateLocation");
               } else {
                 requestLocation();
               }
             }}
             title="Allow"
-            gradient
+            gradient={!loading}
             _className="w-2/3"
           />
         </View>

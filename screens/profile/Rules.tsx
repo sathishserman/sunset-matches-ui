@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-import { confirmRules } from "../../redux/actions";
+import { confirmRules } from "@/redux/actions";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import CustomButton from "../../components/CustomButton";
+import CustomButton from "@/components/CustomButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Rules({ navigation }: { navigation: any }) {

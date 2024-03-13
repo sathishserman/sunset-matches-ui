@@ -1,6 +1,6 @@
 import React from "react";
-import BackHeader from "./BackHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
+import BackHeader from "./BackHeader";
 
 type CustomSafeAreaViewProps = {
   children: React.ReactNode;

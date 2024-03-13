@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { setGender } from "../../redux/actions";
-import { RootState } from "../../redux/interfaces";
-import BackHeader from "../../components/BackHeader";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import CustomButton from "../../components/CustomButton";
+import { setGender } from "@/redux/actions";
+import { RootState } from "@/redux/interfaces";
+import BackHeader from "@/components/BackHeader";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import CustomButton from "@/components/CustomButton";
 
 const validationSchema = Yup.object().shape({
   gender: Yup.string().required("Please select your gender"),

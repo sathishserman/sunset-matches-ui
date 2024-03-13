@@ -2,14 +2,14 @@ import React from "react";
 import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 import { Formik, FormikProps, useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { setAge } from "../../redux/actions";
-import BackHeader from "../../components/BackHeader";
+import { setAge } from "@/redux/actions";
+import BackHeader from "@/components/BackHeader";
 import * as Yup from "yup";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import CustomButton from "../../components/CustomButton";
-import DashedInput from "../../components/DashedInput"; // import DashedInput
-import { AgeFormValues } from "../../redux/interfaces";
-import { RootState } from "../../redux/interfaces";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import CustomButton from "@/components/CustomButton";
+import DashedInput from "@/components/DashedInput"; // import DashedInput
+import { AgeFormValues } from "@/redux/interfaces";
+import { RootState } from "@/redux/interfaces";
 
 const ageSchema = Yup.object().shape({
   age: Yup.number()

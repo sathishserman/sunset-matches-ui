@@ -5,12 +5,12 @@ import React, { useEffect } from "react";
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import CustomButton from "../../components/CustomButton";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import DashedInput from "../../components/DashedInput";
-import { useAuth } from "../../context/AuthContext";
-import { setVerificationCode } from "../../redux/actions";
-import { RootState, VerificationFormValues } from "../../redux/interfaces";
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import DashedInput from "@/components/DashedInput";
+import { useAuth } from "@/context/AuthContext";
+import { setVerificationCode } from "@/redux/actions";
+import { RootState, VerificationFormValues } from "@/redux/interfaces";
 
 const verificationCodeValidationSchema = Yup.object().shape({
   verificationCode: Yup.string()

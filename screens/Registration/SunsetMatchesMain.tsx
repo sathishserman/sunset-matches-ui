@@ -46,7 +46,7 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {/* <ImageBackground
-        source={require('../../assets/bg.jpeg')} 
+        source={require('@/assets/bg.jpeg')} 
         style={styles.background}
       > */}
       <SafeAreaView className="flex-1 justify-between items-center px-7 bg-black pt-16 pb-5">

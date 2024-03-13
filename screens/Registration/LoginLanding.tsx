@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
-import BackHeader from "../../components/BackHeader";
+import BackHeader from "@/components/BackHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "../../components/CustomButton";
+import CustomButton from "@/components/CustomButton";
 import Animated, { FadeInUp } from "react-native-reanimated";
 
 export default function LoginLanding({ navigation }: { navigation: any }) {

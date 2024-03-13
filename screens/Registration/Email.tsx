@@ -8,14 +8,14 @@ import {
   Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, toggleSubscription } from "../../redux/actions";
+import { setEmail, toggleSubscription } from "@/redux/actions";
 import { CheckBox } from "react-native-elements";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
-import { RootState, EmailFormValues } from "../../redux/interfaces";
-import BackHeader from "../../components/BackHeader";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import CustomButton from "../../components/CustomButton";
+import { RootState, EmailFormValues } from "@/redux/interfaces";
+import BackHeader from "@/components/BackHeader";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import CustomButton from "@/components/CustomButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
