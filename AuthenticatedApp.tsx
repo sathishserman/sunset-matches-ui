@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from './navigation/Navigation';
-import { useAuth } from './context/AuthContext';
+import Navigation from '@/navigation/Navigation';
+import { useAuth } from '@/context/AuthContext';
 
 function AuthenticatedApp() {
   const { user, initializing } = useAuth();

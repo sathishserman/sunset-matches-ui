@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, ReactNode, FunctionComponent, useEffect } from 'react';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import auth from '@react-native-firebase/auth';
-import { db } from "../firebase/firebase";
+import { db } from "@/firebase/firebase";
 import { collection, getDocs } from "firebase/firestore"; 
 
 

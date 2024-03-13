@@ -50,6 +50,7 @@ export default function Phone({ navigation }: { navigation: any }) {
   const phoneInput = React.useRef<PhoneNumberInput>(null);
   const route = useRoute();
   const { setConfirmationResult } = useAuth();
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const signInWithPhoneNumber = async (formattedNumber: string) => {
     try {
@@ -79,6 +80,7 @@ export default function Phone({ navigation }: { navigation: any }) {
     values: PhoneFormValues,
     { setSubmitting, setFieldError }: FormikHelpers<PhoneFormValues>
   ) => {
+    setLoading(true);
     const isValid = phoneInput.current?.isValidNumber(values.phoneNumber);
     const callingCode = phoneInput.current?.getCallingCode();
     const formattedNumber =
@@ -86,7 +88,6 @@ export default function Phone({ navigation }: { navigation: any }) {
         .formattedNumber;
     if (isValid && callingCode && formattedNumber) {
       dispatch(setPhoneNumber(values.phoneNumber));
-
       dispatch(setCountryCode(`+${callingCode}`));
 
       try {
@@ -158,7 +159,9 @@ export default function Phone({ navigation }: { navigation: any }) {
                 </Text>
                 <CustomButton
                   onPress={formikProps.handleSubmit as any}
-                  title="Continue"
+                  title={
+                    loading ? "Loading..." : "Continue"
+                  }
                   _className="mt-5 mb-5"
                   gradient={
                     formikProps.values.phoneNumber &&

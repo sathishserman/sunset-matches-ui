@@ -1,18 +1,15 @@
-import { SET_COMMUNITIES, SET_USER_SELECTIONS, SET_LOCATION, SET_HEIGHT, SET_AGE,SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
-import { Dispatch } from 'redux';
 import { collection, getDocs } from "firebase/firestore";
-import {db } from '../firebase/firebase';
-import { doc , setDoc} from "firebase/firestore";
-import {Community} from "./interfaces";
+import { db } from '../firebase/firebase';
+import { CONFIRM_RULES, SET_AGE, SET_COMMUNITIES, SET_COUNTRY_CODE, SET_DATE_LOCATION, SET_EMAIL, SET_GENDER, SET_HEIGHT, SET_LOCATION, SET_NAME, SET_PHONE_NUMBER, SET_USER_SELECTIONS, SET_VERIFICATION_CODE, TOGGLE_SUBSCRIPTION } from './actionTypes';
 
 export const setEmail = (email: string) => ({
-  type: SET_EMAIL  as typeof SET_EMAIL,
+  type: SET_EMAIL as typeof SET_EMAIL,
   payload: email,
 });
 
 export const toggleSubscription = (subscribed: boolean) => ({
-  type: TOGGLE_SUBSCRIPTION  as typeof TOGGLE_SUBSCRIPTION,
-  payload: subscribed
+  type: TOGGLE_SUBSCRIPTION as typeof TOGGLE_SUBSCRIPTION,
+  payload: subscribed,
 });
 
 export const setName = (name: string) => ({
@@ -29,7 +26,6 @@ export const setVerificationCode = (code: string) => ({
   type: SET_VERIFICATION_CODE as typeof SET_VERIFICATION_CODE,
   payload: code,
 });
-
 
 export const setCountryCode = (countryCode: string) => ({
   type: SET_COUNTRY_CODE,
@@ -57,7 +53,6 @@ export const setHeight = (height: number) => {
   };
 };
 
-
 export const setLocation = (latitude: number, longitude: number) => ({
   type: SET_LOCATION,
   payload: { latitude, longitude },
@@ -78,4 +73,8 @@ export const setCommunities = (communities:any) => ({
 export const updateUserSelections = (selections:any) => ({
   type: SET_USER_SELECTIONS,
   payload: selections,
+});
+export const setDateLocation = (location: string[]) => ({
+  type: SET_DATE_LOCATION,
+  payload: location,
 });

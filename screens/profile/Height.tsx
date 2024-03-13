@@ -1,9 +1,9 @@
 import React from "react";
 import * as Yup from "yup";
-import { setHeight } from "../../redux/actions";
-import BackHeader from "../../components/BackHeader";
+import { setHeight } from "@/redux/actions";
+import BackHeader from "@/components/BackHeader";
 import { useDispatch, useSelector } from "react-redux";
-import DashedInput from "../../components/DashedInput";
+import DashedInput from "@/components/DashedInput";
 import { Formik, FormikProps, useFormik } from "formik";
 import CustomButton from "../../components/CustomButton";
 import {db } from '../../firebase/firebase';

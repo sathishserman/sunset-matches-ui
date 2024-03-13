@@ -1,26 +1,27 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Email from "../screens/Registration/Email";
-import LandingPage from "../screens/Registration/LandingPage";
-import LoginLanding from "../screens/Registration/LoginLanding";
-import Name from "../screens/Registration/Name";
-import Phone from "../screens/Registration/Phone";
-import SignUp from "../screens/Registration/SignUp";
-import SunsetMatchesMain from "../screens/Registration/SunsetMatchesMain";
-import Verification from "../screens/Registration/Verification";
-import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
-import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
-import OnboardingStep1 from "../screens/onboarding/OnboardingStep1";
-import OnboardingStep2 from "../screens/onboarding/OnboardingStep2";
-import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
-import ProfileComplete from "../screens/onboarding/ProfileComplete";
-import Age from "../screens/profile/Age";
-import Gender from "../screens/profile/Gender";
-import Height from "../screens/profile/Height";
-import Rules from "../screens/profile/Rules";
-import LocationScreen from "../screens/profile/Location";
-import OnboardingStep2b from "../screens/onboarding/OnboardingStep2b";
-import OnboardingStep3 from "../screens/onboarding/OnboardingStep3";
-import Communities from "../screens/profile/Communities";
+import Email from "@/screens/Registration/Email";
+import LandingPage from "@/screens/Registration/LandingPage";
+import LoginLanding from "@/screens/Registration/LoginLanding";
+import Name from "@/screens/Registration/Name";
+import Phone from "@/screens/Registration/Phone";
+import SignUp from "@/screens/Registration/SignUp";
+import SunsetMatchesMain from "@/screens/Registration/SunsetMatchesMain";
+import Verification from "@/screens/Registration/Verification";
+import BeginOnboarding from "@/screens/onboarding/BeginOnboarding";
+import OnboardingStep0 from "@/screens/onboarding/steps/OnboardingStep0";
+import OnboardingStep1 from "@/screens/onboarding/steps/OnboardingStep1";
+import OnboardingStep2 from "@/screens/onboarding/steps/OnboardingStep2";
+import OnboardingStep2b from "@/screens/onboarding/steps/OnboardingStep2b";
+import OnboardingStep3 from "@/screens/onboarding/steps/OnboardingStep3";
+import OnboardingSteps from "@/screens/onboarding/steps/OnboardingSteps";
+import ProfileComplete from "@/screens/onboarding/ProfileComplete";
+import Age from "@/screens/profile/Age";
+import Gender from "@/screens/profile/Gender";
+import Height from "@/screens/profile/Height";
+import LocationScreen from "@/screens/profile/Location";
+import Rules from "@/screens/profile/Rules";
+import DateLocation from "@/screens/onboarding/preferences/DateLocation";
+import Communities from "@/screens/onboarding/preferences/Communities";
 
 const Stack = createNativeStackNavigator();
 
@@ -129,6 +130,33 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
       <Stack.Screen
         name="Height"
         component={Height}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="LocationScreen"
+        component={LocationScreen}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="DateLocation"
+        component={DateLocation}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Communities"
+        component={Communities}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",

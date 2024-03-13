@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { setName } from "../../redux/actions";
+import { setName } from "@/redux/actions";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import { RootState, NameFormValues } from "../../redux/interfaces";

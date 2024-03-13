@@ -1,4 +1,4 @@
-import { LocationState } from './reducers/locationReducer';
+import { LocationState } from "./reducers/locationReducer";
 
 export interface EmailState {
   email: string;
