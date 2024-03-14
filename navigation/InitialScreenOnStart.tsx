@@ -22,6 +22,8 @@ import LocationScreen from "@/screens/profile/Location";
 import Rules from "@/screens/profile/Rules";
 import DateLocation from "@/screens/onboarding/preferences/DateLocation";
 import Communities from "@/screens/onboarding/preferences/Communities";
+import DateTheme from "@/screens/onboarding/preferences/DateTheme";
+import FoodPreference from "@/screens/onboarding/preferences/FoodPreferences";
 
 const Stack = createNativeStackNavigator();
 
@@ -247,6 +249,24 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
       <Stack.Screen
         name="Communties"
         component={Communities}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="DateTheme"
+        component={DateTheme}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="FoodPreference"
+        component={FoodPreference}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",

@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase';
-import { CONFIRM_RULES, SET_AGE, SET_COMMUNITIES, SET_COUNTRY_CODE, SET_DATE_LOCATION, SET_EMAIL, SET_GENDER, SET_HEIGHT, SET_LOCATION, SET_NAME, SET_PHONE_NUMBER, SET_USER_SELECTIONS, SET_VERIFICATION_CODE, TOGGLE_SUBSCRIPTION } from './actionTypes';
+import { CONFIRM_RULES, SET_AGE, SET_COMMUNITIES, SET_COUNTRY_CODE, SET_DATE_LOCATION, SET_DATE_THEME, SET_EMAIL, SET_FOOD_PREFERENCE, SET_GENDER, SET_HEIGHT, SET_LOCATION, SET_NAME, SET_PHONE_NUMBER, SET_USER_SELECTIONS, SET_VERIFICATION_CODE, TOGGLE_SUBSCRIPTION } from './actionTypes';
 
 export const setEmail = (email: string) => ({
   type: SET_EMAIL as typeof SET_EMAIL,
@@ -77,4 +77,19 @@ export const updateUserSelections = (selections:any) => ({
 export const setDateLocation = (location: string[]) => ({
   type: SET_DATE_LOCATION,
   payload: location,
+});
+
+export const setDateTheme = (theme: string[]) => ({
+  type: SET_DATE_THEME,
+  payload: theme,
+});
+
+export const setCommunities = (communities: string[]) => ({
+  type: SET_COMMUNITIES,
+  payload: communities,
+});
+
+export const setFoodPreference = (foodPreference: string) => ({
+  type: SET_FOOD_PREFERENCE,
+  payload: foodPreference,
 });
