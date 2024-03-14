@@ -11,6 +11,9 @@ import {
   SET_VERIFICATION_CODE,
   SET_COUNTRY_CODE,
   SET_DATE_LOCATION,
+  SET_DATE_THEME,
+  SET_COMMUNITIES,
+  SET_FOOD_PREFERENCE,
 } from "./actionTypes";
 
 export const setEmail = (email: string) => ({
@@ -72,4 +75,19 @@ export const setLocation = (latitude: number, longitude: number) => ({
 export const setDateLocation = (location: string[]) => ({
   type: SET_DATE_LOCATION,
   payload: location,
+});
+
+export const setDateTheme = (theme: string[]) => ({
+  type: SET_DATE_THEME,
+  payload: theme,
+});
+
+export const setCommunities = (communities: string[]) => ({
+  type: SET_COMMUNITIES,
+  payload: communities,
+});
+
+export const setFoodPreference = (foodPreference: string) => ({
+  type: SET_FOOD_PREFERENCE,
+  payload: foodPreference,
 });

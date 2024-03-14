@@ -1,12 +1,14 @@
-import { emailReducer  } from './emailReducer';
-import { genderReducer } from './genderReducer';
-import { nameReducer  } from './nameReducer';
-import { phoneReducer  } from './phoneReducer';
-import { verificationReducer  } from './verificationReducer';
-import { heightReducer  } from './heightReducer';
-import { combineReducers } from 'redux';
-import { ageReducer } from './ageReducer';
-import {locationReducer}from './locationReducer';
+import { emailReducer } from "./emailReducer";
+import { genderReducer } from "./genderReducer";
+import { nameReducer } from "./nameReducer";
+import { phoneReducer } from "./phoneReducer";
+import { verificationReducer } from "./verificationReducer";
+import { heightReducer } from "./heightReducer";
+import { combineReducers } from "redux";
+import { ageReducer } from "./ageReducer";
+import { locationReducer } from "./locationReducer";
+import { dateThemeReducer } from "./dateThemeReducer";
+import { communityReducer } from "./communityReducer";
 
 export default combineReducers({
   emailState: emailReducer,
@@ -17,4 +19,6 @@ export default combineReducers({
   heightState: heightReducer,
   ageState: ageReducer,
   locationState: locationReducer,
+  dateThemeState: dateThemeReducer,
+  communityState: communityReducer,
 });

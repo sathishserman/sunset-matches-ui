@@ -86,3 +86,15 @@ export interface HeightState {
 export interface DateLocationState {
   locations: string[];
 }
+
+export interface DateThemeState {
+  themes: string[];
+}
+
+export interface CommunityState {
+  communities: string[];
+}
+
+export interface FoodPreferenceState {
+  foodPreference: string[];
+}

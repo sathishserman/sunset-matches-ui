@@ -5,16 +5,27 @@ import React from "react";
 import { View, Text, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { FlatGrid } from "react-native-super-grid";
+import { useDispatch } from "react-redux";
+import { setDateLocation } from "@/redux/actions";
 
 type Community = {
   community: string;
   image: any;
 };
 
-export default function Communities() {
-  const [selectedCommunity, setSelectedCommunity] = React.useState<Community[]>(
+export default function Communities({ navigation }: { navigation: any }) {
+  const dispatch = useDispatch();
+
+  const [selectedCommunity, setSelectedCommunity] = React.useState<string[]>(
     []
   );
+
+  const handleSubmit = () => {
+    if (selectedCommunity.length) {
+      dispatch(setDateLocation(selectedCommunity));
+      navigation.navigate("DateTheme");
+    }
+  };
 
   const communities = [
     { community: "Black", image: require("@/assets/communities/black.png") },
@@ -39,7 +50,7 @@ export default function Communities() {
 
   const handleCommunityPress = (community: Community, index: number) => {
     const isDuplicate = selectedCommunity.some(
-      (selected) => selected.community === community.community
+      (selected) => selected === community.community
     );
 
     console.log("Duplicate", isDuplicate);
@@ -48,12 +59,10 @@ export default function Communities() {
 
     if (isDuplicate) {
       setSelectedCommunity((prev) =>
-        prev.filter(
-          (prevCommunity) => prevCommunity.community !== community.community
-        )
+        prev.filter((prevCommunity) => prevCommunity !== community.community)
       );
     } else if (selectedCommunity.length < 7) {
-      setSelectedCommunity((prev) => [...prev, community]);
+      setSelectedCommunity((prev) => [...prev, community.community]);
     }
   };
 
@@ -77,7 +86,7 @@ export default function Communities() {
               <Pressable
                 className={`border w-20 rounded-full overflow-hidden items-center aspect-square ${
                   selectedCommunity.some(
-                    (selected) => selected.community === community.community
+                    (selected) => selected === community.community
                   )
                     ? "border-[#E25A28]"
                     : "border-white"
@@ -97,7 +106,7 @@ export default function Communities() {
           )}
         />
         <CustomButton
-          onPress={() => {}}
+          onPress={handleSubmit}
           gradient={!!selectedCommunity.length}
           title="Continue"
           _className="w-2/3"
