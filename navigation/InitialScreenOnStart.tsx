@@ -11,8 +11,6 @@ import BeginOnboarding from "../screens/onboarding/BeginOnboarding";
 import OnboardingStep0 from "../screens/onboarding/OnboardingStep0";
 import OnboardingStep1 from "../screens/onboarding/OnboardingStep1";
 import OnboardingStep2 from "../screens/onboarding/OnboardingStep2";
-import OnboardingStep2b from "../screens/onboarding/OnboardingStep2b";
-import OnboardingStep3 from "../screens/onboarding/OnboardingStep3";
 import OnboardingSteps from "../screens/onboarding/OnboardingSteps";
 import ProfileComplete from "../screens/onboarding/ProfileComplete";
 import Age from "../screens/profile/Age";
@@ -20,6 +18,8 @@ import Gender from "../screens/profile/Gender";
 import Height from "../screens/profile/Height";
 import Rules from "../screens/profile/Rules";
 import LocationScreen from "../screens/profile/Location";
+import OnboardingStep2b from "../screens/onboarding/OnboardingStep2b";
+import OnboardingStep3 from "../screens/onboarding/OnboardingStep3";
 
 const Stack = createNativeStackNavigator();
 
