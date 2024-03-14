@@ -1,21 +1,22 @@
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import { setEmail, toggleSubscription } from "@/redux/actions";
+import { EmailFormValues, RootState } from "@/redux/interfaces";
+import auth from "@react-native-firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { Formik, FormikProps } from "formik";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { setEmail, toggleSubscription } from "@/redux/actions";
 import { CheckBox } from "react-native-elements";
-import { Formik, FormikProps } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { RootState, EmailFormValues } from "@/redux/interfaces";
-import BackHeader from "@/components/BackHeader";
-import CustomSafeAreaView from "@/components/CustomSafeAreaView";
-import CustomButton from "@/components/CustomButton";
+import { db } from '../../firebase/firebase';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -28,6 +29,18 @@ const validationSchema = Yup.object().shape({
     ),
   subscribed: Yup.boolean(),
 });
+
+
+const updateUserRecord = async (uid:any, email:string, subscribed:boolean) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { email: email, subscription: subscribed }, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
+
 
 export default function Email({ navigation }: { navigation: any }) {
   const { email, subscribed } = useSelector(
@@ -42,6 +55,8 @@ export default function Email({ navigation }: { navigation: any }) {
           initialValues={{ email, subscribed }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
+            const uid:any = auth().currentUser?.uid;
+            updateUserRecord(uid, values.email, values.subscribed);
             dispatch(setEmail(values.email));
             dispatch(toggleSubscription(values.subscribed));
             navigation.navigate("Name");

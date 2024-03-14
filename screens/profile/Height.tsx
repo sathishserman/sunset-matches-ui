@@ -1,14 +1,16 @@
-import React from "react";
-import * as Yup from "yup";
-import { setHeight } from "@/redux/actions";
-import BackHeader from "@/components/BackHeader";
-import { useDispatch, useSelector } from "react-redux";
-import DashedInput from "@/components/DashedInput";
-import { Formik, FormikProps, useFormik } from "formik";
 import CustomButton from "@/components/CustomButton";
 import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import DashedInput from "@/components/DashedInput";
+import { setHeight } from "@/redux/actions";
 import { HeightFormValues, RootState } from "@/redux/interfaces";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
+import auth from "@react-native-firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { Formik, FormikProps, useFormik } from "formik";
+import React from "react";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { db } from '../../firebase/firebase';
 
 const heightSchema = Yup.object().shape({
   height: Yup.number()
@@ -17,6 +19,16 @@ const heightSchema = Yup.object().shape({
     .required("Height is required")
     .typeError("Height must be a number"),
 });
+
+const updateUserRecord = async (uid:any, height:number) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { height: height}, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
 
 export default function Height({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
@@ -55,6 +67,8 @@ export default function Height({ navigation }: { navigation: any }) {
       initialValues={{ height }}
       validationSchema={heightSchema}
       onSubmit={(values) => {
+        const uid:any = auth().currentUser?.uid;
+        updateUserRecord(uid, values.height);
         dispatch(setHeight(values.height));
         navigation.navigate("LocationScreen");
       }}

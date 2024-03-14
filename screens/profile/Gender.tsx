@@ -1,17 +1,29 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
 import { setGender } from "@/redux/actions";
 import { RootState } from "@/redux/interfaces";
-import BackHeader from "@/components/BackHeader";
-import CustomSafeAreaView from "@/components/CustomSafeAreaView";
-import CustomButton from "@/components/CustomButton";
+import auth from "@react-native-firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useFormik } from "formik";
+import React from "react";
+import { Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { db } from '../../firebase/firebase';
 
 const validationSchema = Yup.object().shape({
   gender: Yup.string().required("Please select your gender"),
 });
+
+const updateUserRecord = async (uid:any, gender:string) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { gender: gender}, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
 
 const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
   const dispatch = useDispatch();
@@ -20,6 +32,8 @@ const GenderSelectionScreen = ({ navigation }: { navigation: any }) => {
     initialValues: { gender: gender },
     validationSchema,
     onSubmit: (values) => {
+      const uid:any = auth().currentUser?.uid;
+      updateUserRecord(uid, values.gender);
       dispatch(setGender(values.gender));
       navigation.navigate("Age");
     },

@@ -1,11 +1,37 @@
-import React from "react";
-import { View, Text } from "react-native";
-import BackHeader from "@/components/BackHeader";
+import React, {useEffect} from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
+import BackHeader from "../../components/BackHeader";
+import { Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "@/components/CustomButton";
-import Animated, { FadeInUp } from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
+import CustomButton from "../../components/CustomButton";
+import Animated, { FadeInLeft, FadeInUp } from "react-native-reanimated";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
 export default function LoginLanding({ navigation }: { navigation: any }) {
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; 
+  }, []);
+
+  const onAuthStateChanged = (user:any) => {
+    if (user) {
+      // If user is logged in, navigate to the Home screen
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: 'Location' }],
+      // });
+    }
+    // If user is not logged in, stay on the current screen
+  };
+
   const handleLogin = () => {
     navigation.navigate("Phone", {
       flow: "loginFlow",

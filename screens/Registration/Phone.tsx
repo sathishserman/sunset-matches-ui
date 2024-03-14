@@ -1,5 +1,11 @@
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import { useAuth } from "@/context/AuthContext";
+import { setCountryCode, setPhoneNumber } from "@/redux/actions";
+import { PhoneFormValues, RootState } from "@/redux/interfaces";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
+import { doc, setDoc } from "firebase/firestore";
 import { Formik, FormikHelpers, FormikProps } from "formik";
 import React from "react";
 import {
@@ -12,11 +18,7 @@ import {
 import PhoneNumberInput from "react-native-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import CustomButton from "@/components/CustomButton";
-import CustomSafeAreaView from "@/components/CustomSafeAreaView";
-import { useAuth } from "@/context/AuthContext";
-import { setCountryCode, setPhoneNumber } from "@/redux/actions";
-import { PhoneFormValues, RootState } from "@/redux/interfaces";
+import { db } from '../../firebase/firebase';
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -32,6 +34,16 @@ type PhoneRoutes = {
   };
 };
 
+const updateUserRecord = async (uid:any, formattedNumber:string) => {
+  const userRef = doc(db, 'user', uid);
+  try {
+    setDoc(userRef, { phone: formattedNumber }, { merge: true });
+    console.log('User record created or updated successfully');
+  } catch (error) {
+    console.error('Error creating or updating user record:', error);
+  }
+};
+
 export default function Phone({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const { phoneNumber } = useSelector((state: RootState) => state.phoneState);
@@ -45,7 +57,19 @@ export default function Phone({ navigation }: { navigation: any }) {
       const confirmation: FirebaseAuthTypes.ConfirmationResult =
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
+        const uid:any = auth().currentUser?.uid;
         setConfirmationResult(confirmation);
+        if(!auth().currentUser){
+          navigation.navigate("Verification", {
+            flow: route.params.flow,
+          });
+        }else{
+          updateUserRecord(uid, formattedNumber);
+          setConfirmationResult(confirmation); 
+          // navigation.navigate("Location", {
+          //   flow: route.params.flow,
+          // });
+        }
       }
     } catch (error) {
       console.log("Error Sending Code: ", error);
