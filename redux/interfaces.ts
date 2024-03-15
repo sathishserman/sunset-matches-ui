@@ -106,6 +106,10 @@ export interface CommunityState {
   userSelections: Array<string>;
 }
 
+// export interface CommunityState {
+//   communities: string[];
+// }
+
 export interface FoodPreferenceState {
   foodPreference: string[];
 }

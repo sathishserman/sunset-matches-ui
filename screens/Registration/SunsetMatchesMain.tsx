@@ -25,7 +25,8 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
     .onEnd((event) => {
       if (event.translationX > 135) {
         translateX.value = withSpring(145, {}, () =>
-          runOnJS(navigation.navigate)("Bio")
+          // runOnJS(navigation.navigate)("LoginLanding")
+          runOnJS(navigation.navigate)("Communities2")
         );
         translateX.value = withSpring(0);
       } else {
