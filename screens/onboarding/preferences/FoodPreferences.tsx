@@ -22,7 +22,7 @@ export default function FoodPreference({ navigation }: { navigation: any }) {
   const handleSubmit = () => {
     if (selectedFoodPreference) {
       dispatch(setFoodPreference(selectedFoodPreference));
-      navigation.navigate("Communities");
+      navigation.navigate("Bio");
     }
   };
 

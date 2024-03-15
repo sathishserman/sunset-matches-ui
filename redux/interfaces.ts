@@ -23,6 +23,11 @@ export interface RootState {
   ageState: AgeState;
   heightState: HeightState;
   locationState: LocationState;
+  dateLocationState: DateLocationState;
+  dateThemeState: DateThemeState;
+  communityState: CommunityState;
+  foodPreferenceState: FoodPreferenceState;
+  bioState: BioState;
 }
 
 export interface NameFormValues {
@@ -97,4 +102,12 @@ export interface CommunityState {
 
 export interface FoodPreferenceState {
   foodPreference: string[];
+}
+
+export interface BioFormValues {
+  bio: string;
+}
+
+export interface BioState {
+  bio: string;
 }

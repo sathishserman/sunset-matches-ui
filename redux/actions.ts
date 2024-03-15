@@ -14,6 +14,7 @@ import {
   SET_DATE_THEME,
   SET_COMMUNITIES,
   SET_FOOD_PREFERENCE,
+  SET_BIO,
 } from "./actionTypes";
 
 export const setEmail = (email: string) => ({
@@ -90,4 +91,9 @@ export const setCommunities = (communities: string[]) => ({
 export const setFoodPreference = (foodPreference: string) => ({
   type: SET_FOOD_PREFERENCE,
   payload: foodPreference,
+});
+
+export const setBio = (bio: string) => ({
+  type: SET_BIO,
+  payload: bio,
 });

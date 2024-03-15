@@ -9,6 +9,7 @@ import { ageReducer } from "./ageReducer";
 import { locationReducer } from "./locationReducer";
 import { dateThemeReducer } from "./dateThemeReducer";
 import { communityReducer } from "./communityReducer";
+import { bioReducer } from "./bioReducer";
 
 export default combineReducers({
   emailState: emailReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   locationState: locationReducer,
   dateThemeState: dateThemeReducer,
   communityState: communityReducer,
+  bioState: bioReducer,
 });
