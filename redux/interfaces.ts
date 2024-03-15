@@ -14,17 +14,17 @@ export interface PhoneState {
   countryCode: string;
 }
 
-  export interface RootState {
-    nameState: NameState;
-    emailState: EmailState;
-    phoneState: PhoneState;
-    verificationState: VerificationState;
-    genderState: GenderState;
-    ageState: AgeState;
-    heightState: HeightState;
-    locationState: LocationState;
-
-  }
+export interface RootState {
+  nameState: NameState;
+  emailState: EmailState;
+  phoneState: PhoneState;
+  verificationState: VerificationState;
+  genderState: GenderState;
+  ageState: AgeState;
+  heightState: HeightState;
+  locationState: LocationState;
+  communitiesState: CommunityState;
+}
   
   export interface NameFormValues {
     name: string;
@@ -82,4 +82,15 @@ export interface AgeState {
 
   export interface HeightState {
     height: number;
+  }
+
+
+  export interface Community {
+    id: string;
+    name: string;
+  }
+
+  export interface CommunityState {
+    communities: Array<Community>;
+    userSelections: Array<string>;
   }

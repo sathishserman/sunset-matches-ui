@@ -9,3 +9,5 @@ export const SET_GENDER = 'SET_GENDER';
 export const SET_AGE = 'SET_AGE';
 export const SET_HEIGHT = 'SET_HEIGHT';
 export const SET_LOCATION = 'SET_LOCATION';
+export const SET_COMMUNITIES = 'SET_COMMUNITIES';
+export const SET_USER_SELECTIONS = 'SET_USER_SELECTIONS';

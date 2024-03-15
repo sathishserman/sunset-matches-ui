@@ -7,13 +7,12 @@ import BackHeader from "../../components/BackHeader";
 import * as Yup from "yup";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
-import DashedInput from "../../components/DashedInput"; // import DashedInput
+import DashedInput from "../../components/DashedInput";
 import { AgeFormValues } from "../../redux/interfaces";
 import { RootState } from "../../redux/interfaces";
 import {db } from '../../firebase/firebase';
 import { doc , setDoc} from "firebase/firestore"; 
 import auth from "@react-native-firebase/auth";
-
 
 const ageSchema = Yup.object().shape({
   age: Yup.number()
@@ -45,7 +44,6 @@ export default function Age({ navigation }: { navigation: any }) {
     value: string,
     formikProps: FormikProps<AgeFormValues>
   ) => {
-    // Check if the value's length is 3
     if (value.length !== 3) {
       return formikProps.setFieldError("age", "Age must be 3 digits");
     }

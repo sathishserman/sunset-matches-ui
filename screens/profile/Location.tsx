@@ -61,7 +61,7 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
             />
           </MapView>
         )}
-        <TouchableOpacity style={styles.continueButton} onPress={() => navigation.navigate('NextScreen')}>
+        <TouchableOpacity style={styles.continueButton} onPress={() => navigation.navigate('Communties')}>
           <Text style={styles.continueButtonText}>Continue</Text>
         </TouchableOpacity>
       </View>
