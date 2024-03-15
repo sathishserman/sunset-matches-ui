@@ -1,68 +1,90 @@
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import { setCommunities as setCommunitiesAction } from "@/redux/actions";
+import { db } from "@/firebase/firebase";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import auth from "@react-native-firebase/auth";
 import CustomButton from "@/components/CustomButton";
 import CustomSafeAreaView from "@/components/CustomSafeAreaView";
-import { Image } from "expo-image";
-import React from "react";
-import { View, Text, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { FlatGrid } from "react-native-super-grid";
-import { useDispatch } from "react-redux";
-import { setDateLocation } from "@/redux/actions";
 
-type Community = {
+type CommunityData = {
   community: string;
-  image: any;
+  image: ImageSourcePropType;
+};
+
+const communityImages: Record<string, ImageSourcePropType> = {
+  Black: require("@/assets/communities/black.png"),
+  Latino: require("@/assets/communities/latino.png"),
+  Asian: require("@/assets/communities/asian.png"),
+  Jewish: require("@/assets/communities/jewish.png"),
+  Muslim: require("@/assets/communities/muslim.png"),
+  Veteran: require("@/assets/communities/veteran.png"),
+  LGBTQ: require("@/assets/communities/lgbtq.png"),
+  Disabled: require("@/assets/communities/disabled.png"),
+  Christian: require("@/assets/communities/christian.png"),
+};
+
+const updateUserRecord = async (selectedCommunity: any) => {
+  const uid = auth().currentUser?.uid;
+  if (!uid) {
+    console.error("No user found");
+    return;
+  }
+  const userRef = doc(db, "users", uid); // Ensure the collection name matches your Firestore setup
+  try {
+    await setDoc(userRef, { communities: selectedCommunity }, { merge: true });
+    console.log("User record created or updated successfully");
+  } catch (error) {
+    console.error("Error creating or updating user record:", error);
+  }
 };
 
 export default function Communities({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
+  const [selectedCommunity, setSelectedCommunity] = useState<string[]>([]);
+  const [communities, setCommunities] = useState<CommunityData[]>([]);
 
-  const [selectedCommunity, setSelectedCommunity] = React.useState<string[]>(
-    []
-  );
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      const querySnapshot = await getDocs(collection(db, "communities"));
+      const communitiesData: CommunityData[] = [];
+      querySnapshot.forEach((doc) => {
+        const communityName = doc.data().name; // Assuming 'name' field holds the community name
+        if (communityImages[communityName]) {
+          communitiesData.push({
+            community: communityName,
+            image: communityImages[communityName],
+          });
+        }
+      });
+      setCommunities(communitiesData);
+    };
 
-  const handleSubmit = () => {
+    fetchCommunities();
+  }, []);
+
+  const handleSubmit = async () => {
     if (selectedCommunity.length) {
-      dispatch(setDateLocation(selectedCommunity));
+      dispatch(setCommunitiesAction(selectedCommunity));
       navigation.navigate("DateTheme");
     }
   };
 
-  const communities = [
-    { community: "Black", image: require("@/assets/communities/black.png") },
-    { community: "Latino", image: require("@/assets/communities/latino.png") },
-    { community: "Asian", image: require("@/assets/communities/asian.png") },
-    { community: "Jewish", image: require("@/assets/communities/jewish.png") },
-    { community: "Muslim", image: require("@/assets/communities/muslim.png") },
-    {
-      community: "Veteran",
-      image: require("@/assets/communities/veteran.png"),
-    },
-    { community: "LGBTQ+", image: require("@/assets/communities/lgbtq.png") },
-    {
-      community: "Disabled",
-      image: require("@/assets/communities/disabled.png"),
-    },
-    {
-      community: "Christian",
-      image: require("@/assets/communities/christian.png"),
-    },
-  ];
-
-  const handleCommunityPress = (community: Community, index: number) => {
-    const isDuplicate = selectedCommunity.some(
-      (selected) => selected === community.community
-    );
-
-    console.log("Duplicate", isDuplicate);
-    console.log("Selected", selectedCommunity);
-    console.log("Community", community);
-
+  const handleCommunityPress = (communityName: string) => {
+    const isDuplicate = selectedCommunity.includes(communityName);
     if (isDuplicate) {
-      setSelectedCommunity((prev) =>
-        prev.filter((prevCommunity) => prevCommunity !== community.community)
-      );
+      setSelectedCommunity((prev) => prev.filter((c) => c !== communityName));
     } else if (selectedCommunity.length < 7) {
-      setSelectedCommunity((prev) => [...prev, community.community]);
+      setSelectedCommunity((prev) => [...prev, communityName]);
     }
   };
 
@@ -81,26 +103,24 @@ export default function Communities({ navigation }: { navigation: any }) {
           maxItemsPerRow={3}
           adjustGridToStyles
           data={communities}
-          renderItem={({ item: community, index }) => (
+          renderItem={({ item, index }) => (
             <View className="aspect-square items-center">
               <Pressable
                 className={`border w-20 rounded-full overflow-hidden items-center aspect-square ${
-                  selectedCommunity.some(
-                    (selected) => selected === community.community
-                  )
+                  selectedCommunity.includes(item.community)
                     ? "border-[#E25A28]"
                     : "border-white"
                 }`}
-                onPress={() => handleCommunityPress(community, index)}
+                onPress={() => handleCommunityPress(item.community)}
                 key={`community-${index}`}
               >
                 <Image
-                  source={community.image}
+                  source={item.image}
                   className="w-full h-full p-0 scale-[.85] rounded-full"
                 />
               </Pressable>
               <Text className="text-white font-robotoRegular text-xs mt-2">
-                {community.community}
+                {item.community}
               </Text>
             </View>
           )}
