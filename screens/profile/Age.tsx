@@ -7,13 +7,12 @@ import BackHeader from "../../components/BackHeader";
 import * as Yup from "yup";
 import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import CustomButton from "../../components/CustomButton";
-import DashedInput from "../../components/DashedInput"; // import DashedInput
+import DashedInput from "../../components/DashedInput";
 import { AgeFormValues } from "../../redux/interfaces";
 import { RootState } from "../../redux/interfaces";
 import {db } from '../../firebase/firebase';
 import { doc , setDoc} from "firebase/firestore"; 
 import auth from "@react-native-firebase/auth";
-
 
 const ageSchema = Yup.object().shape({
   age: Yup.number()

@@ -20,6 +20,7 @@ import Rules from "../screens/profile/Rules";
 import LocationScreen from "../screens/profile/Location";
 import OnboardingStep2b from "../screens/onboarding/OnboardingStep2b";
 import OnboardingStep3 from "../screens/onboarding/OnboardingStep3";
+import Communities from "../screens/profile/Communities";
 
 const Stack = createNativeStackNavigator();
 
@@ -209,6 +210,15 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
       <Stack.Screen
         name="OnboardingStep3"
         component={OnboardingStep3}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Communties"
+        component={Communities}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",

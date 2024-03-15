@@ -7,6 +7,7 @@ import { heightReducer  } from './heightReducer';
 import { combineReducers } from 'redux';
 import { ageReducer } from './ageReducer';
 import {locationReducer}from './locationReducer';
+import {communityReducer}from './communityReducer';
 
 export default combineReducers({
   emailState: emailReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   heightState: heightReducer,
   ageState: ageReducer,
   locationState: locationReducer,
+  communitiesState: communityReducer
 });

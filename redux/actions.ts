@@ -1,5 +1,9 @@
-import { SET_LOCATION, SET_HEIGHT, SET_AGE,SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
-
+import { SET_COMMUNITIES, SET_USER_SELECTIONS, SET_LOCATION, SET_HEIGHT, SET_AGE,SET_GENDER, CONFIRM_RULES, SET_NAME , SET_EMAIL, TOGGLE_SUBSCRIPTION, SET_PHONE_NUMBER, SET_VERIFICATION_CODE, SET_COUNTRY_CODE} from './actionTypes';
+import { Dispatch } from 'redux';
+import { collection, getDocs } from "firebase/firestore";
+import {db } from '../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore";
+import {Community} from "./interfaces";
 
 export const setEmail = (email: string) => ({
   type: SET_EMAIL  as typeof SET_EMAIL,
@@ -57,4 +61,21 @@ export const setHeight = (height: number) => {
 export const setLocation = (latitude: number, longitude: number) => ({
   type: SET_LOCATION,
   payload: { latitude, longitude },
+});
+
+export const loadCommunities = async () => {
+  const querySnapshot = await getDocs(collection(db, "community"));
+  const communities = querySnapshot.forEach((doc) => ({ id: doc.id, ...doc.data() }));
+  return communities;
+};
+
+export const setCommunities = (communities:any) => ({
+    type: SET_COMMUNITIES,
+    payload: communities,
+});
+
+
+export const updateUserSelections = (selections:any) => ({
+  type: SET_USER_SELECTIONS,
+  payload: selections,
 });
