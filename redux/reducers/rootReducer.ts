@@ -21,6 +21,6 @@ export default combineReducers({
   ageState: ageReducer,
   locationState: locationReducer,
   dateThemeState: dateThemeReducer,
-  communityState: communityReducer,
+  communitiesState: communityReducer,
   bioState: bioReducer,
 });

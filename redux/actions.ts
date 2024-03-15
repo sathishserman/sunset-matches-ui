@@ -1,20 +1,23 @@
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 import {
-  SET_LOCATION,
-  SET_HEIGHT,
-  SET_AGE,
-  SET_GENDER,
   CONFIRM_RULES,
-  SET_NAME,
-  SET_EMAIL,
-  TOGGLE_SUBSCRIPTION,
-  SET_PHONE_NUMBER,
-  SET_VERIFICATION_CODE,
+  SET_AGE,
+  SET_BIO,
+  SET_COMMUNITIES,
   SET_COUNTRY_CODE,
   SET_DATE_LOCATION,
   SET_DATE_THEME,
-  SET_COMMUNITIES,
+  SET_EMAIL,
   SET_FOOD_PREFERENCE,
-  SET_BIO,
+  SET_GENDER,
+  SET_HEIGHT,
+  SET_LOCATION,
+  SET_NAME,
+  SET_PHONE_NUMBER,
+  SET_USER_SELECTIONS,
+  SET_VERIFICATION_CODE,
+  TOGGLE_SUBSCRIPTION,
 } from "./actionTypes";
 
 export const setEmail = (email: string) => ({
@@ -83,11 +86,6 @@ export const setDateTheme = (theme: string[]) => ({
   payload: theme,
 });
 
-export const setCommunities = (communities: string[]) => ({
-  type: SET_COMMUNITIES,
-  payload: communities,
-});
-
 export const setFoodPreference = (foodPreference: string) => ({
   type: SET_FOOD_PREFERENCE,
   payload: foodPreference,
@@ -96,4 +94,23 @@ export const setFoodPreference = (foodPreference: string) => ({
 export const setBio = (bio: string) => ({
   type: SET_BIO,
   payload: bio,
+});
+
+export const loadCommunities = async () => {
+  const querySnapshot = await getDocs(collection(db, "community"));
+  const communities = querySnapshot.forEach((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return communities;
+};
+
+export const setCommunities = (communities: any) => ({
+  type: SET_COMMUNITIES,
+  payload: communities,
+});
+
+export const updateUserSelections = (selections: any) => ({
+  type: SET_USER_SELECTIONS,
+  payload: selections,
 });

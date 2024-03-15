@@ -25,7 +25,7 @@ export interface RootState {
   locationState: LocationState;
   dateLocationState: DateLocationState;
   dateThemeState: DateThemeState;
-  communityState: CommunityState;
+  communitiesState: CommunityState;
   foodPreferenceState: FoodPreferenceState;
   bioState: BioState;
 }
@@ -96,8 +96,14 @@ export interface DateThemeState {
   themes: string[];
 }
 
+export interface Community {
+  id: string;
+  name: string;
+}
+
 export interface CommunityState {
-  communities: string[];
+  communities: Array<Community>;
+  userSelections: Array<string>;
 }
 
 export interface FoodPreferenceState {
