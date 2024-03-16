@@ -10,7 +10,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import {
   loadCommunities,
-  setCommunities2,
+  setCommunities as setCommunitiesAction,
   updateUserSelections,
 } from "../../redux/actions";
 import { RootState } from "../../redux/interfaces";
@@ -31,14 +31,14 @@ const updateUserRecord = async (uid: any, userSelections: any) => {
 
 export default function Communities({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
-  const { communities, userSelections } = useSelector(
-    (state: RootState) => state.communitiesState2
+  const { communities } = useSelector(
+    (state: RootState) => state.communitiesState
   );
   const [selectedCommunities, setSelectedCommunities] = useState<string[]>([]);
 
   useEffect(() => {
     loadCommunities().then((communities) => {
-      dispatch(setCommunities2(communities));
+      dispatch(setCommunitiesAction(communities));
     });
   }, [dispatch]);
 
@@ -79,7 +79,7 @@ export default function Communities({ navigation }: { navigation: any }) {
       <FlatList
         data={communities}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item}
         numColumns={3}
       />
       <TouchableOpacity onPress={handleContinue} style={styles.continueButton}>
