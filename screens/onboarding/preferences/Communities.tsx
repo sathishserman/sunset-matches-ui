@@ -60,7 +60,7 @@ const updateUserRecord = async (selectedCommunities: any) => {
     console.error("No user found");
     return;
   }
-  const userRef = doc(db, "users", uid);
+  const userRef = doc(db, "user", uid);
   try {
     await setDoc(userRef, { communities: selectedCommunities }, { merge: true });
     console.log("User record created or updated successfully");
@@ -118,7 +118,7 @@ export default function Communities({ navigation }: { navigation: any }) {
             <View className="aspect-square items-center">
               <Pressable
                 className={`border w-20 rounded-full overflow-hidden items-center aspect-square ${
-                  selectedCommunities.includes(item.community)
+                  selectedCommunities.includes(item.id)
                     ? "border-[#E25A28]"
                     : "border-white"
                 }`}
