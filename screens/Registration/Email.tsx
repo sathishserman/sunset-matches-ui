@@ -11,12 +11,12 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { db } from '../../firebase/firebase';
+import { db } from "../../firebase/firebase";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -30,17 +30,23 @@ const validationSchema = Yup.object().shape({
   subscribed: Yup.boolean(),
 });
 
-
-const updateUserRecord = async (uid:any, email:string, subscribed:boolean) => {
-  const userRef = doc(db, 'user', uid);
+const updateUserRecord = async (
+  uid: any,
+  email: string,
+  subscribed: boolean
+) => {
+  const userRef = doc(db, "user", uid);
   try {
-    setDoc(userRef, { email: email, subscription: subscribed }, { merge: true });
-    console.log('User record created or updated successfully');
+    setDoc(
+      userRef,
+      { email: email, subscription: subscribed },
+      { merge: true }
+    );
+    console.log("User record created or updated successfully");
   } catch (error) {
-    console.error('Error creating or updating user record:', error);
+    console.error("Error creating or updating user record:", error);
   }
 };
-
 
 export default function Email({ navigation }: { navigation: any }) {
   const { email, subscribed } = useSelector(
@@ -55,7 +61,7 @@ export default function Email({ navigation }: { navigation: any }) {
           initialValues={{ email, subscribed }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            const uid:any = auth().currentUser?.uid;
+            const uid: any = auth().currentUser?.uid;
             updateUserRecord(uid, values.email, values.subscribed);
             dispatch(setEmail(values.email));
             dispatch(toggleSubscription(values.subscribed));
