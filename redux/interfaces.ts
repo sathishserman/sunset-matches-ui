@@ -84,15 +84,14 @@ export interface HeightState {
   height: number;
 }
 
-export interface Community {
-  id: string;
-  name: string;
-}
 
-export interface CommunityState2 {
-  communities: Array<Community>;
+
+export interface CommunityState {
+  communities: any;
   userSelections: Array<string>;
 }
+
+
 export interface DateLocationState {
   locations: string[];
 }
@@ -101,9 +100,7 @@ export interface DateThemeState {
   themes: string[];
 }
 
-export interface CommunityState {
-  communities: string[];
-}
+
 
 export interface FoodPreferenceState {
   foodPreference: string[];

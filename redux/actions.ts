@@ -18,6 +18,11 @@ import {
   SET_VERIFICATION_CODE,
   TOGGLE_SUBSCRIPTION,
 } from "./actionTypes";
+import {
+  CommunityData,
+  communityImages,
+  dummyCommmunities,
+} from "@/data/communitiesData";
 
 export const setEmail = (email: string) => ({
   type: SET_EMAIL as typeof SET_EMAIL,
@@ -76,11 +81,19 @@ export const setLocation = (latitude: number, longitude: number) => ({
 });
 
 export const loadCommunities = async () => {
+  console.log('test111111');
   const querySnapshot = await getDocs(collection(db, "community"));
-  const communities = querySnapshot.forEach((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const communities: any = [];
+  querySnapshot.forEach((doc) => {
+    if (communityImages[doc.data().name]) {
+      communities.push({
+        community: doc.data().name,
+        id: doc.id,
+        image: communityImages[doc.data().name],
+      });
+    }
+  });
+  console.log(communities);
   return communities;
 };
 
@@ -107,3 +120,6 @@ export const setFoodPreference = (foodPreference: string) => ({
   type: SET_FOOD_PREFERENCE,
   payload: foodPreference,
 });
+
+
+
