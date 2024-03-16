@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "sunset-matches-ui",
-    "slug": "sunset-matches-ui",
+    "slug": "sunset-matches",
+    "owner": "sunsetmatches",
     "version": "1.0.0",
     "sdkVersion": "50.0.0",
     "orientation": "portrait",
@@ -57,7 +58,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "5f2644c7-502f-4abd-a8dd-94e0be32d4aa"
+        "projectId": "72768cac-26dd-4d6d-8d2a-2fe7d1b5052e"
       }
     }
   }
