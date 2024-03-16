@@ -6,14 +6,19 @@ import {
   dummyCommmunities,
 } from "@/data/communitiesData";
 import { db } from "@/firebase/firebase";
-import { setCommunities as setCommunitiesAction } from "@/redux/actions";
+import {
+  loadCommunities,
+  setCommunities,
+  updateUserSelections,
+} from "../../../redux/actions";
 import { AntDesign } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/interfaces";
 
  type CommunityData = {
    community: string;
@@ -44,7 +49,7 @@ import { useDispatch } from "react-redux";
 //   { community: "Christian", image: communityImages.Christian },
 // ];
 
-const updateUserRecord = async (selectedCommunity: any) => {
+const updateUserRecord = async (selectedCommunities: any) => {
   const uid = auth().currentUser?.uid;
   if (!uid) {
     console.error("No user found");
@@ -52,7 +57,7 @@ const updateUserRecord = async (selectedCommunity: any) => {
   }
   const userRef = doc(db, "users", uid);
   try {
-    await setDoc(userRef, { communities: selectedCommunity }, { merge: true });
+    await setDoc(userRef, { communities: selectedCommunities }, { merge: true });
     console.log("User record created or updated successfully");
   } catch (error) {
     console.error("Error creating or updating user record:", error);
@@ -61,50 +66,31 @@ const updateUserRecord = async (selectedCommunity: any) => {
 
 export default function Communities({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
-  const [selectedCommunity, setSelectedCommunity] = useState<string[]>([]);
-  const [communities, setCommunities] =
-    useState<CommunityData[]>(dummyCommmunities);
+  const { communities, userSelections } = useSelector(
+    (state: RootState) => state.communitiesState
+  );
+  const [selectedCommunities, setSelectedCommunities] = useState<string[]>([]);
 
   useEffect(() => {
-    const fetchCommunities = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "communities"));
-        const communitiesData: CommunityData[] = [];
-        querySnapshot.forEach((doc) => {
-          const communityName = doc.data().name;
-          if (communityImages[communityName]) {
-            communitiesData.push({
-              community: communityName,
-              image: communityImages[communityName],
-            });
-          }
-        });
-
-        if (communitiesData.length > 0) {
-          setCommunities(communitiesData);
-        }
-      } catch (error) {
-        console.error("Error fetching communities from Firestore:", error);
-      }
-    };
-
-    fetchCommunities();
+    loadCommunities().then((communities) => {
+      dispatch(setCommunities(communities));
+    });
   }, []);
 
   const handleSubmit = async () => {
-    if (selectedCommunity.length) {
-      dispatch(setCommunitiesAction(selectedCommunity));
-      await updateUserRecord(selectedCommunity);
+    if (selectedCommunities.length>1) {
+      dispatch(updateUserSelections(selectedCommunities));
+      updateUserRecord(selectedCommunities);
       navigation.navigate("DateTheme");
     }
   };
 
-  const handleCommunityPress = (communityName: string) => {
-    const isDuplicate = selectedCommunity.includes(communityName);
+  const handleCommunityPress = (id: string) => {
+    const isDuplicate = selectedCommunities.includes(id);
     if (isDuplicate) {
-      setSelectedCommunity((prev) => prev.filter((c) => c !== communityName));
-    } else if (selectedCommunity.length < 7) {
-      setSelectedCommunity((prev) => [...prev, communityName]);
+      setSelectedCommunities((prev) => prev.filter((c) => c !== id));
+    } else if (selectedCommunities.length < 7) {
+      setSelectedCommunities((prev) => [...prev, id]);
     }
   };
 
@@ -122,16 +108,16 @@ export default function Communities({ navigation }: { navigation: any }) {
           className="w-full max-h-[50vh]"
           maxItemsPerRow={3}
           adjustGridToStyles
-          data={communities}
+          data={communities?communities:[]}
           renderItem={({ item, index }) => (
             <View className="aspect-square items-center">
               <Pressable
                 className={`border w-20 rounded-full overflow-hidden items-center aspect-square ${
-                  selectedCommunity.includes(item.community)
+                  selectedCommunities.includes(item.community)
                     ? "border-[#E25A28]"
                     : "border-white"
                 }`}
-                onPress={() => handleCommunityPress(item.community)}
+                onPress={() => handleCommunityPress(item.id)}
                 key={`community-${index}`}
               >
                 <Image
@@ -147,7 +133,7 @@ export default function Communities({ navigation }: { navigation: any }) {
         />
         <CustomButton
           onPress={handleSubmit}
-          gradient={!!selectedCommunity.length}
+          gradient={!!selectedCommunities.length}
           title="Continue"
           _className="w-2/3"
           icon={<AntDesign name="arrowright" size={24} color="white" />}
