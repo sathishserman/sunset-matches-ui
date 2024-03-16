@@ -25,7 +25,8 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      "*": ["types/*"]
+      "*": ["types/*"],
+      "@/*": ["*"]
     }
   },
   "exclude": [

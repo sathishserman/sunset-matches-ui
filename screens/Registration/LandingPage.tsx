@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { LandingPageProps, RootState } from "../../redux/interfaces";
+import { LandingPageProps, RootState } from "@/redux/interfaces";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "../../components/CustomButton";
+import CustomButton from "@/components/CustomButton";
 
 const LandingPage: React.FC<LandingPageProps> = ({ name, navigation }) => {
   return (
