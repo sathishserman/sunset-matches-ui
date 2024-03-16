@@ -5,6 +5,9 @@ import { View, Text, Pressable } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import { setFoodPreference } from "@/redux/actions";
+import { doc, setDoc } from "firebase/firestore";
+import auth from "@react-native-firebase/auth";
+import { db } from "@/firebase/firebase";
 
 export default function FoodPreference({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
@@ -19,9 +22,31 @@ export default function FoodPreference({ navigation }: { navigation: any }) {
     "Kosher",
   ];
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedFoodPreference) {
       dispatch(setFoodPreference(selectedFoodPreference));
+
+      const uid = auth().currentUser?.uid;
+      if (!uid) {
+        console.error("No user found");
+        return;
+      }
+      const userRef = doc(db, "users", uid);
+
+      try {
+        await setDoc(
+          userRef,
+          { foodPreference: selectedFoodPreference },
+          { merge: true }
+        );
+        console.log(
+          "User's food preference updated successfully",
+          selectedFoodPreference
+        );
+      } catch (error) {
+        console.error("Error updating user's food preference:", error);
+      }
+
       navigation.navigate("Communities");
     }
   };

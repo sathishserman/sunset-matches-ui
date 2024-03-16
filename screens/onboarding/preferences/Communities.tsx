@@ -1,49 +1,53 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  Image,
-  ImageSourcePropType,
-} from "react-native";
-import { useDispatch } from "react-redux";
-import { setCommunities as setCommunitiesAction } from "@/redux/actions";
-import { db } from "@/firebase/firebase";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import auth from "@react-native-firebase/auth";
 import CustomButton from "@/components/CustomButton";
 import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import {
+  CommunityData,
+  communityImages,
+  dummyCommmunities,
+} from "@/data/communitiesData";
+import { db } from "@/firebase/firebase";
+import { setCommunities as setCommunitiesAction } from "@/redux/actions";
 import { AntDesign } from "@expo/vector-icons";
+import auth from "@react-native-firebase/auth";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { FlatGrid } from "react-native-super-grid";
+import { useDispatch } from "react-redux";
 
-type CommunityData = {
-  community: string;
-  image: ImageSourcePropType;
-};
+// type CommunityData = {
+//   community: string;
+//   image: ImageSourcePropType;
+// };
 
-const communityImages: Record<string, ImageSourcePropType> = {
-  Black: require("@/assets/communities/black.png"),
-  Latino: require("@/assets/communities/latino.png"),
-  Asian: require("@/assets/communities/asian.png"),
-  Jewish: require("@/assets/communities/jewish.png"),
-  Muslim: require("@/assets/communities/muslim.png"),
-  Veteran: require("@/assets/communities/veteran.png"),
-  LGBTQ: require("@/assets/communities/lgbtq.png"),
-  Disabled: require("@/assets/communities/disabled.png"),
-  Christian: require("@/assets/communities/christian.png"),
-};
+// const communityImages: Record<string, ImageSourcePropType> = {
+//   Black: require("@/assets/communities/black.png"),
+//   Latino: require("@/assets/communities/latino.png"),
+//   Asian: require("@/assets/communities/asian.png"),
+//   Jewish: require("@/assets/communities/jewish.png"),
+//   Muslim: require("@/assets/communities/muslim.png"),
+//   Veteran: require("@/assets/communities/veteran.png"),
+//   LGBTQ: require("@/assets/communities/lgbtq.png"),
+//   Disabled: require("@/assets/communities/disabled.png"),
+//   Christian: require("@/assets/communities/christian.png"),
+// };
 
-const dummyCommmunities: CommunityData[] = [
-  { community: "Black", image: communityImages.Black },
-  { community: "Latino", image: communityImages.Latino },
-  { community: "Asian", image: communityImages.Asian },
-  { community: "Jewish", image: communityImages.Jewish },
-  { community: "Muslim", image: communityImages.Muslim },
-  { community: "Veteran", image: communityImages.Veteran },
-  { community: "LGBTQ", image: communityImages.LGBTQ },
-  { community: "Disabled", image: communityImages.Disabled },
-  { community: "Christian", image: communityImages.Christian },
-];
+// const dummyCommmunities: CommunityData[] = [
+//   { community: "Black", image: communityImages.Black },
+//   { community: "Latino", image: communityImages.Latino },
+//   { community: "Asian", image: communityImages.Asian },
+//   { community: "Jewish", image: communityImages.Jewish },
+//   { community: "Muslim", image: communityImages.Muslim },
+//   { community: "Veteran", image: communityImages.Veteran },
+//   { community: "LGBTQ", image: communityImages.LGBTQ },
+//   { community: "Disabled", image: communityImages.Disabled },
+//   { community: "Christian", image: communityImages.Christian },
+// ];
 
 const updateUserRecord = async (selectedCommunity: any) => {
   const uid = auth().currentUser?.uid;
@@ -51,7 +55,7 @@ const updateUserRecord = async (selectedCommunity: any) => {
     console.error("No user found");
     return;
   }
-  const userRef = doc(db, "users", uid); // Ensure the collection name matches your Firestore setup
+  const userRef = doc(db, "users", uid);
   try {
     await setDoc(userRef, { communities: selectedCommunity }, { merge: true });
     console.log("User record created or updated successfully");

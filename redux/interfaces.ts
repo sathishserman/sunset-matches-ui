@@ -89,7 +89,7 @@ export interface Community {
   name: string;
 }
 
-export interface CommunityState {
+export interface CommunityState2 {
   communities: Array<Community>;
   userSelections: Array<string>;
 }

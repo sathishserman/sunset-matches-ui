@@ -29,7 +29,6 @@
       "@/*": ["*"]
     },
     "typeRoots": ["./node_modules/@types", "./types"],
-    "types": ["react", "react-native", "jest"]
   },
   "exclude": [
     "node_modules",
