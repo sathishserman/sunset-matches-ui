@@ -11,19 +11,14 @@ import { AntDesign } from "@expo/vector-icons";
 import auth from "@react-native-firebase/auth";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import {
-  Image,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { useDispatch } from "react-redux";
 
-// type CommunityData = {
-//   community: string;
-//   image: ImageSourcePropType;
-// };
+ type CommunityData = {
+   community: string;
+   image: ImageSourcePropType;
+ };
 
 // const communityImages: Record<string, ImageSourcePropType> = {
 //   Black: require("@/assets/communities/black.png"),
