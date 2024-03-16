@@ -18,7 +18,7 @@ import {
 import PhoneNumberInput from "react-native-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { db } from '../../firebase/firebase';
+import { db } from "../../firebase/firebase";
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -34,13 +34,13 @@ type PhoneRoutes = {
   };
 };
 
-const updateUserRecord = async (uid:any, formattedNumber:string) => {
-  const userRef = doc(db, 'user', uid);
+const updateUserRecord = async (uid: any, formattedNumber: string) => {
+  const userRef = doc(db, "user", uid);
   try {
     setDoc(userRef, { phone: formattedNumber }, { merge: true });
-    console.log('User record created or updated successfully');
+    console.log("User record created or updated successfully");
   } catch (error) {
-    console.error('Error creating or updating user record:', error);
+    console.error("Error creating or updating user record:", error);
   }
 };
 
@@ -57,15 +57,15 @@ export default function Phone({ navigation }: { navigation: any }) {
       const confirmation: FirebaseAuthTypes.ConfirmationResult =
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
-        const uid:any = auth().currentUser?.uid;
+        const uid: any = auth().currentUser?.uid;
         setConfirmationResult(confirmation);
-        if(!auth().currentUser){
+        if (!auth().currentUser) {
           navigation.navigate("Verification", {
             flow: route.params.flow,
           });
-        }else{
+        } else {
           updateUserRecord(uid, formattedNumber);
-          setConfirmationResult(confirmation); 
+          setConfirmationResult(confirmation);
           // navigation.navigate("Location", {
           //   flow: route.params.flow,
           // });
@@ -159,9 +159,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                 </Text>
                 <CustomButton
                   onPress={formikProps.handleSubmit as any}
-                  title={
-                    loading ? "Loading..." : "Continue"
-                  }
+                  title={loading ? "Loading..." : "Continue"}
                   _className="mt-5 mb-5"
                   gradient={
                     formikProps.values.phoneNumber &&

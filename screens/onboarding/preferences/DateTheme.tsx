@@ -1,13 +1,17 @@
 import CustomButton from "@/components/CustomButton";
 import CustomSafeAreaView from "@/components/CustomSafeAreaView";
-import { Image } from "expo-image";
-import React from "react";
-import { View, Text, Pressable, ScrollView } from "react-native";
-import { FlatGrid, SimpleGrid } from "react-native-super-grid";
-import { AntDesign } from "@expo/vector-icons";
-import { Shadow } from "react-native-shadow-2";
-import { useDispatch } from "react-redux";
+import themes from "@/data/dateThemesData";
+import { db } from "@/firebase/firebase";
 import { setDateTheme } from "@/redux/actions";
+import { AntDesign } from "@expo/vector-icons";
+import auth from "@react-native-firebase/auth";
+import { Image } from "expo-image";
+import { doc, setDoc } from "firebase/firestore";
+import React from "react";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { Shadow } from "react-native-shadow-2";
+import { SimpleGrid } from "react-native-super-grid";
+import { useDispatch } from "react-redux";
 
 type Theme = {
   image: any;
@@ -16,48 +20,7 @@ type Theme = {
 
 export default function DateTheme({ navigation }: { navigation: any }) {
   const [selectedTheme, setSelectedTheme] = React.useState<string[]>([]);
-  const themes = [
-    { image: require("@/assets/foodIcons/beer.png"), theme: "Beer" },
-    {
-      image: require("@/assets/foodIcons/chinese-food.png"),
-      theme: "Chinese Food",
-    },
-    { image: require("@/assets/foodIcons/coffee.png"), theme: "Coffee" },
-    {
-      image: require("@/assets/foodIcons/dating-with-the-view.png"),
-      theme: "Dating with the View",
-    },
-    { image: require("@/assets/foodIcons/drinks.png"), theme: "Drinks" },
-    {
-      image: require("@/assets/foodIcons/indian-cuisine.png"),
-      theme: "Indian Cuisine",
-    },
-    {
-      image: require("@/assets/foodIcons/italian-food.png"),
-      theme: "Italian Food",
-    },
-    {
-      image: require("@/assets/foodIcons/korean-food.png"),
-      theme: "Korean Food",
-    },
-    {
-      image: require("@/assets/foodIcons/local-food.png"),
-      theme: "Local Food",
-    },
-    {
-      image: require("@/assets/foodIcons/mexican-food.png"),
-      theme: "Mexican Food",
-    },
-    { image: require("@/assets/foodIcons/pizza.png"), theme: "Pizza" },
-    {
-      image: require("@/assets/foodIcons/rooftop-date.png"),
-      theme: "Rooftop Date",
-    },
-    { image: require("@/assets/foodIcons/seafood.png"), theme: "Seafood" },
-    { image: require("@/assets/foodIcons/sushi.png"), theme: "Sushi" },
-    { image: require("@/assets/foodIcons/thai-food.png"), theme: "Thai Food" },
-    { image: require("@/assets/foodIcons/wine.png"), theme: "Wine" },
-  ];
+  // const themes = themesData.themes;
 
   const dispatch = useDispatch();
   const handleThemePress = (theme: Theme, index: number) => {
@@ -74,9 +37,27 @@ export default function DateTheme({ navigation }: { navigation: any }) {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedTheme.length) {
       dispatch(setDateTheme(selectedTheme));
+
+      const uid = auth().currentUser?.uid;
+      if (!uid) {
+        console.error("No user found");
+        return;
+      }
+      const userRef = doc(db, "users", uid);
+
+      try {
+        await setDoc(userRef, { dateThemes: selectedTheme }, { merge: true });
+        console.log(
+          "User's date theme preferences updated successfully",
+          selectedTheme
+        );
+      } catch (error) {
+        console.error("Error updating user's date theme preferences:", error);
+      }
+
       navigation.navigate("FoodPreference");
     }
   };

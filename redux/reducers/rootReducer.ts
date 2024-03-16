@@ -23,4 +23,5 @@ export default combineReducers({
   dateThemeState: dateThemeReducer,
   communitiesState: communityReducer,
   bioState: bioReducer,
+  communityState: communityReducer,
 });

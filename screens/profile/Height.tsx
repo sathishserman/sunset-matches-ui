@@ -1,16 +1,18 @@
-import CustomButton from "@/components/CustomButton";
-import CustomSafeAreaView from "@/components/CustomSafeAreaView";
-import DashedInput from "@/components/DashedInput";
-import { setHeight } from "@/redux/actions";
-import { HeightFormValues, RootState } from "@/redux/interfaces";
-import auth from "@react-native-firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { Formik, FormikProps, useFormik } from "formik";
 import React from "react";
-import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { db } from '../../firebase/firebase';
+import { setHeight } from "@/redux/actions";
+import BackHeader from "@/components/BackHeader";
+import { useDispatch, useSelector } from "react-redux";
+import DashedInput from "@/components/DashedInput";
+import { Formik, FormikProps, useFormik } from "formik";
+import CustomButton from "../../components/CustomButton";
+import {db } from '../../firebase/firebase';
+import { doc , setDoc} from "firebase/firestore"; 
+import auth from "@react-native-firebase/auth";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
+import { HeightFormValues, RootState } from "../../redux/interfaces";
+import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 
 const heightSchema = Yup.object().shape({
   height: Yup.number()

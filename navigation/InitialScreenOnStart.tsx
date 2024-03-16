@@ -9,7 +9,6 @@ import Verification from "@/screens/Registration/Verification";
 import BeginOnboarding from "@/screens/onboarding/BeginOnboarding";
 import ProfileComplete from "@/screens/onboarding/ProfileComplete";
 import Communities from "@/screens/onboarding/preferences/Communities";
-import Communities2 from "@/screens/profile/Communities";
 import DateLocation from "@/screens/onboarding/preferences/DateLocation";
 import DateTheme from "@/screens/onboarding/preferences/DateTheme";
 import FoodPreference from "@/screens/onboarding/preferences/FoodPreferences";
@@ -168,15 +167,6 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
         }}
       />
       <Stack.Screen
-        name="Communities2"
-        component={Communities2}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
         name="ProfileComplete"
         component={ProfileComplete}
         options={{
@@ -242,6 +232,15 @@ export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
       <Stack.Screen
         name="OnboardingStep3"
         component={OnboardingStep3}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Communties"
+        component={Communities}
         options={{
           headerShown: false,
           animationTypeForReplace: "push",

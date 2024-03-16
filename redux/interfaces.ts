@@ -34,6 +34,10 @@ export interface NameFormValues {
   name: string;
 }
 
+export interface NameFormValues {
+  name: string;
+}
+
 export interface PhoneFormValues {
   phoneNumber: string;
 }
@@ -88,6 +92,23 @@ export interface HeightState {
   height: number;
 }
 
+export interface BioFormValues {
+  bio: string;
+}
+
+export interface BioState {
+  bio: string;
+}
+
+export interface Community {
+  id: string;
+  name: string;
+}
+
+export interface CommunityState2 {
+  communities: Array<Community>;
+  userSelections: Array<string>;
+}
 export interface DateLocationState {
   locations: string[];
 }
@@ -96,28 +117,10 @@ export interface DateThemeState {
   themes: string[];
 }
 
-export interface Community {
-  id: string;
-  name: string;
-}
-
 export interface CommunityState {
-  communities: Array<Community>;
-  userSelections: Array<string>;
+  communities: string[];
 }
-
-// export interface CommunityState {
-//   communities: string[];
-// }
 
 export interface FoodPreferenceState {
   foodPreference: string[];
-}
-
-export interface BioFormValues {
-  bio: string;
-}
-
-export interface BioState {
-  bio: string;
 }
