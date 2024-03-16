@@ -49,7 +49,7 @@ export default function Bio({ navigation }: { navigation: any }) {
           const uid: any = auth().currentUser?.uid;
           updateUserRecord(uid, values.bio);
           dispatch(setBio(values.bio));
-          navigation.navigate("LandingPage");
+          navigation.navigate("ProfileComplete");
         }}
       >
         {({
