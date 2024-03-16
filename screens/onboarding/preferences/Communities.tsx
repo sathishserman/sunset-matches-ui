@@ -33,6 +33,18 @@ const communityImages: Record<string, ImageSourcePropType> = {
   Christian: require("@/assets/communities/christian.png"),
 };
 
+const dummyCommmunities: CommunityData[] = [
+  { community: "Black", image: communityImages.Black },
+  { community: "Latino", image: communityImages.Latino },
+  { community: "Asian", image: communityImages.Asian },
+  { community: "Jewish", image: communityImages.Jewish },
+  { community: "Muslim", image: communityImages.Muslim },
+  { community: "Veteran", image: communityImages.Veteran },
+  { community: "LGBTQ", image: communityImages.LGBTQ },
+  { community: "Disabled", image: communityImages.Disabled },
+  { community: "Christian", image: communityImages.Christian },
+];
+
 const updateUserRecord = async (selectedCommunity: any) => {
   const uid = auth().currentUser?.uid;
   if (!uid) {
@@ -51,22 +63,30 @@ const updateUserRecord = async (selectedCommunity: any) => {
 export default function Communities({ navigation }: { navigation: any }) {
   const dispatch = useDispatch();
   const [selectedCommunity, setSelectedCommunity] = useState<string[]>([]);
-  const [communities, setCommunities] = useState<CommunityData[]>([]);
+  const [communities, setCommunities] =
+    useState<CommunityData[]>(dummyCommmunities);
 
   useEffect(() => {
     const fetchCommunities = async () => {
-      const querySnapshot = await getDocs(collection(db, "communities"));
-      const communitiesData: CommunityData[] = [];
-      querySnapshot.forEach((doc) => {
-        const communityName = doc.data().name; // Assuming 'name' field holds the community name
-        if (communityImages[communityName]) {
-          communitiesData.push({
-            community: communityName,
-            image: communityImages[communityName],
-          });
+      try {
+        const querySnapshot = await getDocs(collection(db, "communities"));
+        const communitiesData: CommunityData[] = [];
+        querySnapshot.forEach((doc) => {
+          const communityName = doc.data().name;
+          if (communityImages[communityName]) {
+            communitiesData.push({
+              community: communityName,
+              image: communityImages[communityName],
+            });
+          }
+        });
+
+        if (communitiesData.length > 0) {
+          setCommunities(communitiesData);
         }
-      });
-      setCommunities(communitiesData);
+      } catch (error) {
+        console.error("Error fetching communities from Firestore:", error);
+      }
     };
 
     fetchCommunities();
@@ -75,6 +95,7 @@ export default function Communities({ navigation }: { navigation: any }) {
   const handleSubmit = async () => {
     if (selectedCommunity.length) {
       dispatch(setCommunitiesAction(selectedCommunity));
+      await updateUserRecord(selectedCommunity);
       navigation.navigate("DateTheme");
     }
   };
