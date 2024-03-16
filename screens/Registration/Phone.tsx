@@ -1,29 +1,24 @@
-import React, { createContext, useState, useEffect } from "react";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { useRoute } from "@react-navigation/native";
+import { Formik, FormikHelpers, FormikProps } from "formik";
+import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
-  Alert,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
+import PhoneNumberInput from "react-native-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
-import { RootState, PhoneFormValues } from "../../redux/interfaces";
-import { setCountryCode, setPhoneNumber } from "../../redux/actions";
-import BackHeader from "../../components/BackHeader";
-import PhoneNumberInput, {
-  PhoneInputProps,
-} from "react-native-phone-number-input";
-import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
-import { useRoute, RouteProp } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/CustomButton";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 import { useAuth } from "../../context/AuthContext";
-import {db } from '../../firebase/firebase';
-import { doc , setDoc} from "firebase/firestore"; 
+import { db } from "../../firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { setCountryCode, setPhoneNumber } from "../../redux/actions";
+import { PhoneFormValues, RootState } from "../../redux/interfaces";
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -39,13 +34,13 @@ type PhoneRoutes = {
   };
 };
 
-const updateUserRecord = async (uid:any, formattedNumber:string) => {
-  const userRef = doc(db, 'user', uid);
+const updateUserRecord = async (uid: any, formattedNumber: string) => {
+  const userRef = doc(db, "user", uid);
   try {
     setDoc(userRef, { phone: formattedNumber }, { merge: true });
-    console.log('User record created or updated successfully');
+    console.log("User record created or updated successfully");
   } catch (error) {
-    console.error('Error creating or updating user record:', error);
+    console.error("Error creating or updating user record:", error);
   }
 };
 
@@ -61,15 +56,15 @@ export default function Phone({ navigation }: { navigation: any }) {
       const confirmation: FirebaseAuthTypes.ConfirmationResult =
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
-        const uid:any = auth().currentUser?.uid;
+        const uid: any = auth().currentUser?.uid;
         setConfirmationResult(confirmation);
-        if(!auth().currentUser){
+        if (!auth().currentUser) {
           navigation.navigate("Verification", {
             flow: route.params.flow,
           });
-        }else{
+        } else {
           updateUserRecord(uid, formattedNumber);
-          setConfirmationResult(confirmation); 
+          setConfirmationResult(confirmation);
           // navigation.navigate("Location", {
           //   flow: route.params.flow,
           // });
@@ -80,7 +75,7 @@ export default function Phone({ navigation }: { navigation: any }) {
     }
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     values: PhoneFormValues,
     { setSubmitting, setFieldError }: FormikHelpers<PhoneFormValues>
   ) => {
@@ -95,7 +90,7 @@ export default function Phone({ navigation }: { navigation: any }) {
       dispatch(setCountryCode(`+${callingCode}`));
 
       try {
-        signInWithPhoneNumber(formattedNumber);
+        await signInWithPhoneNumber(formattedNumber);
         navigation.navigate("Verification", {
           flow: route.params.flow,
         });
@@ -116,8 +111,7 @@ export default function Phone({ navigation }: { navigation: any }) {
         onSubmit={handleSubmit}
       >
         {(formikProps: FormikProps<PhoneFormValues>) => (
-          <SafeAreaView className="flex-1 bg-[#270C00]">
-            <BackHeader color="white" />
+          <CustomSafeAreaView>
             <KeyboardAvoidingView
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               className="items-center justify-between px-5 pb-10 flex-1"
@@ -175,7 +169,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                 />
               </View>
             </KeyboardAvoidingView>
-          </SafeAreaView>
+          </CustomSafeAreaView>
         )}
       </Formik>
     </>

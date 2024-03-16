@@ -1,7 +1,7 @@
 import BackHeader from "../../components/BackHeader";
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
 
 type InputFieldProps = {
   label: string;
@@ -49,8 +49,7 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
-    <SafeAreaView className="bg-[#FFA29A] flex-1">
-      <BackHeader color="white" />
+    <CustomSafeAreaView>
       <View className="flex-1">
         <View className="justify-center items-center py-10">
           <Text className="font-bold text-4xl text-white">Join Us</Text>
@@ -90,7 +89,7 @@ export default function SignUp() {
           </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+    </CustomSafeAreaView>
   );
 }
 

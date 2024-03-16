@@ -25,7 +25,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sm.mobile.ui"
+      "package": "com.sm.mobile.ui",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCYCxd1eaBXWLBxrECpcvQyQ6Cq0LvhDbU"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,7 +47,7 @@
           }
         }
       ],
-      
+
       [
         "expo-location",
         {

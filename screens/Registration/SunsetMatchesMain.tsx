@@ -6,7 +6,7 @@ import {
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import ArrowRight from "react-native-vector-icons/AntDesign";
+import { AntDesign } from "@expo/vector-icons";
 import Animated, {
   runOnJS,
   useAnimatedStyle,
@@ -75,15 +75,15 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
                   start={{ x: 1, y: 0 }}
                 />
                 <Text className="text-white text-2xl items-center justify-center">
-                  start <ArrowRight name="arrowright" size={24} color="white" />
+                  start <AntDesign name="arrowright" size={24} color="white" />
                 </Text>
               </Animated.View>
             </View>
           </GestureDetector>
           <Text className="text-[#898A8D]">
-            By continuing you agree with our{" "}
+            By continuing you agree with our
             <Text className="underline">Terms&Conditions</Text> and the
-            application of our{" "}
+            application of our
             <Text className="underline">Privacy Statement</Text>
           </Text>
         </View>

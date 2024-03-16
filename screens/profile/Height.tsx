@@ -1,17 +1,18 @@
 import React from "react";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
-import { Formik, FormikProps, useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 import { setHeight } from "../../redux/actions";
 import BackHeader from "../../components/BackHeader";
-import * as Yup from "yup";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch, useSelector } from "react-redux";
 import DashedInput from "../../components/DashedInput";
-import { HeightFormValues, RootState } from "../../redux/interfaces";
+import { Formik, FormikProps, useFormik } from "formik";
 import CustomButton from "../../components/CustomButton";
 import {db } from '../../firebase/firebase';
 import { doc , setDoc} from "firebase/firestore"; 
 import auth from "@react-native-firebase/auth";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomSafeAreaView from "../../components/CustomSafeAreaView";
+import { HeightFormValues, RootState } from "../../redux/interfaces";
+import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
 
 const heightSchema = Yup.object().shape({
   height: Yup.number()
@@ -48,6 +49,21 @@ export default function Height({ navigation }: { navigation: any }) {
     formikProps.handleChange("height")(value);
   };
 
+  const formik = useFormik({
+    initialValues: { height },
+    validationSchema: heightSchema,
+    onSubmit: (values) => {
+      dispatch(setHeight(values.height));
+      navigation.navigate("Height");
+    },
+  });
+
+  React.useEffect(() => {
+    if (formik.touched.height && !formik.errors.height) {
+      formik.handleSubmit();
+    }
+  }, [formik.touched.height, formik.errors.height]);
+
   return (
     <Formik
       initialValues={{ height }}
@@ -56,12 +72,11 @@ export default function Height({ navigation }: { navigation: any }) {
         const uid:any = auth().currentUser?.uid;
         updateUserRecord(uid, values.height);
         dispatch(setHeight(values.height));
-        navigation.navigate("Location");
+        navigation.navigate("LocationScreen");
       }}
     >
       {(formikProps: FormikProps<HeightFormValues>) => (
-        <SafeAreaView className="flex-1 bg-[#270C00]">
-          <BackHeader color="white" />
+        <CustomSafeAreaView>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             className="items-center justify-between mt-32 px-5 pb-5 flex-1"
@@ -87,7 +102,12 @@ export default function Height({ navigation }: { navigation: any }) {
               )}
             </View>
             <CustomButton
-              onPress={() => formikProps.handleSubmit()}
+              onPress={() => {
+                formikProps.setFieldTouched("height", true, false);
+                if (!formikProps.errors.height) {
+                  return formikProps.handleSubmit();
+                }
+              }}
               title="Continue"
               _className="w-4/6 mb-10"
               gradient={
@@ -97,7 +117,7 @@ export default function Height({ navigation }: { navigation: any }) {
               }
             />
           </KeyboardAvoidingView>
-        </SafeAreaView>
+        </CustomSafeAreaView>
       )}
     </Formik>
   );
