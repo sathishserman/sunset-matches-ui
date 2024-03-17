@@ -20,6 +20,7 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import MainTabNavigator from "./MainTabNavigator";
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -64,6 +65,11 @@ export default function Navigation() {
         <Stack.Screen
           name="InitialScreenOnStart"
           component={InitialScreenOnStart}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Main"
+          component={MainTabNavigator}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

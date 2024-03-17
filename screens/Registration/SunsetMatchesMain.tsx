@@ -26,7 +26,7 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
       if (event.translationX > 135) {
         translateX.value = withSpring(145, {}, () =>
           runOnJS(navigation.navigate)("LoginLanding")
-        );
+                  );
         translateX.value = withSpring(0);
       } else {
         translateX.value = withSpring(0);
@@ -44,7 +44,7 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
   });
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <>
       {/* <ImageBackground
         source={require('@/assets/bg.jpeg')} 
         style={styles.background}
@@ -89,6 +89,6 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
         </View>
       </SafeAreaView>
       {/* </ImageBackground> */}
-    </GestureHandlerRootView>
+    </>
   );
 }

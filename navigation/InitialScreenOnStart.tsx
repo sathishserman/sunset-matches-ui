@@ -28,241 +28,111 @@ import FoodPreference from "@/screens/onboarding/preferences/FoodPreferences";
 const Stack = createNativeStackNavigator();
 
 export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
+  const mainOptions = {
+    headerShown: false,
+    animationTypeForReplace: "push",
+    animation: "slide_from_right",
+  };
+
   return (
     <Stack.Navigator initialRouteName="Onboarding">
       <Stack.Screen
         name="SunsetMatchesMain"
         component={SunsetMatchesMain}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="LoginLanding"
         component={LoginLanding}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
-      <Stack.Screen
-        name="Phone"
-        component={Phone}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
+      <Stack.Screen name="Phone" component={Phone} options={mainOptions} />
+      <Stack.Screen name="SignUp" component={SignUp} options={mainOptions} />
       <Stack.Screen
         name="Verification"
         component={Verification}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
-      <Stack.Screen
-        name="Email"
-        component={Email}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
-        name="Name"
-        component={Name}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
+      <Stack.Screen name="Email" component={Email} options={mainOptions} />
+      <Stack.Screen name="Name" component={Name} options={mainOptions} />
       <Stack.Screen
         name="LandingPage"
         component={LandingPage}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
-      <Stack.Screen
-        name="Rules"
-        component={Rules}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
-        name="Gender"
-        component={Gender}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
-        name="Age"
-        component={Age}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
-      <Stack.Screen
-        name="Height"
-        component={Height}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
+      <Stack.Screen name="Rules" component={Rules} options={mainOptions} />
+      <Stack.Screen name="Gender" component={Gender} options={mainOptions} />
+      <Stack.Screen name="Age" component={Age} options={mainOptions} />
+      <Stack.Screen name="Height" component={Height} options={mainOptions} />
       <Stack.Screen
         name="LocationScreen"
         component={LocationScreen}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="DateLocation"
         component={DateLocation}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="Communities"
         component={Communities}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="ProfileComplete"
         component={ProfileComplete}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="BeginOnboarding"
         component={BeginOnboarding}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="OnboardingSteps"
         component={OnboardingSteps}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="OnboardingStep0"
         component={OnboardingStep0}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="OnboardingStep1"
         component={OnboardingStep1}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="OnboardingStep2"
         component={OnboardingStep2}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="OnboardingStep2b"
         component={OnboardingStep2b}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="OnboardingStep3"
         component={OnboardingStep3}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="Communties"
         component={Communities}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="DateTheme"
         component={DateTheme}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
       <Stack.Screen
         name="FoodPreference"
         component={FoodPreference}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
+        options={mainOptions}
       />
     </Stack.Navigator>
   );
