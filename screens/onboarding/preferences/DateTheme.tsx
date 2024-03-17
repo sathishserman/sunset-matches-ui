@@ -46,7 +46,7 @@ export default function DateTheme({ navigation }: { navigation: any }) {
         console.error("No user found");
         return;
       }
-      const userRef = doc(db, "users", uid);
+      const userRef = doc(db, "user", uid);
 
       try {
         await setDoc(userRef, { dateThemes: selectedTheme }, { merge: true });
