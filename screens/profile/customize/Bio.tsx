@@ -84,7 +84,6 @@ export default function Bio({ navigation }: { navigation: any }) {
                 <View className="border border-[#E25A28] w-[83vw] h-full rounded-2xl justify-center">
                   <TextInput
                     className="text-white text-lg px-10"
-                    autoCapitalize="words"
                     selectionColor={"#ffffff"}
                     onChangeText={handleChange("bio")}
                     onBlur={handleBlur("bio")}

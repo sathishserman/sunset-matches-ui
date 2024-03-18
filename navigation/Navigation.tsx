@@ -70,7 +70,11 @@ export default function Navigation() {
         <Stack.Screen
           name="Main"
           component={MainTabNavigator}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            animationTypeForReplace: "push",
+            animation: "slide_from_right",
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

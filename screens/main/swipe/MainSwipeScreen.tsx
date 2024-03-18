@@ -55,6 +55,7 @@ export default function MainSwipeScreen({ navigation }: { navigation: any }) {
           <View className="relative h-[45vh] items-center justify-center">
             {users.map((user: User, index: number) => (
               <TinderCard
+                key={index}
                 user={user}
                 numOfCards={users.length}
                 index={index}
