@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { FontAwesome } from "@expo/vector-icons";
 import TinderCard from "@/components/TinderCard";
+import { FontAwesome } from "@expo/vector-icons";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import React, { useEffect, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import generateRandomUser, { User } from "./generateRandomUser";
 
 export default function MainSwipeScreen({ navigation }: { navigation: any }) {
@@ -19,15 +19,6 @@ export default function MainSwipeScreen({ navigation }: { navigation: any }) {
     );
     setUsers(generatedUsers);
   }, []);
-
-  // Navigate to Match screen after 4 users have been liked
-  useEffect(() => {
-    console.log("Navigate to Match screen");
-    if (likedUsers.length === 4) {
-      console.log("Navigate to Match screen");
-      navigation.navigate("Match");
-    }
-  }, [likedUsers]);
 
   const activeIndex = useSharedValue(0);
 
