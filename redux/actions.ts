@@ -3,6 +3,7 @@ import { db } from "../firebase/firebase";
 import {
   CONFIRM_RULES,
   SET_AGE,
+  SET_BIO,
   SET_COMMUNITIES,
   SET_COUNTRY_CODE,
   SET_DATE_LOCATION,
@@ -80,6 +81,26 @@ export const setLocation = (latitude: number, longitude: number) => ({
   payload: { latitude, longitude },
 });
 
+export const setDateLocation = (location: string[]) => ({
+  type: SET_DATE_LOCATION,
+  payload: location,
+});
+
+export const setDateTheme = (theme: string[]) => ({
+  type: SET_DATE_THEME,
+  payload: theme,
+});
+
+export const setFoodPreference = (foodPreference: string) => ({
+  type: SET_FOOD_PREFERENCE,
+  payload: foodPreference,
+});
+
+export const setBio = (bio: string) => ({
+  type: SET_BIO,
+  payload: bio,
+});
+
 export const loadCommunities = async () => {
   console.log('test111111');
   const querySnapshot = await getDocs(collection(db, "community"));
@@ -106,20 +127,3 @@ export const updateUserSelections = (selections: any) => ({
   type: SET_USER_SELECTIONS,
   payload: selections,
 });
-export const setDateLocation = (location: string[]) => ({
-  type: SET_DATE_LOCATION,
-  payload: location,
-});
-
-export const setDateTheme = (theme: string[]) => ({
-  type: SET_DATE_THEME,
-  payload: theme,
-});
-
-export const setFoodPreference = (foodPreference: string) => ({
-  type: SET_FOOD_PREFERENCE,
-  payload: foodPreference,
-});
-
-
-

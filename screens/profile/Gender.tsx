@@ -1,16 +1,15 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { setGender } from "../../redux/actions";
-import { RootState } from "../../redux/interfaces";
-import BackHeader from "../../components/BackHeader";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import CustomButton from "../../components/CustomButton";
-import {db } from '../../firebase/firebase';
-import { doc , setDoc} from "firebase/firestore"; 
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import { setGender } from "@/redux/actions";
+import { RootState } from "@/redux/interfaces";
 import auth from "@react-native-firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { useFormik } from "formik";
+import React from "react";
+import { Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { db } from '../../firebase/firebase';
 
 const validationSchema = Yup.object().shape({
   gender: Yup.string().required("Please select your gender"),

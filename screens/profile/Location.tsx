@@ -93,6 +93,7 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
                   }}
                   title={"Your Location"}
                 />
+                
               </MapView>
             </View>
           )}

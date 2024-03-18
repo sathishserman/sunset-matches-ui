@@ -1,18 +1,16 @@
-import React from "react";
-import { View, Text, KeyboardAvoidingView, Platform } from "react-native";
-import { Formik, FormikProps, useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import DashedInput from "@/components/DashedInput"; // import DashedInput
 import { setAge } from "@/redux/actions";
-import BackHeader from "@/components/BackHeader";
-import * as Yup from "yup";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import CustomButton from "../../components/CustomButton";
-import DashedInput from "../../components/DashedInput";
-import { AgeFormValues } from "../../redux/interfaces";
-import { RootState } from "../../redux/interfaces";
-import {db } from '../../firebase/firebase';
-import { doc , setDoc} from "firebase/firestore"; 
+import { AgeFormValues, RootState } from "@/redux/interfaces";
 import auth from "@react-native-firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { Formik, FormikProps, useFormik } from "formik";
+import React from "react";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { db } from "../../firebase/firebase";
 
 const ageSchema = Yup.object().shape({
   age: Yup.number()
@@ -23,13 +21,13 @@ const ageSchema = Yup.object().shape({
     .typeError("Age must be a number"),
 });
 
-const updateUserRecord = async (uid:any, age:number) => {
-  const userRef = doc(db, 'user', uid);
+const updateUserRecord = async (uid: any, age: number) => {
+  const userRef = doc(db, "user", uid);
   try {
-    setDoc(userRef, { age: age}, { merge: true });
-    console.log('User record created or updated successfully');
+    setDoc(userRef, { age: age }, { merge: true });
+    console.log("User record created or updated successfully");
   } catch (error) {
-    console.error('Error creating or updating user record:', error);
+    console.error("Error creating or updating user record:", error);
   }
 };
 
@@ -70,7 +68,7 @@ export default function Age({ navigation }: { navigation: any }) {
       initialValues={{ age }}
       validationSchema={ageSchema}
       onSubmit={(values) => {
-        const uid:any = auth().currentUser?.uid;
+        const uid: any = auth().currentUser?.uid;
         updateUserRecord(uid, values.age);
         dispatch(setAge(values.age));
         navigation.navigate("Height");
