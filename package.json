@@ -35,6 +35,8 @@
     "firebase": "^10.8.1",
     "formik": "^2.4.5",
     "install": "^0.13.0",
+    "lottie-ios": "^4.4.1",
+    "lottie-react-native": "^6.7.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.73.5",
