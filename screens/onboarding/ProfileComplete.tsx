@@ -30,7 +30,7 @@ const ProfileComplete = ({
         </View>
         <CustomButton
           onPress={() => {
-            navigation.navigate("BeginOnboarding");
+            navigation.navigate("Main", { screen: "Swipe" });
           }}
           title="Find your date"
           _className="w-4/6"

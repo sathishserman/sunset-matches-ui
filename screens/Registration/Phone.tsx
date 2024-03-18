@@ -1,5 +1,11 @@
+import CustomButton from "@/components/CustomButton";
+import CustomSafeAreaView from "@/components/CustomSafeAreaView";
+import { useAuth } from "@/context/AuthContext";
+import { setCountryCode, setPhoneNumber } from "@/redux/actions";
+import { PhoneFormValues, RootState } from "@/redux/interfaces";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { useRoute } from "@react-navigation/native";
+import { doc, setDoc } from "firebase/firestore";
 import { Formik, FormikHelpers, FormikProps } from "formik";
 import React from "react";
 import {
@@ -12,13 +18,7 @@ import {
 import PhoneNumberInput from "react-native-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import CustomButton from "../../components/CustomButton";
-import CustomSafeAreaView from "../../components/CustomSafeAreaView";
-import { useAuth } from "../../context/AuthContext";
 import { db } from "../../firebase/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { setCountryCode, setPhoneNumber } from "../../redux/actions";
-import { PhoneFormValues, RootState } from "../../redux/interfaces";
 
 const phoneValidationSchema = Yup.object().shape({
   phoneNumber: Yup.string()
@@ -159,9 +159,7 @@ export default function Phone({ navigation }: { navigation: any }) {
                 </Text>
                 <CustomButton
                   onPress={formikProps.handleSubmit as any}
-                  title={
-                    loading ? "Loading..." : "Continue"
-                  }
+                  title={loading ? "Loading..." : "Continue"}
                   _className="mt-5 mb-5"
                   gradient={
                     formikProps.values.phoneNumber &&

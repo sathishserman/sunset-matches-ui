@@ -2,19 +2,22 @@
   "expo": {
     "name": "sunset-matches-ui",
     "slug": "sunset-matches",
-    "owner": "sunsetmatches",
     "version": "1.0.0",
     "sdkVersion": "50.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "androidStatusBar": { "translucent": true },
+    "androidStatusBar": {
+      "translucent": true
+    },
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.sm.mobile.ui",
@@ -31,7 +34,11 @@
         "googleMaps": {
           "apiKey": "AIzaSyCYCxd1eaBXWLBxrECpcvQyQ6Cq0LvhDbU"
         }
-      }
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -48,7 +55,6 @@
           }
         }
       ],
-
       [
         "expo-location",
         {
@@ -60,6 +66,7 @@
       "eas": {
         "projectId": "72768cac-26dd-4d6d-8d2a-2fe7d1b5052e"
       }
-    }
+    },
+    "owner": "sunsetmatches"
   }
 }

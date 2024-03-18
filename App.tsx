@@ -1,17 +1,20 @@
 import "expo-dev-client";
-import React from 'react';
+import React from "react";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
 import { AuthProvider } from "@/context/AuthContext";
-import AuthenticatedApp from '@/AuthenticatedApp'; // Import the component you just created
-import { expo as expoApp } from '@/app.json';
-import { AppRegistry } from 'react-native';
+import AuthenticatedApp from "@/AuthenticatedApp"; // Import the component you just created
+import { expo as expoApp } from "@/app.json";
+import { AppRegistry } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <AuthenticatedApp />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <AuthenticatedApp />
+        </GestureHandlerRootView>
       </AuthProvider>
     </Provider>
   );

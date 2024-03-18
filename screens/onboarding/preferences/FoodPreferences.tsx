@@ -47,7 +47,7 @@ export default function FoodPreference({ navigation }: { navigation: any }) {
         console.error("Error updating user's food preference:", error);
       }
 
-      navigation.navigate("Communities");
+      navigation.navigate("Bio");
     }
   };
 
