@@ -93,7 +93,6 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
                   }}
                   title={"Your Location"}
                 />
-                
               </MapView>
             </View>
           )}
@@ -102,7 +101,7 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
               if (loading) {
                 return;
               } else if (location && district) {
-                navigation.navigate("DateLocation");
+                navigation.navigate("Communities");
               } else {
                 requestLocation();
               }
