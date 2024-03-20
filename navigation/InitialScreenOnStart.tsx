@@ -1,149 +1,56 @@
-import Email from "@/screens/Registration/Email";
-import LandingPage from "@/screens/Registration/LandingPage";
-import LoginLanding from "@/screens/Registration/LoginLanding";
-import Name from "@/screens/Registration/Name";
-import Phone from "@/screens/Registration/Phone";
-import SignUp from "@/screens/Registration/SignUp";
-import SunsetMatchesMain from "@/screens/Registration/SunsetMatchesMain";
-import Verification from "@/screens/Registration/Verification";
-import BeginOnboarding from "@/screens/onboarding/BeginOnboarding";
-import ProfileComplete from "@/screens/onboarding/ProfileComplete";
-import Communities from "@/screens/onboarding/preferences/Communities";
-import DateLocation from "@/screens/onboarding/preferences/DateLocation";
-import DateTheme from "@/screens/onboarding/preferences/DateTheme";
-import FoodPreference from "@/screens/onboarding/preferences/FoodPreferences";
-import OnboardingStep0 from "@/screens/onboarding/steps/OnboardingStep0";
-import OnboardingStep1 from "@/screens/onboarding/steps/OnboardingStep1";
-import OnboardingStep2 from "@/screens/onboarding/steps/OnboardingStep2";
-import OnboardingStep2b from "@/screens/onboarding/steps/OnboardingStep2b";
-import OnboardingStep3 from "@/screens/onboarding/steps/OnboardingStep3";
-import OnboardingSteps from "@/screens/onboarding/steps/OnboardingSteps";
-import Age from "@/screens/profile/Age";
-import Gender from "@/screens/profile/Gender";
-import Height from "@/screens/profile/Height";
-import LocationScreen from "@/screens/profile/Location";
-import Rules from "@/screens/profile/Rules";
-import Bio from "@/screens/profile/customize/Bio";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as Screens from "@/screens/OnBoardingScreens";
 
 const Stack = createNativeStackNavigator();
 
-export const InitialScreenOnStart = ({ navigation }: { navigation: any }) => {
-  const mainOptions = {
-    headerShown: false,
-    animationTypeForReplace: "push",
-    animation: "slide_from_right",
-  };
+const screens = [
+  { name: "SunsetMatchesMain", component: Screens.SunsetMatchesMain },
+  { name: "Email", component: Screens.Email },
+  { name: "LandingPage", component: Screens.LandingPage },
+  { name: "LoginLanding", component: Screens.LoginLanding },
+  { name: "Name", component: Screens.Name },
+  { name: "Phone", component: Screens.Phone },
+  { name: "SignUp", component: Screens.SignUp },
+  { name: "Verification", component: Screens.Verification },
+  { name: "BeginOnboarding", component: Screens.BeginOnboarding },
+  { name: "ProfileComplete", component: Screens.ProfileComplete },
+  { name: "Communities", component: Screens.Communities },
+  { name: "DateLocation", component: Screens.DateLocation },
+  { name: "DateTheme", component: Screens.DateTheme },
+  { name: "FoodPreference", component: Screens.FoodPreference },
+  { name: "OnboardingStep0", component: Screens.OnboardingStep0 },
+  { name: "OnboardingStep1", component: Screens.OnboardingStep1 },
+  { name: "OnboardingStep2", component: Screens.OnboardingStep2 },
+  { name: "OnboardingStep2b", component: Screens.OnboardingStep2b },
+  { name: "OnboardingStep3", component: Screens.OnboardingStep3 },
+  { name: "OnboardingSteps", component: Screens.OnboardingSteps },
+  { name: "Age", component: Screens.Age },
+  { name: "Gender", component: Screens.Gender },
+  { name: "Height", component: Screens.Height },
+  { name: "LocationScreen", component: Screens.LocationScreen },
+  { name: "Rules", component: Screens.Rules },
+  { name: "Bio", component: Screens.Bio },
+  { name: "ProfilePic", component: Screens.ProfilePic },
+  { name: "AddImage", component: Screens.AddImage },
+];
 
+const commonOptions = {
+  headerShown: false,
+  animationTypeForReplace: "push",
+  animation: "slide_from_right",
+};
+
+export const InitialScreenOnStart = () => {
   return (
     <Stack.Navigator initialRouteName="Onboarding">
-      <Stack.Screen
-        name="SunsetMatchesMain"
-        component={SunsetMatchesMain}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="LoginLanding"
-        component={LoginLanding}
-        options={mainOptions}
-      />
-      <Stack.Screen name="Phone" component={Phone} options={mainOptions} />
-      <Stack.Screen name="SignUp" component={SignUp} options={mainOptions} />
-      <Stack.Screen
-        name="Verification"
-        component={Verification}
-        options={mainOptions}
-      />
-      <Stack.Screen name="Email" component={Email} options={mainOptions} />
-      <Stack.Screen name="Name" component={Name} options={mainOptions} />
-      <Stack.Screen
-        name="LandingPage"
-        component={LandingPage}
-        options={mainOptions}
-      />
-      <Stack.Screen name="Rules" component={Rules} options={mainOptions} />
-      <Stack.Screen name="Gender" component={Gender} options={mainOptions} />
-      <Stack.Screen name="Age" component={Age} options={mainOptions} />
-      <Stack.Screen name="Height" component={Height} options={mainOptions} />
-      <Stack.Screen
-        name="LocationScreen"
-        component={LocationScreen}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="DateLocation"
-        component={DateLocation}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="Communities"
-        component={Communities}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="ProfileComplete"
-        component={ProfileComplete}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="BeginOnboarding"
-        component={BeginOnboarding}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="OnboardingSteps"
-        component={OnboardingSteps}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="OnboardingStep0"
-        component={OnboardingStep0}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="OnboardingStep1"
-        component={OnboardingStep1}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="OnboardingStep2"
-        component={OnboardingStep2}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="OnboardingStep2b"
-        component={OnboardingStep2b}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="OnboardingStep3"
-        component={OnboardingStep3}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="Communties"
-        component={Communities}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="DateTheme"
-        component={DateTheme}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="FoodPreference"
-        component={FoodPreference}
-        options={mainOptions}
-      />
-      <Stack.Screen
-        name="Bio"
-        component={Bio}
-        options={{
-          headerShown: false,
-          animationTypeForReplace: "push",
-          animation: "slide_from_right",
-        }}
-      />
+      {screens.map(({ name, component }) => (
+        <Stack.Screen
+          key={name}
+          name={name}
+          component={component}
+          options={commonOptions}
+        />
+      ))}
     </Stack.Navigator>
   );
 };

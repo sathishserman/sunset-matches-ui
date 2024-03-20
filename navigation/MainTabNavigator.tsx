@@ -1,14 +1,9 @@
-// In Navigation.tsx or a new file dedicated to your Tab Navigator
-
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons"; // Assuming you're using Expo
-
-// Import stack navigators for each tab (defined below)
-import SwipeStack from "@/screens/main/swipe/SwipeStack";
 import ProfileStack from "@/screens/main/profile/ProfileStack";
+import SwipeStack from "@/screens/main/swipe/SwipeStack";
 import UpcomingDateStack from "@/screens/main/upcoming-date/UpcomingDateStack";
+import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
 
 const Tab = createBottomTabNavigator();
 
