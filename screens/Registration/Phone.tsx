@@ -58,6 +58,7 @@ export default function Phone({ navigation }: { navigation: any }) {
         await auth().signInWithPhoneNumber(formattedNumber);
       if (confirmation) {
         const uid: any = auth().currentUser?.uid;
+        console.log(uid)
         setConfirmationResult(confirmation);
         if (!auth().currentUser) {
           navigation.navigate("Verification", {
@@ -66,9 +67,6 @@ export default function Phone({ navigation }: { navigation: any }) {
         } else {
           updateUserRecord(uid, formattedNumber);
           setConfirmationResult(confirmation);
-          // navigation.navigate("Location", {
-          //   flow: route.params.flow,
-          // });
         }
       }
     } catch (error) {

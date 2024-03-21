@@ -28,16 +28,7 @@ const datePreferencesOptions = [
   "Wine",
 ];
 
-export interface User {
-  id: number;
-  image: any;
-  name: string;
-  age: number;
-  bio: string;
-  height: number;
-  communities: string[];
-  datePreferences: string[];
-}
+
 
 export default function generateRandomUser(id: number): User {
   const getRandomAge = (): number => Math.floor(Math.random() * 50) + 18;

@@ -19,12 +19,25 @@ export const calculateMatchScore = (user1: any, user2: any) => {
   return matchScore;
 };
 
+// Checks if there is a match between two users
+const checkForMatch = async (currentUserId: any, targetUserId: any) => {
+  const targetUserSwipesRef = doc(
+    db,
+    `user/${targetUserId}/swipes/${currentUserId}`
+  );
+  const swipeSnap = await getDoc(targetUserSwipesRef);
+  if (swipeSnap.exists() && swipeSnap.data().swipeDirection === "right") {
+    return true; // A match is found if the target user has swiped right on the current user
+  }
+  return false; // No match is found
+};
+
 // Record a swipe action by a user on another user
 export const recordSwipe = async (
   userId: any,
   targetUserId: any,
   swipeDirection: any
-): Promise<boolean> => {
+): Promise<{ success: Boolean; matchFound: Boolean }> => {
   const today = new Date().toISOString().split("T")[0];
   const swipeLimitRef = doc(db, "swipesLimit", userId);
 
@@ -34,6 +47,7 @@ export const recordSwipe = async (
   };
 
   const userSwipesRef = doc(db, `user/${userId}/swipes/${targetUserId}`);
+  console.log("User Swipe Ref", userSwipesRef);
 
   const limitDocSnap = await getDoc(swipeLimitRef);
   if (!limitDocSnap.exists() || limitDocSnap.data().date !== today) {
@@ -61,14 +75,20 @@ export const recordSwipe = async (
     if (swipeDirection === "right") {
       if (limitDocSnap.data().rightSwipesCount >= 10) {
         console.log("Daily right swipe limit reached");
-        return false;
+        return {
+          success: false,
+          matchFound: false,
+        };
       } else {
         updates.rightSwipesCount = increment(1);
       }
     } else {
       if (limitDocSnap.data().leftSwipesCount >= 10) {
         console.log("Daily left swipe limit reached");
-        return false;
+        return {
+          success: false,
+          matchFound: false,
+        };
       } else {
         updates.leftSwipesCount = increment(1);
       }
@@ -82,7 +102,24 @@ export const recordSwipe = async (
   console.log(
     `Swipe recorded: ${userId} -> ${targetUserId} [${swipeDirection}]`
   );
-  return true;
+
+  // Save the swipe data for the user
+  await setDoc(userSwipesRef, swipeData);
+  console.log(
+    `Swipe recorded: ${userId} -> ${targetUserId} [${swipeDirection}]`
+  );
+
+  // Check for a match only if the swipe direction is 'right'
+  let matchFound = false;
+  if (swipeDirection === "right") {
+    matchFound = await checkForMatch(userId, targetUserId);
+    if (matchFound) {
+      console.log(`Match found between ${userId} and ${targetUserId}`);
+      // Here you could handle the match scenario, like updating the database or sending a notification
+    }
+  }
+
+  return { success: true, matchFound };
 };
 
 // Load potential matches for a user based on their communities
@@ -114,9 +151,10 @@ export const loadPotentialMatches = async (userId: string): Promise<any[]> => {
   const swipedUserIds = swipesSnapshot.docs.map((doc) => doc.id);
 
   const potentialMatchesSnapshot = await getDocs(potentialMatchesQuery);
+  // Modify this line to include the document ID
   const matches = potentialMatchesSnapshot.docs
     .filter((doc) => !swipedUserIds.includes(doc.id) && doc.id !== userId)
-    .map((doc) => doc.data());
+    .map((doc) => ({ id: doc.id, ...doc.data() })); // Include the ID here
 
   console.log(
     matches.length === 0 ? "Ran out of users to show" : "Matches found:",

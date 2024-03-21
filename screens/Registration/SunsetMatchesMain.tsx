@@ -13,6 +13,9 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { useEffect } from "react";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
   const translateX = useSharedValue(0);
@@ -25,8 +28,8 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
     .onEnd((event) => {
       if (event.translationX > 135) {
         translateX.value = withSpring(145, {}, () =>
-          // runOnJS(navigation.navigate)("LoginLanding")
-          runOnJS(navigation.navigate)("ProfilePic")
+          runOnJS(navigation.navigate)("LoginLanding")
+          // runOnJS(navigation.navigate)("ProfilePic")
         );
         translateX.value = withSpring(0);
       } else {

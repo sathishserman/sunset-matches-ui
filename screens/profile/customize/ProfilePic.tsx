@@ -12,6 +12,8 @@ import {
   View,
 } from "react-native";
 import auth from "@react-native-firebase/auth";
+import { useFocusEffect } from "@react-navigation/native";
+import CustomButton from "@/components/CustomButton";
 
 export default function ProfilePic({ navigation }: { navigation: any }) {
   const pictureRequirements = [
@@ -21,10 +23,9 @@ export default function ProfilePic({ navigation }: { navigation: any }) {
   ];
 
   const [picUrls, setPicUrls] = useState<string[]>([]);
-  const userId = auth().currentUser?.uid; // Replace with the actual user ID or retrieve from context/redux
+  const userId = auth().currentUser?.uid;
 
   const fetch = async () => {
-    // Fetch the image URLs from Firestore when the component mounts
     const fetchImageUrls = async () => {
       if (userId) {
         const docRef = doc(db, "user", userId);
@@ -45,12 +46,14 @@ export default function ProfilePic({ navigation }: { navigation: any }) {
     console.log("Pic Urls", picUrls);
   };
 
-  useEffect(() => {
-    fetch();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetch();
+    }, [])
+  );
 
-  const goToNextScreen = () => {
-    return navigation.navigate("AddImage", { userId });
+  const goToNextScreen = (imageIndex: number) => {
+    navigation.navigate("AddImage", { userId, imageIndex });
   };
 
   return (
@@ -68,30 +71,48 @@ export default function ProfilePic({ navigation }: { navigation: any }) {
         <View className="w-4/5 aspect-square items-center justify-center flex-row">
           <Pressable
             className="w-[22vw] h-[22vw] rounded-full border border-[#E25A28] items-center justify-center"
-            onPress={goToNextScreen}
+            onPress={() => {
+              goToNextScreen(0);
+            }}
           >
-            <Entypo name="plus" size={24} color="#E25A28" />
             {picUrls[0] ? (
-              <Image source={picUrls[0]} className="w-full h-full" />
-            ) : null}
+              <Image
+                source={picUrls[0]}
+                className="w-full h-full rounded-full scale-90"
+              />
+            ) : (
+              <Entypo name="plus" size={24} color="#E25A28" />
+            )}
           </Pressable>
           <Pressable
             className="w-[22vw] h-[22vw] rounded-full border border-[#E25A28] items-center justify-center ml-5"
-            onPress={goToNextScreen}
+            onPress={() => {
+              goToNextScreen(1);
+            }}
           >
-            <Entypo name="plus" size={24} color="#E25A28" />
             {picUrls[1] ? (
-              <Image source={picUrls[1]} className="w-full h-full" />
-            ) : null}
+              <Image
+                source={picUrls[1]}
+                className="w-full h-full rounded-full scale-90"
+              />
+            ) : (
+              <Entypo name="plus" size={24} color="#E25A28" />
+            )}
           </Pressable>
           <Pressable
             className="w-[22vw] h-[22vw] rounded-full border border-[#E25A28] items-center justify-center ml-5"
-            onPress={goToNextScreen}
+            onPress={() => {
+              goToNextScreen(2);
+            }}
           >
-            <Entypo name="plus" size={24} color="#E25A28" />
             {picUrls[2] ? (
-              <Image source={picUrls[2]} className="w-full h-full" />
-            ) : null}
+              <Image
+                source={picUrls[2]}
+                className="w-full h-full rounded-full scale-90"
+              />
+            ) : (
+              <Entypo name="plus" size={24} color="#E25A28" />
+            )}
           </Pressable>
         </View>
 
@@ -111,6 +132,13 @@ export default function ProfilePic({ navigation }: { navigation: any }) {
             </View>
           ))}
         </View>
+
+        <CustomButton
+          onPress={() => navigation.navigate("Main", { screen: "Swipe" })}
+          title="Next"
+          gradient
+          _className="w-5/6 mt-5"
+        />
       </KeyboardAvoidingView>
     </CustomSafeAreaView>
   );

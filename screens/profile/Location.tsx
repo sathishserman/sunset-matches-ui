@@ -98,6 +98,7 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
           )}
           <CustomButton
             onPress={() => {
+              navigation.navigate("Communities");
               if (loading) {
                 return;
               } else if (location && district) {

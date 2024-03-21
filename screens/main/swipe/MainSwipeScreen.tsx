@@ -2,37 +2,74 @@ import TinderCard from "@/components/TinderCard";
 import { FontAwesome } from "@expo/vector-icons";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
+import {
+  Modal,
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+} from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
-import generateRandomUser, { User } from "./generateRandomUser";
+import { loadPotentialMatches, recordSwipe } from "@/service/matchingAlgorithm";
+import auth from "@react-native-firebase/auth";
+
+export interface User {
+  id: number;
+  image: any;
+  name: string;
+  age: number;
+  bio: string;
+  height: number;
+  communities: string[];
+  dateThemes: string[];
+  pics: string[];
+}
 
 export default function MainSwipeScreen({ navigation }: { navigation: any }) {
   const tabBarHeight = useBottomTabBarHeight();
   const [users, setUsers] = useState<User[]>([]);
   const [activeUserIndex, setActiveUserIndex] = useState(0);
-  const [likedUsers, setLikedUsers] = useState<User[]>([]);
+  const activeIndex = useSharedValue(0);
+  const [showMatchModal, setShowMatchModal] = useState(false);
+  const [match, setMatch] = useState("");
 
   useEffect(() => {
-    const generatedUsers = Array.from({ length: 16 }, (_, i) =>
-      generateRandomUser(i + 1)
-    );
-    setUsers(generatedUsers);
+    const fetchMatches = async () => {
+      const userId = auth().currentUser?.uid;
+      if (userId) {
+        const matches = await loadPotentialMatches(userId);
+        console.log("Potential Matches", matches.length);
+        setUsers(matches);
+      }
+    };
+    fetchMatches();
   }, []);
 
-  const activeIndex = useSharedValue(0);
-
-  const onResponse = (res: boolean) => {
-    if (res) {
-      console.log("Liked", likedUsers.length);
-      setLikedUsers((prevUsers: User[]) => [
-        ...prevUsers,
-        users[activeUserIndex],
-      ]);
-    } else {
-      console.log("Disliked");
+  const onResponse = async (liked: any) => {
+    const userId = auth().currentUser?.uid;
+    const targetUserId = users[activeUserIndex]?.id;
+    const name = users[activeUserIndex]?.name;
+    if (userId && targetUserId) {
+      setActiveUserIndex((prevIndex) => prevIndex + 1);
+      const { success, matchFound } = await recordSwipe(
+        userId,
+        targetUserId,
+        liked ? "right" : "left"
+      );
+      if (matchFound) {
+        setShowMatchModal(true);
+        setMatch(name);
+      }
+      if (success) {
+        console.log(liked ? "Liked" : "Disliked", targetUserId);
+      }
     }
-    setActiveUserIndex((prevIndex: number) => prevIndex + 1);
   };
 
   return (
@@ -88,21 +125,80 @@ export default function MainSwipeScreen({ navigation }: { navigation: any }) {
                 Date Preferences
               </Text>
               <View className="flex-row flex-wrap gap-2">
-                {users[activeUserIndex].datePreferences.map(
-                  (preference, index) => (
-                    <View
-                      key={index}
-                      className="flex-row self-start py-1 px-2 border rounded-3xl border-white items-center"
-                    >
-                      <Text className="text-white">{preference}</Text>
-                    </View>
-                  )
-                )}
+                {users[activeUserIndex].dateThemes.map((preference, index) => (
+                  <View
+                    key={index}
+                    className="flex-row self-start py-1 px-2 border rounded-3xl border-white items-center"
+                  >
+                    <Text className="text-white">{preference}</Text>
+                  </View>
+                ))}
               </View>
             </View>
           </View>
         )}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={showMatchModal}
+          onRequestClose={() => {
+            setShowMatchModal(!showMatchModal);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>You matched with {match}</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setShowMatchModal(!showMatchModal)}
+              >
+                <Text style={styles.textStyle}>Close</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "#E25A28",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+});
