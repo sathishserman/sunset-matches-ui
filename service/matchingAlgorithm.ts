@@ -122,6 +122,29 @@ export const recordSwipe = async (
   return { success: true, matchFound };
 };
 
+export const checkMutualRightSwipe = async (
+  currentUserId: string,
+  targetUserId: string
+): Promise<boolean> => {
+  const currentUserSwipesRef = collection(db, `user/${currentUserId}/swipes`);
+  const currentUserQuery = query(
+    currentUserSwipesRef,
+    where("targetUserID", "==", targetUserId),
+    where("swipeDirection", "==", "right")
+  );
+  const currentUserSwipesSnapshot = await getDocs(currentUserQuery);
+
+  const targetUserSwipesRef = collection(db, `user/${targetUserId}/swipes`);
+  const targetUserQuery = query(
+    targetUserSwipesRef,
+    where("targetUserID", "==", currentUserId),
+    where("swipeDirection", "==", "right")
+  );
+  const targetUserSwipesSnapshot = await getDocs(targetUserQuery);
+
+  return !currentUserSwipesSnapshot.empty && !targetUserSwipesSnapshot.empty;
+};
+
 // Load potential matches for a user based on their communities
 export const loadPotentialMatches = async (userId: string): Promise<any[]> => {
   const userDocRef = doc(db, "user", userId);
