@@ -8,6 +8,6 @@ const matchList = [
     bio: "I love to travel and meet new people",
     height: 165,
     communities: ["asian", "jewish"],
-    datePreferences: ["wine", "sushi", "cocktails"],
+    dateThemes: ["wine", "sushi", "cocktails"],
   },
 ];

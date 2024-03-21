@@ -93,16 +93,16 @@ export default function LocationScreen({ navigation }: { navigation: any }) {
                   }}
                   title={"Your Location"}
                 />
-                
               </MapView>
             </View>
           )}
           <CustomButton
             onPress={() => {
+              navigation.navigate("Communities");
               if (loading) {
                 return;
               } else if (location && district) {
-                navigation.navigate("DateLocation");
+                navigation.navigate("Communities");
               } else {
                 requestLocation();
               }

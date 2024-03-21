@@ -15,9 +15,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.sm.mobile.ui",
@@ -52,6 +50,9 @@
         {
           "android": {
             "minSdkVersion": 30
+          },
+          "ios": {
+            "useFrameworks": "static"
           }
         }
       ],

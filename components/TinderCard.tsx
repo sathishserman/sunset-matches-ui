@@ -18,7 +18,7 @@ export const tinderCardWidth = screenWidth * 0.8;
 
 type TinderCard = {
   user: {
-    image: string;
+    pics: string[];
   };
   numOfCards: number;
   index: number;
@@ -104,7 +104,7 @@ const TinderCard = ({
       >
         <Image
           style={[StyleSheet.absoluteFillObject, styles.image]}
-          source={user.image}
+          source={user.pics[0]}
         />
 
         <LinearGradient
