@@ -96,6 +96,22 @@ export const loadPotentialMatches = async (userId: string): Promise<any[]> => {
     console.log(matches.length === 0 ? 'Ran out of users to show' : 'Matches found:', matches);
     return matches;
 };
+
+
+export const checkMutualRightSwipe = async (currentUserId: string, targetUserId: string): Promise<boolean> => {
+
+    const currentUserSwipesRef = collection(db, `user/${currentUserId}/swipes`);
+    const currentUserQuery = query(currentUserSwipesRef, where('targetUserID', '==', targetUserId), where('swipeDirection', '==', 'right'));
+    const currentUserSwipesSnapshot = await getDocs(currentUserQuery);
+  
+
+    const targetUserSwipesRef = collection(db, `user/${targetUserId}/swipes`);
+    const targetUserQuery = query(targetUserSwipesRef, where('targetUserID', '==', currentUserId), where('swipeDirection', '==', 'right'));
+    const targetUserSwipesSnapshot = await getDocs(targetUserQuery);
+  
+    
+    return !currentUserSwipesSnapshot.empty && !targetUserSwipesSnapshot.empty;
+  };
   
 
 
