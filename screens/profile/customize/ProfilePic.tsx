@@ -134,7 +134,14 @@ export default function ProfilePic({ navigation }: { navigation: any }) {
         </View>
 
         <CustomButton
-          onPress={() => navigation.navigate("Main", { screen: "Swipe" })}
+          onPress={() =>
+            navigation.navigate("Main", {
+              screen: "Discover",
+              params: {
+                screen: "Match",
+              },
+            })
+          }
           title="Next"
           gradient
           _className="w-5/6 mt-5"

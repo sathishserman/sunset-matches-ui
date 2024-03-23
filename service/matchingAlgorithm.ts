@@ -19,19 +19,6 @@ export const calculateMatchScore = (user1: any, user2: any) => {
   return matchScore;
 };
 
-// Checks if there is a match between two users
-const checkForMatch = async (currentUserId: any, targetUserId: any) => {
-  const targetUserSwipesRef = doc(
-    db,
-    `user/${targetUserId}/swipes/${currentUserId}`
-  );
-  const swipeSnap = await getDoc(targetUserSwipesRef);
-  if (swipeSnap.exists() && swipeSnap.data().swipeDirection === "right") {
-    return true; // A match is found if the target user has swiped right on the current user
-  }
-  return false; // No match is found
-};
-
 // Record a swipe action by a user on another user
 export const recordSwipe = async (
   userId: any,
@@ -112,7 +99,7 @@ export const recordSwipe = async (
   // Check for a match only if the swipe direction is 'right'
   let matchFound = false;
   if (swipeDirection === "right") {
-    matchFound = await checkForMatch(userId, targetUserId);
+    matchFound = await checkMutualRightSwipe(userId, targetUserId);
     if (matchFound) {
       console.log(`Match found between ${userId} and ${targetUserId}`);
       // Here you could handle the match scenario, like updating the database or sending a notification

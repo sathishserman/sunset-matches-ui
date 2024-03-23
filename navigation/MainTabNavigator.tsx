@@ -4,6 +4,7 @@ import UpcomingDateStack from "@/screens/main/upcoming-date/UpcomingDateStack";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import { Platform } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,19 +41,17 @@ function MainTabNavigator() {
           } else if (route.name === "Dates") {
             iconName = focused ? "calendar" : "calendar-outline";
           }
-          return <Ionicons name={iconName} size={36} color={color} />;
+          return <Ionicons name={iconName} size={30} color={color} />;
         },
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "white",
         tabBarStyle: {
-          backgroundColor: "transparent",
-          position: "absolute",
-          bottom: 5,
-          left: 0,
-          right: 0,
-          elevation: 0,
+          backgroundColor: "#411400",
           borderTopWidth: 0,
+          paddingTop: 5,
+          paddingBottom: 5,
         },
+        keyboardHidesTabBar: Platform.OS == "ios" ? false : true,
       })}
     >
       <Tab.Screen
@@ -61,13 +60,13 @@ function MainTabNavigator() {
         options={mainOptions}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileStack}
+        name="Dates"
+        component={UpcomingDateStack}
         options={mainOptions}
       />
       <Tab.Screen
-        name="Dates"
-        component={UpcomingDateStack}
+        name="Profile"
+        component={ProfileStack}
         options={mainOptions}
       />
     </Tab.Navigator>
