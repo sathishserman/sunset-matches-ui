@@ -62,11 +62,6 @@
     "expo-image-picker": "~14.7.1",
     "expo-camera": "~14.1.1"
   },
-  "overrides": {
-    "@expo/config-plugins": "~7.8.0",
-    "@expo/prebuild-config": "~6.7.0",
-    "expo-system-ui": "~2.9.3"
-  },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/jest": "^29.5.12",
