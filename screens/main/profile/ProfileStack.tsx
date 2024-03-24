@@ -20,8 +20,8 @@ function ProfileTabs() {
         tabBarStyle: { display: "none" },
       }}
     >
-      <Tab.Screen name="ViewProfile" component={ViewProfileScreen} />
-      <Tab.Screen name="EditProfile" component={EditProfileScreen} />
+      <Tab.Screen name="ViewProfileScreen" component={ViewProfileScreen} />
+      <Tab.Screen name="EditProfileScreen" component={EditProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -35,6 +35,7 @@ function ProfileStack() {
         options={({ navigation }: { navigation: any }) => ({
           headerShown: true,
           header: () => <ProfileHeader navigation={navigation} />,
+          animtion: "slide_from_right",
         })}
       />
     </Stack.Navigator>

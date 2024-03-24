@@ -10,12 +10,15 @@ function SwipeStack() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener("tabPress", (e) => {
-      e.preventDefault();
-      navigation.navigate("Discover", {
-        screen: "MainSwipe",
-      });
-    });
+    const unsubscribe = navigation.addListener(
+      "tabPress",
+      (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        navigation.navigate("Discover", {
+          screen: "MainSwipe",
+        });
+      }
+    );
 
     return unsubscribe;
   }, [navigation]);

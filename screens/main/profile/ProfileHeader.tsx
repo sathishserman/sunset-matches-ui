@@ -7,7 +7,9 @@ export default function ProfileHeader({ navigation }: { navigation: any }) {
   const [selectedTab, setSelectedTab] = useState("view");
 
   useEffect(() => {
-    navigation.navigate(selectedTab === "view" ? "ViewProfile" : "EditProfile");
+    navigation.navigate(
+      selectedTab === "view" ? "ViewProfileScreen" : "EditProfileScreen"
+    );
   }, [selectedTab, navigation]);
 
   return (
@@ -27,10 +29,12 @@ export default function ProfileHeader({ navigation }: { navigation: any }) {
       <View className="flex-row w-full">
         <TouchableOpacity
           onPress={() => setSelectedTab("view")}
-          className="px-2 py-1 w-1/2 border-b-2"
+          className={`px-2 pt-4 pb-3 w-1/2 border-b border-white items-center justify-center ${
+            selectedTab === "view" ? "border-b-2" : ""
+          }`}
         >
           <Text
-            className={`text-white ${
+            className={`text-white font-robotoLight ${
               selectedTab === "view" ? "font-bold" : ""
             }`}
           >
@@ -39,10 +43,12 @@ export default function ProfileHeader({ navigation }: { navigation: any }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setSelectedTab("edit")}
-          className="px-2 py-1 w-1/2"
+          className={`px-2 pt-4 pb-3 w-1/2 border-b border-white items-center justify-center ${
+            selectedTab === "view" ? "" : "border-b-2"
+          }`}
         >
           <Text
-            className={`text-white ${
+            className={`text-white font-robotoLight ${
               selectedTab === "edit" ? "font-bold" : ""
             }`}
           >
