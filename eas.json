@@ -27,5 +27,14 @@
       "distribution": "internal"
     },
     "production": {}
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "track": "internal"
+      },
+      "ios": {
+      }
+    }
   }
 }
