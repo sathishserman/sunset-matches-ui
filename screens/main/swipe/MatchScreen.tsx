@@ -3,11 +3,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Image } from "expo-image";
 import React from "react";
-import {
-  StatusBar,
-  Text,
-  View
-} from "react-native";
+import { StatusBar, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function MatchScreen({ navigation }: { navigation: any }) {
@@ -47,9 +43,9 @@ export default function MatchScreen({ navigation }: { navigation: any }) {
         <CustomButton
           onPress={() =>
             navigation.navigate("Main", {
-              screen: "Dates",
+              screen: "Profile",
               params: {
-                screen: "SelectLocation",
+                screen: "EditProfileScreen",
               },
             })
           }

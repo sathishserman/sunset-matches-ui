@@ -1,16 +1,30 @@
-import React, { useState } from "react";
-import { Modal, View, TextInput, Button, StyleSheet } from "react-native";
+import React, {
+  useState,
+  useMemo,
+  useRef,
+  useCallback,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
+import { View, TextInput, Button, Text, Dimensions } from "react-native";
+import BottomSheet, {
+  BottomSheetView,
+  BottomSheetBackdrop,
+} from "@gorhom/bottom-sheet";
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import Toast from "react-native-toast-message";
+import { BottomSheetDefaultBackdropProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types";
 
-const ModalInput = ({ visible, onClose, attribute, userId }: any) => {
+const SCREEN_HEIGHT = Dimensions.get("screen").height;
+
+const ModalInput = forwardRef(({ attribute, userId }: any, ref: any) => {
   const [inputValue, setInputValue] = useState("");
-
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
   const handleSave = async () => {
     if (userId) {
-      onClose(); // Close the modal immediately
+      (bottomSheetRef.current as any)?.close();
       const userRef = doc(db, "user", userId);
       const updatedAttribute = { [attribute]: inputValue };
       await updateDoc(userRef, updatedAttribute);
@@ -22,58 +36,68 @@ const ModalInput = ({ visible, onClose, attribute, userId }: any) => {
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    open: () => {
+      bottomSheetRef.current?.expand();
+    },
+    close: () => {
+      bottomSheetRef.current?.collapse();
+    },
+  }));
+
+  const snapPoints = useMemo(() => ["20%", "60%"], []);
+
+  const renderBackdrop = useCallback(
+    (
+      props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps
+    ) => <BottomSheetBackdrop {...props} pressBehavior="close" />,
+    []
+  );
+
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={onClose}
+    <BottomSheet
+      bottomInset={0.17 * SCREEN_HEIGHT}
+      ref={bottomSheetRef}
+      snapPoints={snapPoints}
+      index={-1}
+      detached={true}
+      containerHeight={200}
+      backdropComponent={renderBackdrop}
+      handleIndicatorStyle={{
+        backgroundColor: "#411400",
+        width: 50,
+        height: 8,
+      }}
+      backgroundStyle={{
+        backgroundColor: "#501901",
+      }}
+      style={{
+        margin: 16,
+        borderRadius: 24,
+        shadowColor: "#000",
+        backgroundColor: "#501901",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      }}
     >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <TextInput
-            value={inputValue}
-            onChangeText={setInputValue}
-            style={styles.modalInput}
-          />
+      <BottomSheetView className="flex-1 items-center justify-center bg-[#712C0D]">
+        <Text>{attribute}</Text>
+        <TextInput
+          value={inputValue}
+          onChangeText={setInputValue}
+          className="border-b  text-lg py-2 w-full"
+        />
+        <View className="mt-4">
           <Button title="Save" onPress={handleSave} />
         </View>
-      </View>
-    </Modal>
+      </BottomSheetView>
+    </BottomSheet>
   );
-};
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalInput: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#E25A28", // Light orange for underline
-    color: "black", // or any color you want for the text
-    fontSize: 18,
-    padding: 8,
-    width: "100%", // You might want to adjust this based on your modal size
-    // Add other styles for input like margin if needed
-  },
 });
 
 export default ModalInput;

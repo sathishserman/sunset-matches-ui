@@ -1,12 +1,9 @@
-import { AntDesign } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React from "react";
 import EditProfileScreen from "./EditProfileScreen";
-import ViewProfileScreen from "./ViewProfileScreen";
 import ProfileHeader from "./ProfileHeader";
+import ViewProfileScreen from "./ViewProfileScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,7 +32,6 @@ function ProfileStack() {
         options={({ navigation }: { navigation: any }) => ({
           headerShown: true,
           header: () => <ProfileHeader navigation={navigation} />,
-          animtion: "slide_from_right",
         })}
       />
     </Stack.Navigator>

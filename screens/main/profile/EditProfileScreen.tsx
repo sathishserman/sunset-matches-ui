@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Image,
-  StyleSheet,
-  Alert,
-  ScrollView,
-} from "react-native";
-import { db } from "@/firebase/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import auth from "@react-native-firebase/auth";
-import ProfileItem from "@/components/ProfileItem";
 import ModalInput from "@/components/ModalInput";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/interfaces";
+import ProfileItem from "@/components/ProfileItem";
+import { db } from "@/firebase/firebase";
+import auth from "@react-native-firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
+import GenderSelection from "@/components/GenderSelection";
+import { SafeAreaView } from "react-native";
+import BottomSheet from "@gorhom/bottom-sheet";
+// import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Profile {
   age: string;
@@ -50,7 +42,7 @@ export default function EditProfileScreen() {
     subscription: false,
   });
   const [modalVisible, setModalVisible] = useState(false);
-  const [editingAttribute, setEditingAttribute] = useState(null);
+  const [editingAttribute, setEditingAttribute] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -73,21 +65,29 @@ export default function EditProfileScreen() {
     fetchProfile();
   }, [userId]);
 
-  const handleSaveProfile = async () => {
-    if (typeof userId === "string" && profile !== null) {
+  const handleSelectGender = (gender: string) => {
+    setProfile((currentProfile) => {
+      if (!currentProfile) return null;
+
+      return {
+        ...currentProfile,
+        gender: gender,
+      };
+    });
+
+    if (userId) {
       const userRef = doc(db, "user", userId);
-      await updateDoc(userRef, profile as { [x: string]: any });
-      console.log("Profile updated!");
-      Alert.alert("Profile Updated");
-    } else {
-      console.error("User ID is undefined or profile is null");
-      Alert.alert("User ID is undefined or profile is null");
+      updateDoc(userRef, { gender: gender })
+        .then(() => console.log("Gender updated"))
+        .catch(console.error);
     }
   };
 
-  const openModal = (attribute: any) => {
+  const modalRef = useRef<BottomSheet>(null);
+
+  const openModal = (attribute: string) => {
     setEditingAttribute(attribute);
-    setModalVisible(true);
+    modalRef.current?.open();
   };
 
   if (!profile) {
@@ -99,94 +99,98 @@ export default function EditProfileScreen() {
   }
 
   return (
-    <ScrollView
-      className="bg-[#411400] p-4 h-full"
-      contentInsetAdjustmentBehavior="automatic"
-    >
-      {profile.pics && profile.pics.length > 0 && (
-        <View className="flex-row">
-          <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
-            <Image
-              source={{ uri: profile.pics[0] }}
-              className="w-[90%] aspect-square rounded-full"
+    <SafeAreaView className="bg-[#411400] px-4 min-h-screen">
+      <ScrollView className="flex-grow">
+        {/* {profile.pics && profile.pics.length > 0 && (
+          <View className="flex-row my-4">
+            <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
+              <Image
+                source={{ uri: profile.pics[0] }}
+                className="w-[90%] aspect-square rounded-full"
+              />
+            </View>
+            <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
+              <Image
+                source={{ uri: profile.pics[1] }}
+                className="w-[90%] aspect-square rounded-full"
+              />
+            </View>
+            <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
+              <Image
+                source={{ uri: profile.pics[2] }}
+                className="w-[90%] aspect-square rounded-full"
+              />
+            </View>
+          </View>
+        )} */}
+        <View className="mt-3">
+          <Text className="text-[#E25A28] text-2xl font-semibold">
+            Personal Information
+          </Text>
+          <View className="my-2">
+            <ProfileItem
+              label="Name"
+              value={profile.name}
+              rounded="top"
+              onPress={() => openModal("name")}
+            />
+            <ProfileItem
+              label="Age"
+              value={profile.age}
+              onPress={() => openModal("age")}
+            />
+            <ProfileItem
+              label="Height"
+              value={profile.height}
+              rounded="bottom"
+              onPress={() => openModal("height")}
             />
           </View>
-          <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
-            <Image
-              source={{ uri: profile.pics[1] }}
-              className="w-[90%] aspect-square rounded-full"
+        </View>
+        <GenderSelection
+          selectedGender={profile.gender}
+          onSelectGender={handleSelectGender}
+        />
+        <View className="mt-3">
+          <Text className="text-[#E25A28] text-2xl font-semibold">
+            Contact Information
+          </Text>
+          <View className="my-2">
+            <ProfileItem
+              label="Email"
+              value={profile.email}
+              rounded="top"
+              onPress={() => openModal("email")}
+            />
+            <ProfileItem
+              label="Phone Number"
+              value={profile.phone}
+              rounded="bottom"
+              onPress={() => openModal("phone")}
             />
           </View>
-          <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
-            <Image
-              source={{ uri: profile.pics[2] }}
-              className="w-[90%] aspect-square rounded-full"
+        </View>
+        <View className="mt-3">
+          <Text className="text-[#E25A28] text-2xl font-semibold">
+            Preferences
+          </Text>
+          <View className="my-2">
+            <ProfileItem
+              label="Food Preference"
+              value={profile.foodPreference}
+              rounded="both"
+              onPress={() => openModal("foodPreference")}
             />
           </View>
         </View>
-      )}
-      <View className="mt-3">
-        <Text className="text-[#E25A28] text-2xl font-semibold">
-          Personal Information
-        </Text>
-        <View className="my-2">
-          <ProfileItem
-            label="Name"
-            value={profile.name}
-            rounded="top"
-            onPress={() => openModal("name")}
-          />
-          <ProfileItem
-            label="Age"
-            value={profile.age}
-            onPress={() => openModal("age")}
-          />
-          <ProfileItem
-            label="Height"
-            value={profile.height}
-            rounded="bottom"
-            onPress={() => openModal("height")}
-          />
-        </View>
-      </View>
-      <View className="mt-3">
-        <Text className="text-[#E25A28] text-2xl font-semibold">
-          Contact Information
-        </Text>
-        <View className="my-2">
-          <ProfileItem
-            label="Email"
-            value={profile.email}
-            rounded="top"
-            onPress={() => openModal("email")}
-          />
-          <ProfileItem
-            label="Phone Number"
-            value={profile.phone}
-            rounded="bottom"
-            onPress={() => openModal("phone")}
-          />
-        </View>
-      </View>
-      <View className="mt-3">
-        <Text className="text-[#E25A28] text-2xl font-semibold">
-          Preferences
-        </Text>
-        <View className="my-2">
-          <ProfileItem
-            label="Food Preference"
-            value={profile.foodPreference}
-            rounded="both"
-            onPress={() => openModal("foodPreference")}
-          />
-        </View>
-      </View>
-      <ModalInput
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        attribute={editingAttribute}
-        userId={userId} // pass userId here
-      />
-    </ScrollView>
+        {/* <View className="absolute bottom-0 left-0 right-0 h-screen"> */}
+        <ModalInput
+          attribute={editingAttribute}
+          userId={userId}
+          ref={modalRef}
+        />
+        {/* </View> */}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
