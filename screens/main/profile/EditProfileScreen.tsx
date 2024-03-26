@@ -1,14 +1,12 @@
-import ModalInput from "@/components/ModalInput";
-import ProfileItem from "@/components/ProfileItem";
-import { db } from "@/firebase/firebase";
+import React, { useEffect, useState } from "react";
+import { TextInput, ScrollView, View, Button, Alert, Text } from "react-native";
 import auth from "@react-native-firebase/auth";
+import { db } from "@/firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import React, { useEffect, useRef, useState } from "react";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import { Image } from "expo-image";
+import ProfileItem from "@/components/ProfileItem";
 import GenderSelection from "@/components/GenderSelection";
-import { SafeAreaView } from "react-native";
-import BottomSheet from "@gorhom/bottom-sheet";
-// import { SafeAreaView } from "react-native-safe-area-context";
+import BioProfileItem from "@/components/BioProfileItem";
 
 interface Profile {
   age: string;
@@ -27,43 +25,36 @@ interface Profile {
 
 export default function EditProfileScreen() {
   const userId = auth().currentUser?.uid;
-  const [profile, setProfile] = useState<Profile | null>({
-    age: "",
-    bio: "",
-    communities: [],
-    dateThemes: [],
-    email: "",
-    foodPreference: "",
-    gender: "",
-    height: "",
-    name: "",
-    phone: "",
-    pics: [],
-    subscription: false,
-  });
-  const [modalVisible, setModalVisible] = useState(false);
-  const [editingAttribute, setEditingAttribute] = useState<string | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      if (userId) {
-        const userRef = doc(db, "user", userId);
-        try {
-          const userSnap = await getDoc(userRef);
-          if (userSnap.exists()) {
-            setProfile(userSnap.data() as Profile);
-          } else {
-            Alert.alert("Profile not found");
-          }
-        } catch (error) {
-          console.error("Error fetching profile:", error);
-          Alert.alert("Error fetching profile");
-        }
+      if (!userId) return;
+      const userRef = doc(db, "user", userId);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        setProfile(userSnap.data() as Profile);
+      } else {
+        Alert.alert("Profile not found");
       }
     };
 
     fetchProfile();
   }, [userId]);
+
+  const handleUpdate = async (attribute: keyof Profile, value: string) => {
+    if (!userId || !profile) return;
+    const userRef = doc(db, "user", userId);
+    await updateDoc(userRef, { [attribute]: value });
+    setProfile({ ...profile, [attribute]: value });
+  };
+
+  const handleSaveProfileItem = async (attribute: string, newValue: string) => {
+    if (!userId || !profile) return;
+    const userRef = doc(db, "user", userId);
+    await updateDoc(userRef, { [attribute]: newValue });
+    setProfile({ ...profile, [attribute]: newValue }); // Update local state
+  };
 
   const handleSelectGender = (gender: string) => {
     setProfile((currentProfile) => {
@@ -83,12 +74,8 @@ export default function EditProfileScreen() {
     }
   };
 
-  const modalRef = useRef<BottomSheet>(null);
-
-  const openModal = (attribute: string) => {
-    setEditingAttribute(attribute);
-    modalRef.current?.open();
-  };
+  const blurhash =
+    "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
   if (!profile) {
     return (
@@ -99,30 +86,32 @@ export default function EditProfileScreen() {
   }
 
   return (
-    <SafeAreaView className="bg-[#411400] px-4 min-h-screen">
+    <View className="bg-[#411400] px-4 h-full">
       <ScrollView className="flex-grow">
-        {/* {profile.pics && profile.pics.length > 0 && (
-          <View className="flex-row my-4">
-            <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
-              <Image
-                source={{ uri: profile.pics[0] }}
-                className="w-[90%] aspect-square rounded-full"
-              />
-            </View>
-            <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
-              <Image
-                source={{ uri: profile.pics[1] }}
-                className="w-[90%] aspect-square rounded-full"
-              />
-            </View>
-            <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
-              <Image
-                source={{ uri: profile.pics[2] }}
-                className="w-[90%] aspect-square rounded-full"
-              />
-            </View>
+        <View className="flex-row my-4">
+          <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
+            <Image
+              source={{ uri: profile.pics[0] }}
+              placeholder={blurhash}
+              className="w-[90%] aspect-square rounded-full"
+            />
           </View>
-        )} */}
+          <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
+            <Image
+              source={{ uri: profile.pics[1] }}
+              placeholder={blurhash}
+              className="w-[90%] aspect-square rounded-full"
+            />
+          </View>
+          <View className="w-1/3 aspect-square items-center justify-center scale-90 border-[#E25A28] border rounded-full">
+            <Image
+              source={{ uri: profile.pics[2] }}
+              placeholder={blurhash}
+              className="w-[90%] aspect-square rounded-full"
+            />
+          </View>
+        </View>
+
         <View className="mt-3">
           <Text className="text-[#E25A28] text-2xl font-semibold">
             Personal Information
@@ -132,18 +121,30 @@ export default function EditProfileScreen() {
               label="Name"
               value={profile.name}
               rounded="top"
-              onPress={() => openModal("name")}
+              onSave={(newValue) => handleSaveProfileItem("name", newValue)}
             />
             <ProfileItem
               label="Age"
               value={profile.age}
-              onPress={() => openModal("age")}
+              // onPress={() => openModal("age", "Age", profile.age)}
+              onSave={(newValue) => handleSaveProfileItem("age", newValue)}
             />
             <ProfileItem
               label="Height"
               value={profile.height}
               rounded="bottom"
-              onPress={() => openModal("height")}
+              onSave={(newValue) => handleSaveProfileItem("height", newValue)}
+            />
+          </View>
+        </View>
+        <View className="mt-3">
+          <Text className="text-[#E25A28] text-xl font-semibold">Bio</Text>
+          <View className="my-2">
+            <BioProfileItem
+              label="Bio"
+              value={profile.bio}
+              onSave={(newValue) => handleSaveProfileItem("bio", newValue)}
+              rounded="both"
             />
           </View>
         </View>
@@ -160,13 +161,15 @@ export default function EditProfileScreen() {
               label="Email"
               value={profile.email}
               rounded="top"
-              onPress={() => openModal("email")}
+              // onPress={() => openModal("email", "Email", profile.email)}
+              onSave={(newValue) => handleSaveProfileItem("email", newValue)}
             />
             <ProfileItem
               label="Phone Number"
               value={profile.phone}
               rounded="bottom"
-              onPress={() => openModal("phone")}
+              // onPress={() => openModal("phone", "Phone Number", profile.phone)}
+              onSave={(newValue) => handleSaveProfileItem("phone", newValue)}
             />
           </View>
         </View>
@@ -179,18 +182,13 @@ export default function EditProfileScreen() {
               label="Food Preference"
               value={profile.foodPreference}
               rounded="both"
-              onPress={() => openModal("foodPreference")}
+              onSave={(newValue) =>
+                handleSaveProfileItem("foodPreference", newValue)
+              }
             />
           </View>
         </View>
-        {/* <View className="absolute bottom-0 left-0 right-0 h-screen"> */}
-        <ModalInput
-          attribute={editingAttribute}
-          userId={userId}
-          ref={modalRef}
-        />
-        {/* </View> */}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

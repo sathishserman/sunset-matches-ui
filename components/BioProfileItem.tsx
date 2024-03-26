@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, TextInput } from "react-native";
 import Toast from "react-native-toast-message";
 
-type ProfileItemProps = {
+type BioProfileItemProps = {
   label: string;
   value: string;
-  onSave: (newValue: string) => void; // Added onSave to handle saving changes
+  onSave: (newValue: string) => void;
   rounded?: "top" | "bottom" | "both" | "none";
 };
 
-const ProfileItem: React.FC<ProfileItemProps> = ({
+const BioProfileItem: React.FC<BioProfileItemProps> = ({
   label,
   value,
   onSave,
@@ -50,22 +50,22 @@ const ProfileItem: React.FC<ProfileItemProps> = ({
       onPress={() => setIsEditing(true)}
       className={`bg-[#712C0D] p-4 my-[1px] flex-row justify-between items-center ${borderRadiusClasses}`}
     >
-      <Text className="text-white text-[16px] font-robotoMedium">{label}</Text>
       {isEditing ? (
-        <>
-          <TextInput
-            value={editValue}
-            onChangeText={setEditValue}
-            autoFocus={true}
-            style={{
-              color: "#E25A28",
-              flex: 1,
-              marginRight: 10,
-              textAlign: "right",
-            }}
-            onBlur={handleSave}
-          />
-        </>
+        <TextInput
+          value={editValue}
+          onChangeText={setEditValue}
+          multiline={true}
+          maxLength={200}
+          autoFocus={true}
+          onBlur={handleSave}
+          style={{
+            flex: 1,
+            color: "#E25A28",
+            height: "auto",
+            maxHeight: 72,
+          }}
+          numberOfLines={2}
+        />
       ) : (
         <Text className="text-[#E25A28] text-[16px] font-robotoMedium">
           {value}
@@ -75,4 +75,4 @@ const ProfileItem: React.FC<ProfileItemProps> = ({
   );
 };
 
-export default ProfileItem;
+export default BioProfileItem;
