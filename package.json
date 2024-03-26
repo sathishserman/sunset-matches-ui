@@ -11,7 +11,7 @@
     "eas-dev-ios": "eas build --profile development --platform ios",
     "eas-prod-android": "eas build --profile production --platform android",
     "eas-prod-ios": "eas build --profile production --platform ios",
-    "eas-prod-submit-android": "eas submit --profile production --platform android"
+    "eas-dev-submit-android": "eas submit --profile development --platform android"
 
   },
   "dependencies": {

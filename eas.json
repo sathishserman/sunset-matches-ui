@@ -26,14 +26,29 @@
     "preview4": {
       "distribution": "internal"
     },
-    "production": {}
-  },
-  "submit": {
     "production": {
       "android": {
-        "track": "internal"
+        "buildType": "app-bundle",
+        "gradleCommand": ":app:bundleRelease"
       },
       "ios": {
+        "buildConfiguration": "Release"
+      }
+    }
+  },
+  "submit": {
+    "development": {
+      "android": {
+        "track": "internal"
+      }
+    },
+    "production": {
+      "android": {
+        "track": "production"
+      },
+      "ios": {
+        "appleId": "apple-id@example.com",
+        "ascAppId": "app-store-connect-app-id"
       }
     }
   }
