@@ -62,14 +62,14 @@ export default function Bio({ navigation }: { navigation: any }) {
         }: FormikProps<BioFormValues>) => (
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            className="items-center justify-between px-5 pb-5 flex-1"
+            className="items-center justify-between px-5 flex-1"
           >
             <View className="items-center justify-center w-5/6">
               <Text className="font-robotoMedium text-3xl text-[#E25A28] text-center">
                 Your bio
               </Text>
             </View>
-            <View className="w-5/6 h-32 items-center justify-center">
+            <View className="w-5/6 h-[10vh] items-center justify-center">
               <Shadow
                 distance={34}
                 startColor={"#E68A323F"}

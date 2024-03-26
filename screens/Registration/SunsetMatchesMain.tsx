@@ -1,21 +1,14 @@
-import { View, Text } from "react-native";
-import {
-  GestureHandlerRootView,
-  GestureDetector,
-  Gesture,
-} from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import { Text, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { useEffect } from "react";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
   const translateX = useSharedValue(0);
@@ -49,10 +42,6 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
 
   return (
     <>
-      {/* <ImageBackground
-        source={require('@/assets/bg.jpeg')} 
-        style={styles.background}
-      > */}
       <SafeAreaView className="flex-1 justify-between items-center px-7 bg-black pt-16 pb-5">
         <Text
           className="text-6xl text-white w-5/6 text-center"
@@ -92,7 +81,6 @@ export default function SunsetMatchesMain({ navigation }: { navigation: any }) {
           </Text>
         </View>
       </SafeAreaView>
-      {/* </ImageBackground> */}
     </>
   );
 }

@@ -138,7 +138,7 @@ export default function ProfilePic({ navigation }: { navigation: any }) {
             navigation.navigate("Main", {
               screen: "Discover",
               params: {
-                screen: "Match",
+                screen: "MainSwipe",
               },
             })
           }
