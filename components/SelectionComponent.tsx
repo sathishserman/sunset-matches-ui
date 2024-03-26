@@ -1,43 +1,83 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const communitiesList = ["Asian", "Jewish"]; // Add more options as needed
-const dateThemesList = ["Drinks", "Sushi", "Wine", "Pizza"]; // Add more options as needed
+type SelectionComponentProps = {
+  communitiesList: string[];
+  dateThemesList: string[];
+  initialSelectedCommunities: string[];
+  initialSelectedDateThemes: string[];
+  onSave: (
+    selectedCommunities: string[],
+    selectedDateThemes: string[]
+  ) => Promise<void>;
+};
 
-const SelectionComponent = () => {
-  const [selectedCommunities, setSelectedCommunities] = useState<string[]>([]);
-  const [selectedDateThemes, setSelectedDateThemes] = useState<string[]>([]);
-  const maxSelections = 3; // Example limit
+const SelectionComponent: React.FC<SelectionComponentProps> = ({
+  communitiesList,
+  dateThemesList,
+  initialSelectedCommunities,
+  initialSelectedDateThemes,
+  onSave,
+}) => {
+  const [selectedCommunities, setSelectedCommunities] = useState<string[]>(
+    initialSelectedCommunities
+  );
+  const [selectedDateThemes, setSelectedDateThemes] = useState<string[]>(
+    initialSelectedDateThemes
+  );
 
-  const toggleSelection = (
+  const maxSelections = 3;
+
+  const toggleSelection = async (
     item: string,
     selectedItems: string[],
-    setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
+    setSelectedItems: (items: string[]) => void,
+    isCommunity: boolean
   ) => {
+    let newSelectedItems;
     if (selectedItems.includes(item)) {
-      setSelectedItems(selectedItems.filter((i) => i !== item));
+      newSelectedItems = selectedItems.filter((i) => i !== item);
     } else if (selectedItems.length < maxSelections) {
-      setSelectedItems([...selectedItems, item]);
+      newSelectedItems = [...selectedItems, item];
+    } else {
+      return; // max selections reached, do nothing
+    }
+
+    setSelectedItems(newSelectedItems); // This updates the state optimistically
+
+    // Now, await the save operation after the state update to ensure we have the latest state.
+    if (isCommunity) {
+      await onSave(newSelectedItems, selectedDateThemes); // Use the latest date themes state
+    } else {
+      await onSave(selectedCommunities, newSelectedItems); // Use the latest communities state
     }
   };
 
+  console.log("Initially selected communities", initialSelectedCommunities);
+
   const renderSelectionButtons = (
-    list: string[], // list should be an array of strings
+    list: string[],
     selectedItems: string[],
-    setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>
+    setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>,
+    isCommunity: boolean = false
   ) =>
-    list.map((item) => (
-      <TouchableOpacity
-        key={item}
-        onPress={() => toggleSelection(item, selectedItems, setSelectedItems)}
-        style={[
-          styles.button,
-          selectedItems.includes(item) && styles.selectedButton,
-        ]}
-      >
-        <Text style={styles.buttonText}>{item}</Text>
-      </TouchableOpacity>
-    ));
+    list.map((item) => {
+      //   console.log(item);
+      return (
+        <TouchableOpacity
+          key={item}
+          onPress={() =>
+            toggleSelection(item, selectedItems, setSelectedItems, isCommunity)
+          }
+          style={[
+            styles.button,
+            selectedItems.includes(item) && styles.selectedButton,
+          ]}
+        >
+          <Text style={styles.buttonText}>{item}</Text>
+        </TouchableOpacity>
+      );
+    });
 
   return (
     <View style={styles.container}>
@@ -46,7 +86,8 @@ const SelectionComponent = () => {
         {renderSelectionButtons(
           communitiesList,
           selectedCommunities,
-          setSelectedCommunities
+          setSelectedCommunities,
+          true
         )}
         {selectedCommunities.length < maxSelections && (
           <TouchableOpacity style={styles.addButton}>
@@ -95,9 +136,7 @@ const styles = StyleSheet.create({
   selectedButton: {
     backgroundColor: "#E25A28",
   },
-  addButton: {
-    // ... same as button but for the "+ New" button
-  },
+  addButton: {},
   buttonText: {
     color: "white",
   },

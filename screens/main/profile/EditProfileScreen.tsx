@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import { TextInput, ScrollView, View, Button, Alert, Text } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { db } from "@/firebase/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { Image } from "expo-image";
 import ProfileItem from "@/components/ProfileItem";
 import GenderSelection from "@/components/GenderSelection";
 import BioProfileItem from "@/components/BioProfileItem";
+import Toast from "react-native-toast-message";
+import SelectionComponent from "@/components/SelectionComponent";
 
 interface Profile {
   age: string;
@@ -25,7 +33,11 @@ interface Profile {
 
 export default function EditProfileScreen() {
   const userId = auth().currentUser?.uid;
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<any>(null);
+  const [communitiesList, setCommunitiesList] = useState<any[]>([]);
+  const [dateThemesList, setDateThemesList] = useState<any[]>([]);
+  const [selectedCommunities, setSelectedCommunities] = useState<string[]>([]);
+  const [selectedDateThemes, setSelectedDateThemes] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -33,7 +45,7 @@ export default function EditProfileScreen() {
       const userRef = doc(db, "user", userId);
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
-        setProfile(userSnap.data() as Profile);
+        setProfile(userSnap.data() as any);
       } else {
         Alert.alert("Profile not found");
       }
@@ -42,22 +54,50 @@ export default function EditProfileScreen() {
     fetchProfile();
   }, [userId]);
 
-  const handleUpdate = async (attribute: keyof Profile, value: string) => {
-    if (!userId || !profile) return;
-    const userRef = doc(db, "user", userId);
-    await updateDoc(userRef, { [attribute]: value });
-    setProfile({ ...profile, [attribute]: value });
-  };
+  useEffect(() => {
+    const fetchCommunitiesAndThemes = async () => {
+      const communityCollection = collection(db, "community");
+      const communitySnapshot = await getDocs(communityCollection);
+      const communities = communitySnapshot.docs.map((doc) => doc.data().name);
+      setCommunitiesList(communities);
 
-  const handleSaveProfileItem = async (attribute: string, newValue: string) => {
+      const dateThemeCollection = collection(db, "first_date_preference");
+      const dateThemeSnapshot = await getDocs(dateThemeCollection);
+      const themes = dateThemeSnapshot.docs.map((doc) => doc.data().name);
+      setDateThemesList(themes);
+    };
+
+    fetchCommunitiesAndThemes();
+  }, []);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!userId) return;
+      const userRef = doc(db, "user", userId);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const profileData = userSnap.data() as any;
+        setProfile(profileData);
+        console.log("Communities", profileData.communities);
+        setSelectedCommunities(profileData.communities);
+        setSelectedDateThemes(profileData.dateThemes);
+      } else {
+        Alert.alert("Profile not found");
+      }
+    };
+
+    fetchProfile();
+  }, [userId]);
+
+  const handleSaveProfileItem = async (attribute: any, newValue: string) => {
     if (!userId || !profile) return;
     const userRef = doc(db, "user", userId);
     await updateDoc(userRef, { [attribute]: newValue });
-    setProfile({ ...profile, [attribute]: newValue }); // Update local state
+    setProfile({ ...profile, [attribute]: newValue });
   };
 
   const handleSelectGender = (gender: string) => {
-    setProfile((currentProfile) => {
+    setProfile((currentProfile: any) => {
       if (!currentProfile) return null;
 
       return {
@@ -84,6 +124,39 @@ export default function EditProfileScreen() {
       </View>
     );
   }
+
+  const saveSelectionsToFirestore = async (
+    newSelectedCommunities: string[],
+    newSelectedDateThemes: string[]
+  ) => {
+    if (!userId) return;
+
+    const userRef = doc(db, "user", userId);
+
+    try {
+      await updateDoc(userRef, {
+        communities: newSelectedCommunities,
+        dateThemes: newSelectedDateThemes,
+      });
+      setProfile((prevProfile: any) => ({
+        ...prevProfile,
+        communities: newSelectedCommunities,
+        dateThemes: newSelectedDateThemes,
+      }));
+      Toast.show({
+        type: "success",
+        text1: "Profile Updated",
+        text2: "Your changes have been saved successfully!",
+      });
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      Toast.show({
+        type: "error",
+        text1: "Update Failed",
+        text2: "There was an error while saving your changes.",
+      });
+    }
+  };
 
   return (
     <View className="bg-[#411400] px-4 h-full">
@@ -126,7 +199,6 @@ export default function EditProfileScreen() {
             <ProfileItem
               label="Age"
               value={profile.age}
-              // onPress={() => openModal("age", "Age", profile.age)}
               onSave={(newValue) => handleSaveProfileItem("age", newValue)}
             />
             <ProfileItem
@@ -161,14 +233,12 @@ export default function EditProfileScreen() {
               label="Email"
               value={profile.email}
               rounded="top"
-              // onPress={() => openModal("email", "Email", profile.email)}
               onSave={(newValue) => handleSaveProfileItem("email", newValue)}
             />
             <ProfileItem
               label="Phone Number"
               value={profile.phone}
               rounded="bottom"
-              // onPress={() => openModal("phone", "Phone Number", profile.phone)}
               onSave={(newValue) => handleSaveProfileItem("phone", newValue)}
             />
           </View>
@@ -188,6 +258,13 @@ export default function EditProfileScreen() {
             />
           </View>
         </View>
+        <SelectionComponent
+          communitiesList={communitiesList}
+          dateThemesList={dateThemesList}
+          initialSelectedCommunities={selectedCommunities}
+          initialSelectedDateThemes={selectedDateThemes}
+          onSave={saveSelectionsToFirestore}
+        />
       </ScrollView>
     </View>
   );
