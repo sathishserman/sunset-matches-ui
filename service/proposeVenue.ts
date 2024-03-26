@@ -31,7 +31,7 @@ const fetchUserDetails = async (userId: string): Promise<UserDetail> => {
 };
 
 
-export const proposeMatchVenue = async (userIds: string[], venue: Venue): Promise<string> => {
+export const proposeMatchVenue = async (userIds: string[], venue: Venue, date: Date): Promise<string> => {
   if (userIds.length !== 2) {
     throw new Error('Exactly two user IDs must be provided.');
   }
@@ -46,6 +46,7 @@ export const proposeMatchVenue = async (userIds: string[], venue: Venue): Promis
     user2Phone: userDetails[1].phone,
     venueName: venue.name,
     timestamp: Timestamp.now(),
+    timeOfDate: date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }),
     status: 'pending'
   });
 
